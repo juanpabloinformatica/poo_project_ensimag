@@ -1,6 +1,5 @@
 public class Case {
-    //size
-    // int cote;
+
 
     private int ligne;
     private int colonne;
