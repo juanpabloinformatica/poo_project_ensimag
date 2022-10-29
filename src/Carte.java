@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Carte {
     /*we can create a variable static
     instead
@@ -13,13 +11,13 @@ public class Carte {
     private int nbLignes;
     private int nbColonnes;
     private int tailleCases;
-    private ArrayList<ArrayList<Case>>cases;
+    private Case[][] cases;
 
     public Carte(int nbLignes, int nbColonnes){
         this.nbLignes = nbLignes;
         this.nbColonnes = nbColonnes;
         this.tailleCases = nbLignes*nbColonnes;
-        this.cases = new ArrayList<>();
+        this.cases = new Case[nbLignes][nbColonnes];
 
         /*this method need to be modified
             just for testing
@@ -47,7 +45,7 @@ public class Carte {
         return tailleCases;
     }
     public Case getCase(int ligne,int colonne){
-        return this.cases.get(ligne-1).get(colonne-1);
+        return this.cases[ligne][colonne];
     }
     // public boolean voisinExiste(Case src,Direction dir){
         
