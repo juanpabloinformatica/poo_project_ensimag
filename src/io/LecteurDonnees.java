@@ -48,6 +48,69 @@ public class LecteurDonnees {
         System.out.println("\n == Lecture terminee");
     }
 
+    /*
+     * Lit le fichier fichierDonnees et crée une classe DonneeSimulation avec
+     * toutes les données lues.
+     */
+    public static DonneesSimulation creerDoneesSimulation(String fichierDonnees)
+        throws FileNotFoundException, DataFormatException {
+        LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
+        Carte carte = lecteur.creerCarte();
+        Incendie[] incendies = lecteur.creerIncendies();
+        Robot[] robots = lecteur.creerRobots();
+        DonneesSimulation donneesSimulation = DonneesSimulation();
+        return donneesSimulation;
+        scanner.close();
+    }
+
+    /*
+     * Retourne une instance de carte en creant nbLignes*nbColonnes instances de
+     * cases en lisant le fichier
+     */
+    private Carte creerCarte() {
+        // TODO: Very easy just copy and modify the lireCarte func
+        // Carte carte(...);
+        // return carte;
+    }
+
+    /*
+     * Retourne une instance de case en lisant le fichier
+     */
+    private Case creerCase() {
+        // TODO: Very easy just copy and modify the lireCase func
+        // Case case(...);
+        // return case
+    }
+
+    /*
+     * Cree un tableau d'instances d'Incendie en lisant le fichier
+     */
+    private Incendie[] creerIncendies() {
+        // TODO: Very easy just copy and modify the lireIncendies func
+    }
+
+    /*
+     * Crée une instance Incendie en lisant le fichier
+     */
+    private Incendie creerIncendie() {
+        // TODO: Very easy just copy and modify the lireIncendie func
+    }
+
+    /*
+     * Cree un tableau d'instances de Robots en lisant le fichier
+     */
+    private Robots[] creerRobots() {
+        // TODO: Very easy just copy and modify the lireRobots func
+    }
+
+    /*
+     * Cree un tableau d'instances de Robots en lisant le fichier
+     */
+    private Robot creerRobot() {
+        // TODO: copy and modify the lireRobot func
+        // we need to call the right constructor according to the type
+    }
+
 
 
 

@@ -1,6 +1,4 @@
 public class Case {
-
-
     private int ligne;
     private int colonne;
     private NatureTerrain  natureTerrain;
