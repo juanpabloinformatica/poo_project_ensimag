@@ -1,4 +1,6 @@
 .vscode
-bin
+bin/*.class
 lib
 tpl_2A_POO.tar.gz
+exeInvader
+exeLecture
