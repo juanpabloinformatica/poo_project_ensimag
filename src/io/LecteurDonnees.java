@@ -40,6 +40,7 @@ public class LecteurDonnees {
      * LecteurDonnees.lire(fichierDonnees)
      * @param fichierDonnees nom du fichier à lire
      */
+
     public static void lire(String fichierDonnees)
         throws FileNotFoundException, DataFormatException {
         System.out.println("\n == Lecture du fichier" + fichierDonnees);
@@ -70,18 +71,47 @@ public class LecteurDonnees {
      * Retourne une instance de carte en creant nbLignes*nbColonnes instances de
      * cases en lisant le fichier
      */
-    // private Carte creerCarte() {
-    //     // TODO: Very easy just copy and modify the lireCarte func
-    //     Carte carte;
-    //     return carte;
-    // }
+    private Carte creerCarte() {
+        Carte carte;
+        ignorerCommentaires();
+        try {
+            int nbLignes = scanner.nextInt();
+            int nbColonnes = scanner.nextInt();
+            int tailleCases = scanner.nextInt();
+            carte  = new Carte(nbLignes,nbColonnes,tailleCases);
+            for (int lig = 0; lig < nbLignes; lig++) {
+                for (int col = 0; col < nbColonnes; col++) {
+                    carte.addCase(creerCase(lig, col));
+                }
+            }
+        } catch (NoSuchElementException e) {
+            throw new DataFormatException("Format invalide. "
+                    + "Attendu: nbLignes nbColonnes tailleCases");
+        }
+        return carte;  
+    }
 
     /*
      * Retourne une instance de case en lisant le fichier
      */
-    // private Case creerCase() {
-    //     // TODO: Very easy just copy and modify the lireCase func
-    // }
+    private Case creerCase(int ligne ,int colonne) {
+        Case case;
+        ignorerCommentaires();
+        String chaineNature = new String();
+        try {
+            chaineNature = scanner.next();
+            verifieLigneTerminee();
+            case = new Case(ligne,colonne,chaineNature);
+        } catch (NoSuchElementException e) {
+            throw new DataFormatException("format de case invalide. "
+                    + "Attendu: nature altitude [valeur_specifique]");
+        }
+        return case;
+    }
+
+    /*
+     * Cree un tableau d'instances d'cases en lisant le fichier
+     */
 
     /*
      * Cree un tableau d'instances d'Incendie en lisant le fichier
@@ -154,7 +184,7 @@ public class LecteurDonnees {
         try {
             int nbLignes = scanner.nextInt();
             int nbColonnes = scanner.nextInt();
-            int tailleCases = scanner.nextInt();	// en m
+            int tailleCases = scanner.nextInt();// en m
             System.out.println("Carte " + nbLignes + "x" + nbColonnes
                     + "; taille des cases = " + tailleCases);
 
@@ -170,10 +200,6 @@ public class LecteurDonnees {
         }
         // une ExceptionFormat levee depuis lireCase est remontee telle quelle
     }
-
-
-
-
     /**
      * Lit et affiche les donnees d'une case.
      */
