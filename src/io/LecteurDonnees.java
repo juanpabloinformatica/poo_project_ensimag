@@ -37,8 +37,6 @@ public class LecteurDonnees {
      * LecteurDonnees.lire(fichierDonnees)
      * @param fichierDonnees nom du fichier à lire
      */
-    private Case[] cases;
-    private int casesIndex;
     public static void lire(String fichierDonnees)
         throws FileNotFoundException, DataFormatException {
         System.out.println("\n == Lecture du fichier" + fichierDonnees);
@@ -69,39 +67,19 @@ public class LecteurDonnees {
      * Retourne une instance de carte en creant nbLignes*nbColonnes instances de
      * cases en lisant le fichier
      */
-    private Carte creerCarte(int nbLignes,int nbColonnes, int taillesCases) {
+    private Carte creerCarte() {
         // TODO: Very easy just copy and modify the lireCarte func
         // Carte carte(...);
         // return carte;
-        return new Carte(nbLignes,nbColonnes,tailleCases);
     }
 
     /*
      * Retourne une instance de case en lisant le fichier
      */
-    private Case creerCase(int ligne ,int colonne,String chaineNature) {
+    private Case creerCase() {
         // TODO: Very easy just copy and modify the lireCase func
         // Case case(...);
         // return case
-        return new Case(ligne,colonne,chaineNature);
-    }
-
-    /*
-     * Cree un tableau d'instances d'cases en lisant le fichier
-     */
-
-    /*
-     * create a global array an initialize its index
-     */
-    private void initializeCaseArray(int lig, int col){
-        this.cases = new Case [lig*col];
-        this.casesIndex = 0;
-    }
-    /*
-     * return the cases in an array m*n !IMPORTANT!
-     */
-    private Case[] getCases (){
-        return this.cases;
     }
 
     /*
@@ -159,20 +137,15 @@ public class LecteurDonnees {
         try {
             int nbLignes = scanner.nextInt();
             int nbColonnes = scanner.nextInt();
-            int tailleCases = scanner.nextInt();
-            creerCarte(nbLignes,nbColonnes,tailleCases);
-            initializeCaseArray();
-            	// en m
+            int tailleCases = scanner.nextInt();	// en m
             System.out.println("Carte " + nbLignes + "x" + nbColonnes
                     + "; taille des cases = " + tailleCases);
 
             for (int lig = 0; lig < nbLignes; lig++) {
                 for (int col = 0; col < nbColonnes; col++) {
                     lireCase(lig, col);
-
                 }
             }
-            
 
         } catch (NoSuchElementException e) {
             throw new DataFormatException("Format invalide. "
@@ -202,9 +175,7 @@ public class LecteurDonnees {
             verifieLigneTerminee();
 
             System.out.print("nature = " + chaineNature);
-            this.cases[this.casesIndex] = creerCase(lig,col,chaineNature);
-            this.casesIndex++;
-            // this.cases
+
         } catch (NoSuchElementException e) {
             throw new DataFormatException("format de case invalide. "
                     + "Attendu: nature altitude [valeur_specifique]");
