@@ -100,7 +100,6 @@ public class LecteurDonnees {
         // return case 
         Case case;
         ignorerCommentaires();
-        System.out.print("Case (" + lig + "," + col + "): ");
         String chaineNature = new String();
         try {
             chaineNature = scanner.next();
