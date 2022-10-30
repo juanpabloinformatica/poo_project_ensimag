@@ -81,7 +81,7 @@ public class LecteurDonnees {
             carte  = new Carte(nbLignes,nbColonnes,tailleCases);
             for (int lig = 0; lig < nbLignes; lig++) {
                 for (int col = 0; col < nbColonnes; col++) {
-                    Carte.addCase(creerCase(lig, col));
+                    carte.addCase(creerCase(lig, col));
                 }
             }
         } catch (NoSuchElementException e) {
