@@ -1,25 +1,27 @@
 import java.awt.Color;
 import gui.GUISimulator;
 import gui.Simulable;
-import io.LecteurDonnees;
+import robots.Robot;
 
 public class TestAffichageDonneesSimulation{
-    public static void main(String[] args) {
-        // crée la fenêtre graphique dans laquelle dessiner
-        GUISimulator gui = new GUISimulator(800, 600, Color.BLACK);
-        // crée l'invader, en l'associant à la fenêtre graphique précédente
-        DonneesSimulation  = LecteurDonees.creerDoneesSimulation("....map")
-        AffichageDonneesSimulation aFS = new AffichageDonneesSimulation(gui);
-    }
+    // public static void main(String[] args) {
+    //     // crée la fenêtre graphique dans laquelle dessiner
+    //     GUISimulator gui = new GUISimulator(800, 600, Color.BLACK);
+    //     // crée l'invader, en l'associant à la fenêtre graphique précédente
+    //     DonneesSimulation  = LecteurDonees.creerDoneesSimulation("....map");
+    //     AffichageDonneesSimulation aFS = new AffichageDonneesSimulation(gui);
+    // }
 }
 
 class AffichageDonneesSimulation implements Simulable {
+
     private GUISimulator gui;
-    public AffichageDonneesSumulation(GUISimulator gui, DonneesSimulation dS) {
+
+    public  AffichageDonneesSimulation(GUISimulator gui, DonneesSimulation dS) {
         this.gui = gui;
         gui.setSimulable(this);
         drawCarte(dS.getCarte());
-        drawIncendies(dS.getIncedies());
+        drawIncendies(dS.getIncendies());
         drawRobots(dS.getRobots());
     }
 
@@ -34,7 +36,7 @@ class AffichageDonneesSimulation implements Simulable {
         //     }
         // }
     }
-    private void drawIncendies(Incedie[] incendies) {
+    private void drawIncendies(Incendie[] incendies) {
         // TODO: drawIncendies with images if possible (cf. ImageElement in the doc folder)
         // cf.TestInvader
         // for (int i ) {
@@ -46,6 +48,17 @@ class AffichageDonneesSimulation implements Simulable {
         // every robot should had a different images
         // (cf. ImageElement in the doc folder)
         // cf.TestInvader
+    }
 
+    @Override
+    public void next() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void restart() {
+        // TODO Auto-generated method stub
+        
     }
 }

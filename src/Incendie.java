@@ -1,6 +1,6 @@
 public class Incendie {
 
-    Case case;
+    Case caseI;
     int eauNecessaire;
     
     // private Case case;

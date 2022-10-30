@@ -1,4 +1,4 @@
-package gui;
+package gui_not_working;
 
 public class Simulateur implements Simulable {
 

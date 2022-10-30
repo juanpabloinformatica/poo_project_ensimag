@@ -1,3 +1,5 @@
+
+
 public class Carte {
     /*we can create a variable static
     instead
@@ -24,16 +26,7 @@ public class Carte {
         */
         // this.fillingCases();
     }
-    
-    private void fillingCases(){
-        for(int i = 0; i < this.nbLignes;i++){
-            ArrayList<Case> temp = new ArrayList<>();
-            for(int j = 0 ; j < this.nbColonnes; j++){
-                temp.add(new Case(i,j,NatureTerrain.EAU));
-            }
-            this.cases.add(temp);
-        }
-    }
+
     
     public int getNbLignes() {
         return nbLignes;
@@ -46,6 +39,9 @@ public class Carte {
     }
     public Case getCase(int ligne,int colonne){
         return this.cases[ligne][colonne];
+    }
+    public void addCase(Case c){
+        this.cases[c.getLigne()][c.getColonne()] = c;
     }
     // public boolean voisinExiste(Case src,Direction dir){
         

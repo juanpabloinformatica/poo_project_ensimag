@@ -1,4 +1,3 @@
-package io;
 
 
 import java.io.*;
@@ -37,8 +36,7 @@ public class LecteurDonnees {
      * LecteurDonnees.lire(fichierDonnees)
      * @param fichierDonnees nom du fichier à lire
      */
-    private Case[] cases;
-    private int casesIndex;
+    
     public static void lire(String fichierDonnees)
         throws FileNotFoundException, DataFormatException {
         System.out.println("\n == Lecture du fichier" + fichierDonnees);
@@ -54,36 +52,63 @@ public class LecteurDonnees {
      * Lit le fichier fichierDonnees et crée une classe DonneeSimulation avec
      * toutes les données lues.
      */
-    public static DonneesSimulation creerDoneesSimulation(String fichierDonnees)
-        throws FileNotFoundException, DataFormatException {
-        LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
-        Carte carte = lecteur.creerCarte();
-        Incendie[] incendies = lecteur.creerIncendies();
-        Robot[] robots = lecteur.creerRobots();
-        DonneesSimulation donneesSimulation = DonneesSimulation();
-        return donneesSimulation;
-        scanner.close();
-    }
+    // public static DonneesSimulation creerDoneesSimulation(String fichierDonnees)
+    //     throws FileNotFoundException, DataFormatException {
+    //     LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
+    //     Carte carte = lecteur.creerCarte();
+    //     Incendie[] incendies = lecteur.creerIncendies();
+    //     // Robot[] robots = lecteur.creerRobots();
+    //     // DonneesSimulation donneesSimulation = DonneesSimulation();
+    //     return donneesSimulation;
+    //     scanner.close();
+    // }
 
     /*
      * Retourne une instance de carte en creant nbLignes*nbColonnes instances de
      * cases en lisant le fichier
      */
-    private Carte creerCarte(int nbLignes,int nbColonnes, int taillesCases) {
+    private Carte creerCarte() throws DataFormatException {
         // TODO: Very easy just copy and modify the lireCarte func
         // Carte carte(...);
         // return carte;
-        return new Carte(nbLignes,nbColonnes,tailleCases);
+        Carte carte;
+        ignorerCommentaires();
+        try {
+            int nbLignes = scanner.nextInt();
+            int nbColonnes = scanner.nextInt();
+            int tailleCases = scanner.nextInt();
+            carte  = new Carte(nbLignes,nbColonnes,tailleCases);
+            for (int lig = 0; lig < nbLignes; lig++) {
+                for (int col = 0; col < nbColonnes; col++) {
+                    carte.addCase(creerCase(lig, col));
+                }
+            }
+        } catch (NoSuchElementException e) {
+            throw new DataFormatException("Format invalide. "
+                    + "Attendu: nbLignes nbColonnes tailleCases");
+        }
+        return carte;  
     }
 
     /*
      * Retourne une instance de case en lisant le fichier
      */
-    private Case creerCase(int ligne ,int colonne,String chaineNature) {
+    private Case creerCase(int ligne ,int colonne) throws DataFormatException {
         // TODO: Very easy just copy and modify the lireCase func
         // Case case(...);
-        // return case
-        return new Case(ligne,colonne,chaineNature);
+        // return case 
+        Case caseC;
+        ignorerCommentaires();
+        String chaineNature = new String();
+        try {
+            chaineNature = scanner.next();
+            verifieLigneTerminee();
+            caseC = new Case(ligne,colonne,chaineNature);
+        } catch (NoSuchElementException e) {
+            throw new DataFormatException("format de case invalide. "
+                    + "Attendu: nature altitude [valeur_specifique]");
+        }
+        return caseC;
     }
 
     /*
@@ -91,47 +116,33 @@ public class LecteurDonnees {
      */
 
     /*
-     * create a global array an initialize its index
-     */
-    private void initializeCaseArray(int lig, int col){
-        this.cases = new Case [lig*col];
-        this.casesIndex = 0;
-    }
-    /*
-     * return the cases in an array m*n !IMPORTANT!
-     */
-    private Case[] getCases (){
-        return this.cases;
-    }
-
-    /*
      * Cree un tableau d'instances d'Incendie en lisant le fichier
      */
-    private Incendie[] creerIncendies() {
-        // TODO: Very easy just copy and modify the lireIncendies func
-    }
+    // private Incendie[] creerIncendies() {
+    //     // TODO: Very easy just copy and modify the lireIncendies func
+    // }
 
     /*
      * Crée une instance Incendie en lisant le fichier
      */
-    private Incendie creerIncendie() {
-        // TODO: Very easy just copy and modify the lireIncendie func
-    }
+    // private Incendie creerIncendie() {
+    //     // TODO: Very easy just copy and modify the lireIncendie func
+    // }
 
     /*
      * Cree un tableau d'instances de Robots en lisant le fichier
      */
-    private Robots[] creerRobots() {
-        // TODO: Very easy just copy and modify the lireRobots func
-    }
+    // private Robots[] creerRobots() {
+    //     // TODO: Very easy just copy and modify the lireRobots func
+    // }
 
     /*
      * Cree un tableau d'instances de Robots en lisant le fichier
      */
-    private Robot creerRobot() {
-        // TODO: copy and modify the lireRobot func
-        // we need to call the right constructor according to the type
-    }
+    // private Robot creerRobot() {
+    //     // TODO: copy and modify the lireRobot func
+    //     // we need to call the right constructor according to the type
+    // }
 
 
 
@@ -159,10 +170,7 @@ public class LecteurDonnees {
         try {
             int nbLignes = scanner.nextInt();
             int nbColonnes = scanner.nextInt();
-            int tailleCases = scanner.nextInt();
-            creerCarte(nbLignes,nbColonnes,tailleCases);
-            initializeCaseArray();
-            	// en m
+            int tailleCases = scanner.nextInt();// en m
             System.out.println("Carte " + nbLignes + "x" + nbColonnes
                     + "; taille des cases = " + tailleCases);
 
@@ -180,10 +188,6 @@ public class LecteurDonnees {
         }
         // une ExceptionFormat levee depuis lireCase est remontee telle quelle
     }
-
-
-
-
     /**
      * Lit et affiche les donnees d'une case.
      */
@@ -198,12 +202,8 @@ public class LecteurDonnees {
             // si NatureTerrain est un Enum, vous pouvez recuperer la valeur
             // de l'enum a partir d'une String avec:
             //			NatureTerrain nature = NatureTerrain.valueOf(chaineNature);
-
             verifieLigneTerminee();
-
             System.out.print("nature = " + chaineNature);
-            this.cases[this.casesIndex] = creerCase(lig,col,chaineNature);
-            this.casesIndex++;
             // this.cases
         } catch (NoSuchElementException e) {
             throw new DataFormatException("format de case invalide. "
