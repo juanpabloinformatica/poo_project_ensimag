@@ -47,6 +47,9 @@ public class Carte {
     public Case getCase(int ligne,int colonne){
         return this.cases[ligne][colonne];
     }
+    public void addCase(Case case){
+        this.cases[case.ligne][case.colonne] = case;
+    }
     // public boolean voisinExiste(Case src,Direction dir){
         
     //     for(ArrayList<Case> ligne:this.cases){
@@ -57,6 +60,17 @@ public class Carte {
     //         }
     //     }
     // }
+    
+    
+
+   
+    
+    
+
+
+
+}
+
     
     
 
