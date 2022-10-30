@@ -1,3 +1,6 @@
+package classes;
+import robots.*;
+
 public class DonneesSimulation {
     private Carte carte;
     private Incendie[] incendies;

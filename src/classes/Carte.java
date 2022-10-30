@@ -1,3 +1,5 @@
+package classes;
+
 public class Carte {
     /*we can create a variable static
     instead
@@ -25,15 +27,15 @@ public class Carte {
         // this.fillingCases();
     }
     
-    private void fillingCases(){
-        for(int i = 0; i < this.nbLignes;i++){
-            ArrayList<Case> temp = new ArrayList<>();
-            for(int j = 0 ; j < this.nbColonnes; j++){
-                temp.add(new Case(i,j,NatureTerrain.EAU));
-            }
-            this.cases.add(temp);
-        }
-    }
+    // private void fillingCases(){
+    //     for(int i = 0; i < this.nbLignes;i++){
+    //         ArrayList<Case> temp = new ArrayList<>();
+    //         for(int j = 0 ; j < this.nbColonnes; j++){
+    //             temp.add(new Case(i,j,NatureTerrain.EAU));
+    //         }
+    //         this.cases.add(temp);
+    //     }
+    // }
     
     public int getNbLignes() {
         return nbLignes;
