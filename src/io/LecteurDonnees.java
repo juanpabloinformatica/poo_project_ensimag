@@ -1,5 +1,8 @@
 package io;
 
+import classes.*;
+import robots.*;
+
 
 import java.io.*;
 import java.util.*;
@@ -52,66 +55,80 @@ public class LecteurDonnees {
      * Lit le fichier fichierDonnees et crée une classe DonneeSimulation avec
      * toutes les données lues.
      */
-    public static DonneesSimulation creerDoneesSimulation(String fichierDonnees)
-        throws FileNotFoundException, DataFormatException {
-        LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
-        Carte carte = lecteur.creerCarte();
-        Incendie[] incendies = lecteur.creerIncendies();
-        Robot[] robots = lecteur.creerRobots();
-        DonneesSimulation donneesSimulation = DonneesSimulation();
-        return donneesSimulation;
-        scanner.close();
-    }
+    // public DonneesSimulation creerDoneesSimulation(String fichierDonnees)
+    //     throws FileNotFoundException, DataFormatException {
+    //     LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
+    //     Carte carte = lecteur.creerCarte();
+    //     Incendie[] incendies = lecteur.creerIncendies();
+    //     Robot[] robots = lecteur.creerRobots();
+    //     DonneesSimulation donneesSimulation = new DonneesSimulation(carte, incendies, robots);
+    //     scanner.close();
+    //     return donneesSimulation;
+    // }
 
     /*
      * Retourne une instance de carte en creant nbLignes*nbColonnes instances de
      * cases en lisant le fichier
      */
-    private Carte creerCarte() {
-        // TODO: Very easy just copy and modify the lireCarte func
-        // Carte carte(...);
-        // return carte;
-    }
+    // private Carte creerCarte() {
+    //     // TODO: Very easy just copy and modify the lireCarte func
+    //     Carte carte;
+    //     return carte;
+    // }
 
     /*
      * Retourne une instance de case en lisant le fichier
      */
-    private Case creerCase() {
-        // TODO: Very easy just copy and modify the lireCase func
-        // Case case(...);
-        // return case
-    }
+    // private Case creerCase() {
+    //     // TODO: Very easy just copy and modify the lireCase func
+    // }
 
     /*
      * Cree un tableau d'instances d'Incendie en lisant le fichier
      */
-    private Incendie[] creerIncendies() {
-        // TODO: Very easy just copy and modify the lireIncendies func
-    }
+    // private Incendie[] creerIncendies() {
+    //     // TODO: Very easy just copy and modify the lireIncendies func
+    //     Incendie[] i;
+    //     return i;
+    // }
 
     /*
      * Crée une instance Incendie en lisant le fichier
      */
-    private Incendie creerIncendie() {
-        // TODO: Very easy just copy and modify the lireIncendie func
-    }
+    // private Incendie creerIncendie() {
+    //     // TODO: Very easy just copy and modify the lireIncendie func
+    //     Incendie i;
+    //     return i;
+    // }
 
     /*
      * Cree un tableau d'instances de Robots en lisant le fichier
      */
-    private Robots[] creerRobots() {
-        // TODO: Very easy just copy and modify the lireRobots func
-    }
+    // private Robot[] creerRobots()  throws DataFormatException {
+    //     ignorerCommentaires();
+    //     try {
+    //         int nbRobots = scanner.nextInt();
+    //         Robot[] arrRobots = new Robot[nbRobots];
+    //         for (int i = 0; i < nbRobots; i++) {
+    //             arrRobots[i] = creerRobot();
+    //         }
+    //         return arrRobots;
+
+    //     } catch (NoSuchElementException e) {
+    //         throw new DataFormatException("Format invalide. "
+    //                                       + "Attendu: nbRobots");
+    //     }
+    // }
 
     /*
      * Cree un tableau d'instances de Robots en lisant le fichier
      */
-    private Robot creerRobot() {
-        // TODO: copy and modify the lireRobot func
-        // we need to call the right constructor according to the type
-    }
-
-
+    // private Robot creerRobot() throws DataFormatException {
+    //     // TODO: copy and modify the lireRobot func
+    //     // we need to call the right constructor according to the type
+    //     Robot r;
+    //     return r;
+    // }
 
 
     // Tout le reste de la classe est prive!
