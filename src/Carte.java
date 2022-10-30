@@ -13,10 +13,10 @@ public class Carte {
     private int tailleCases;
     private Case[][] cases;
 
-    public Carte(int nbLignes, int nbColonnes){
+    public Carte(int nbLignes, int nbColonnes, int taillesCases){
         this.nbLignes = nbLignes;
         this.nbColonnes = nbColonnes;
-        this.tailleCases = nbLignes*nbColonnes;
+        this.tailleCases = taillesCases;
         this.cases = new Case[nbLignes][nbColonnes];
 
         /*this method need to be modified

@@ -11,8 +11,13 @@ public class DonneesSimulation {
         this.robots = robots;
     }
 
-    public static void main(String[] args) throws Exception {
-        System.out.println("Hello, World!");
-        
+    public Carte getCarte() {
+        return carte;
+    }
+    public Incendie[] getIncendies() {
+        return incendies;
+    }
+    public Robot[] getRobots() {
+        return robots;
     }
 }
