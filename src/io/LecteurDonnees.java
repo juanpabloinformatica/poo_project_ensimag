@@ -116,20 +116,51 @@ public class LecteurDonnees {
     /*
      * Cree un tableau d'instances d'Incendie en lisant le fichier
      */
-    // private Incendie[] creerIncendies() {
-    //     // TODO: Very easy just copy and modify the lireIncendies func
-    //     Incendie[] i;
-    //     return i;
-    // }
+    private Incendie[] creerIncendies() {
+        // TODO: Very easy just copy and modify the lireIncendies func
+        ignorerCommentaires();
+        try {
+            int nbIncendies = scanner.nextInt();
+            Incendie[] incendies = new Incendie[nbIncendies];
+            System.out.println("Nb d'incendies = " + nbIncendies);
+            for (int i = 0; i < nbIncendies; i++) {
+                incendies[i] = creerIncendie();
+            }
+            return incendies;
+
+        } catch (NoSuchElementException e) {
+            throw new DataFormatException("Format invalide. "
+                    + "Attendu: nbIncendies");
+        }
+    }
 
     /*
      * Crée une instance Incendie en lisant le fichier
      */
-    // private Incendie creerIncendie() {
-    //     // TODO: Very easy just copy and modify the lireIncendie func
-    //     Incendie i;
-    //     return i;
-    // }
+    private Incendie creerIncendie() {
+        // TODO: Very easy just copy and modify the lireIncendie func
+        ignorerCommentaires();
+
+        try {
+            int lig = scanner.nextInt();
+            int col = scanner.nextInt();
+            int intensite = scanner.nextInt();
+            
+            if (intensite <= 0) {
+                throw new DataFormatException("incendie " 
+                        + "nb litres pour eteindre doit etre > 0");
+            }
+            verifieLigneTerminee();
+
+            Case caseIncendie = carte.getCase(lig, col);
+            Incendie incendie = new Incendie(caseIncendie, intensite);
+            return incendie;
+
+        } catch (NoSuchElementException e) {
+            throw new DataFormatException("format d'incendie invalide. "
+                    + "Attendu: ligne colonne intensite");
+        }
+    }
 
     /*
      * Cree un tableau d'instances de Robots en lisant le fichier
