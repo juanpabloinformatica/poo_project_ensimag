@@ -1,3 +1,4 @@
+package constants;
 public enum NatureTerrain {
     EAU,
     FORET,
