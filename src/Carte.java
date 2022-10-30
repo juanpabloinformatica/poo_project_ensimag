@@ -70,14 +70,3 @@ public class Carte {
 
 
 }
-
-    
-    
-
-   
-    
-    
-
-
-
-}
