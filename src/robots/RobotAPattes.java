@@ -1,4 +1,6 @@
 package robots;
+import classes.Case;
+import constants.NatureTerrain;
 
 public class RobotAPattes extends Robot {
     private double vitesse;
@@ -11,14 +13,18 @@ public class RobotAPattes extends Robot {
 
     @Override
     public void setPosition(Case pos) {
-        if (pos.getNatureTerrain() != EAU)
+        if (pos.getNatureTerrain() != NatureTerrain.EAU)
             this.position = pos;
         // REVIEW: throw error?
     }
     public double getVitesse() {
         NatureTerrain natureTerrain = this.getPosition().getNatureTerrain();
-        if (natureTerrain == ROCHER)
+        if (natureTerrain == NatureTerrain.ROCHE)
             return 10;
         return this.vitesse;
+    }
+    @Override
+    public String toString() {
+        return "robot a pattes";
     }
 }

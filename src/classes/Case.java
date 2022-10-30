@@ -23,6 +23,12 @@ public class Case {
     public NatureTerrain getNatureTerrain() {
         return natureTerrain;
     }
+
+    @Override
+    public String toString() {
+        return String.format("Case(%d, %d) = %s", ligne, colonne,
+                             natureTerrain.name());
+    }
     
 
     

@@ -1,7 +1,9 @@
 package io;
 
 import classes.*;
+import robots.RobotDrone;
 import robots.*;
+import constants.*;
 
 
 import java.io.*;
@@ -56,22 +58,22 @@ public class LecteurDonnees {
      * Lit le fichier fichierDonnees et crée une classe DonneeSimulation avec
      * toutes les données lues.
      */
-    // public DonneesSimulation creerDoneesSimulation(String fichierDonnees)
-    //     throws FileNotFoundException, DataFormatException {
-    //     LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
-    //     Carte carte = lecteur.creerCarte();
-    //     Incendie[] incendies = lecteur.creerIncendies();
-    //     Robot[] robots = lecteur.creerRobots();
-    //     DonneesSimulation donneesSimulation = new DonneesSimulation(carte, incendies, robots);
-    //     scanner.close();
-    //     return donneesSimulation;
-    // }
+    public static DonneesSimulation creerDonneesSimulation(String fichierDonnees)
+        throws FileNotFoundException, DataFormatException {
+        LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
+        Carte carte = lecteur.creerCarte();
+        Incendie[] incendies = lecteur.creerIncendies(carte);
+        Robot[] robots = lecteur.creerRobots();
+        DonneesSimulation donneesSimulation = new DonneesSimulation(carte, incendies, robots);
+        scanner.close();
+        return donneesSimulation;
+    }
 
     /*
      * Retourne une instance de carte en creant nbLignes*nbColonnes instances de
      * cases en lisant le fichier
      */
-    private Carte creerCarte() {
+    private Carte creerCarte() throws DataFormatException {
         Carte carte;
         ignorerCommentaires();
         try {
@@ -81,7 +83,7 @@ public class LecteurDonnees {
             carte  = new Carte(nbLignes,nbColonnes,tailleCases);
             for (int lig = 0; lig < nbLignes; lig++) {
                 for (int col = 0; col < nbColonnes; col++) {
-                    carte.addCase(creerCase(lig, col));
+                    carte.setCase(lig, col, creerCase(lig, col));
                 }
             }
         } catch (NoSuchElementException e) {
@@ -94,37 +96,32 @@ public class LecteurDonnees {
     /*
      * Retourne une instance de case en lisant le fichier
      */
-    private Case creerCase(int ligne ,int colonne) {
-        Case case;
+    private Case creerCase(int ligne ,int colonne) throws DataFormatException {
+        Case pos;
         ignorerCommentaires();
         String chaineNature = new String();
         try {
             chaineNature = scanner.next();
             verifieLigneTerminee();
-            case = new Case(ligne,colonne,chaineNature);
+            pos = new Case(ligne, colonne, NatureTerrain.valueOf(chaineNature));
         } catch (NoSuchElementException e) {
             throw new DataFormatException("format de case invalide. "
                     + "Attendu: nature altitude [valeur_specifique]");
         }
-        return case;
+        return pos;
     }
 
     /*
      * Cree un tableau d'instances d'cases en lisant le fichier
      */
-
-    /*
-     * Cree un tableau d'instances d'Incendie en lisant le fichier
-     */
-    private Incendie[] creerIncendies() {
-        // TODO: Very easy just copy and modify the lireIncendies func
+    private Incendie[] creerIncendies(Carte carte) throws DataFormatException {
         ignorerCommentaires();
         try {
             int nbIncendies = scanner.nextInt();
             Incendie[] incendies = new Incendie[nbIncendies];
             System.out.println("Nb d'incendies = " + nbIncendies);
             for (int i = 0; i < nbIncendies; i++) {
-                incendies[i] = creerIncendie();
+                incendies[i] = creerIncendie(carte);
             }
             return incendies;
 
@@ -137,8 +134,7 @@ public class LecteurDonnees {
     /*
      * Crée une instance Incendie en lisant le fichier
      */
-    private Incendie creerIncendie() {
-        // TODO: Very easy just copy and modify the lireIncendie func
+    private Incendie creerIncendie(Carte carte) throws DataFormatException {
         ignorerCommentaires();
 
         try {
@@ -165,31 +161,76 @@ public class LecteurDonnees {
     /*
      * Cree un tableau d'instances de Robots en lisant le fichier
      */
-    // private Robot[] creerRobots()  throws DataFormatException {
-    //     ignorerCommentaires();
-    //     try {
-    //         int nbRobots = scanner.nextInt();
-    //         Robot[] arrRobots = new Robot[nbRobots];
-    //         for (int i = 0; i < nbRobots; i++) {
-    //             arrRobots[i] = creerRobot();
-    //         }
-    //         return arrRobots;
+    private Robot[] creerRobots()  throws DataFormatException {
+        ignorerCommentaires();
+        try {
+            int nbRobots = scanner.nextInt();
+            Robot[] arrRobots = new Robot[nbRobots];
+            for (int i = 0; i < nbRobots; i++) {
+                arrRobots[i] = creerRobot();
+            }
+            return arrRobots;
 
-    //     } catch (NoSuchElementException e) {
-    //         throw new DataFormatException("Format invalide. "
-    //                                       + "Attendu: nbRobots");
-    //     }
-    // }
+        } catch (NoSuchElementException e) {
+            throw new DataFormatException("Format invalide. "
+                                          + "Attendu: nbRobots");
+        }
+    }
 
     /*
-     * Cree un tableau d'instances de Robots en lisant le fichier
-     */
-    // private Robot creerRobot() throws DataFormatException {
-    //     // TODO: copy and modify the lireRobot func
-    //     // we need to call the right constructor according to the type
-    //     Robot r;
-    //     return r;
-    // }
+     * Cree un tableau d'instances de Robots en lisant le fichier */
+    private Robot creerRobot() throws DataFormatException {
+        ignorerCommentaires();
+
+        try {
+            int lig = scanner.nextInt();
+            int col = scanner.nextInt();
+            //System.out.print("position = (" + lig + "," + col + ");");
+            String type = scanner.next();
+            TypeRobot tRobot = TypeRobot.valueOf(type);
+
+            //System.out.print("\t type = " + type);
+
+            // lecture eventuelle d'une vitesse du robot (entier)
+            //System.out.print("; \t vitesse = ");
+            String s = scanner.findInLine("(\\d+)");	// 1 or more digit(s) ?
+            // pour lire un flottant:    ("(\\d+(\\.\\d+)?)");
+
+            int vitesse;
+            if (s == null) {
+                //System.out.print("valeur par defaut");
+                vitesse = -1;
+            } else {
+                vitesse = Integer.parseInt(s);
+            }
+            verifieLigneTerminee();
+
+            Robot r;
+            switch (tRobot) {
+                case DRONE:
+                    r = new RobotDrone(vitesse);
+                    break;
+                case ROUES:
+                    r = new RobotARoues(vitesse);
+                    break;
+                case PATTES:
+                    r = new RobotAPattes();
+                    break;
+                case CHENILLES:
+                    r = new RobotAChenilles(vitesse);
+                    break;
+                default:
+                    throw new NoSuchElementException();
+            }
+
+
+            return r;
+
+        } catch (NoSuchElementException e) {
+            throw new DataFormatException("format de robot invalide. "
+                    + "Attendu: ligne colonne type [valeur_specifique]");
+        }
+    }
 
 
     // Tout le reste de la classe est prive!

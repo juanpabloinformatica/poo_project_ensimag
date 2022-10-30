@@ -1,4 +1,6 @@
 package robots;
+import classes.Case;
+import constants.NatureTerrain;
 
 public class RobotDrone extends Robot{
     private double vitesse;
@@ -21,5 +23,9 @@ public class RobotDrone extends Robot{
     @Override
     public double getVitesse() {
         return vitesse;
+    }
+    @Override
+    public String toString() {
+        return "robot drone";
     }
 }

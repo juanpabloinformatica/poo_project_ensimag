@@ -23,4 +23,16 @@ public class DonneesSimulation {
     public Robot[] getRobots() {
         return robots;
     }
+
+    @Override
+    public String toString() {
+        String res = "Carte\n" + carte.toString() + "\n Incendies : \n";
+        for (int i = 0; i < incendies.length; i++)
+            res += incendies[i].toString();
+
+        res += "\n";
+        for (int i = 0; i < robots.length; i++)
+            res += robots[i].toString();
+        return res;
+    }
 }

@@ -2,7 +2,7 @@ package robots;
 import classes.*;
 
 public abstract class Robot {
-    private Case position;
+    protected Case position;
     private int reservoir;
     private int tempsRemplissage; // en seconds
     private int volVidage; // volume litres vidé lors d'une intervention unitaire
