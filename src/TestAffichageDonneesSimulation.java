@@ -1,7 +1,11 @@
 import java.awt.Color;
+
+import classes.Carte;
+import classes.Incendie;
 import gui.GUISimulator;
 import gui.Simulable;
 import io.LecteurDonnees;
+import robots.Robot;
 
 public class TestAffichageDonneesSimulation{
     public static void main(String[] args) {
@@ -34,7 +38,7 @@ class AffichageDonneesSimulation implements Simulable {
         //     }
         // }
     }
-    private void drawIncendies(Incedie[] incendies) {
+    private void drawIncendies(Incendie[] incendies) {
         // TODO: drawIncendies with images if possible (cf. ImageElement in the doc folder)
         // cf.TestInvader
         // for (int i ) {
