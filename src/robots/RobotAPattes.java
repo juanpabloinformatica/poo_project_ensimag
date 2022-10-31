@@ -1,10 +1,11 @@
 package robots;
 import classes.Case;
-import constants.NatureTerrain;
+import constants.*;
 
 public class RobotAPattes extends Robot {
     private double vitesse;
-    public RobotAPattes() {
+    public RobotAPattes(Case pos) {
+        super(pos);
         this.vitesse = 30;
         this.setReservoir(Integer.MAX_VALUE);
         this.setTempsRemplissage(Integer.MAX_VALUE); // 30 min * 60 sec
@@ -26,5 +27,8 @@ public class RobotAPattes extends Robot {
     @Override
     public String toString() {
         return "robot a pattes";
+    }
+    public TypeRobot getTypeRobot() {
+        return TypeRobot.PATTES;
     }
 }

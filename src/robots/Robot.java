@@ -1,5 +1,6 @@
 package robots;
 import classes.*;
+import constants.TypeRobot;
 
 public abstract class Robot {
     protected Case position;
@@ -10,6 +11,10 @@ public abstract class Robot {
 
     public abstract double getVitesse();
     public abstract void setPosition(Case pos);
+    public abstract TypeRobot getTypeRobot();
+    public Robot(Case pos) {
+        position = pos;
+    }
     public Case getPosition() {
         return position;
     }

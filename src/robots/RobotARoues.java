@@ -1,11 +1,12 @@
 package robots;
 import classes.Case;
-import constants.NatureTerrain;
+import constants.*;
 
 public class RobotARoues extends Robot {
     private double vitesse;
 
-    public RobotARoues(double vitesse) {
+    public RobotARoues(Case pos, double vitesse) {
+        super(pos);
         if (vitesse == -1) {
             this.vitesse = 80; // vitesse par défaut
         } else {
@@ -33,5 +34,8 @@ public class RobotARoues extends Robot {
     @Override
     public String toString() {
         return "robot a roues";
+    }
+    public TypeRobot getTypeRobot() {
+        return TypeRobot.ROUES;
     }
 }

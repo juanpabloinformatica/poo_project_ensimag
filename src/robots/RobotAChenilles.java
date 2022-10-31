@@ -1,10 +1,11 @@
 package robots;
 import classes.Case;
-import constants.NatureTerrain;
+import constants.*;
 
 public class RobotAChenilles extends Robot {
     private double vitesse;
-    public RobotAChenilles(int vitesse) {
+    public RobotAChenilles(Case pos, int vitesse) {
+        super(pos);
         if (vitesse == -1 || vitesse > 80) {
             this.vitesse = 60; // vitesse par défaut
         } else {
@@ -37,4 +38,9 @@ public class RobotAChenilles extends Robot {
     public String toString() {
         return "robot a chenilles";
     }
+
+    public TypeRobot getTypeRobot() {
+        return TypeRobot.CHENILLES;
+    }
+
 }

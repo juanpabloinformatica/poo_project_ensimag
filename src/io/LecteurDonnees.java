@@ -63,7 +63,7 @@ public class LecteurDonnees {
         LecteurDonnees lecteur = new LecteurDonnees(fichierDonnees);
         Carte carte = lecteur.creerCarte();
         Incendie[] incendies = lecteur.creerIncendies(carte);
-        Robot[] robots = lecteur.creerRobots();
+        Robot[] robots = lecteur.creerRobots(carte);
         DonneesSimulation donneesSimulation = new DonneesSimulation(carte, incendies, robots);
         scanner.close();
         return donneesSimulation;
@@ -161,13 +161,13 @@ public class LecteurDonnees {
     /*
      * Cree un tableau d'instances de Robots en lisant le fichier
      */
-    private Robot[] creerRobots()  throws DataFormatException {
+    private Robot[] creerRobots(Carte carte)  throws DataFormatException {
         ignorerCommentaires();
         try {
             int nbRobots = scanner.nextInt();
             Robot[] arrRobots = new Robot[nbRobots];
             for (int i = 0; i < nbRobots; i++) {
-                arrRobots[i] = creerRobot();
+                arrRobots[i] = creerRobot(carte);
             }
             return arrRobots;
 
@@ -179,7 +179,7 @@ public class LecteurDonnees {
 
     /*
      * Cree un tableau d'instances de Robots en lisant le fichier */
-    private Robot creerRobot() throws DataFormatException {
+    private Robot creerRobot(Carte carte) throws DataFormatException {
         ignorerCommentaires();
 
         try {
@@ -206,18 +206,19 @@ public class LecteurDonnees {
             verifieLigneTerminee();
 
             Robot r;
+            Case pos = carte.getCase(lig, col);
             switch (tRobot) {
                 case DRONE:
-                    r = new RobotDrone(vitesse);
+                    r = new RobotDrone(pos, vitesse);
                     break;
                 case ROUES:
-                    r = new RobotARoues(vitesse);
+                    r = new RobotARoues(pos, vitesse);
                     break;
                 case PATTES:
-                    r = new RobotAPattes();
+                    r = new RobotAPattes(pos);
                     break;
                 case CHENILLES:
-                    r = new RobotAChenilles(vitesse);
+                    r = new RobotAChenilles(pos, vitesse);
                     break;
                 default:
                     throw new NoSuchElementException();
