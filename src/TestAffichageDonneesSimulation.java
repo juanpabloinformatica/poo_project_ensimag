@@ -19,24 +19,30 @@ import java.io.*;
 import java.net.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 public class TestAffichageDonneesSimulation{
     public static void main(String[] args) throws FileNotFoundException {
         // crée la fenêtre graphique dans laquelle dessiner
-        GUISimulator gui = new GUISimulator(800, 800, Color.WHITE);
+        // GUISimulator gui = new GUISimulator(800, 600, Color.BLACK);
         // crée l'invader, en l'associant à la fenêtre graphique précédente
         try {
-            DonneesSimulation dS = LecteurDonnees.creerDonneesSimulation(args[0]);
-            System.out.println(dS);
-            AffichageDonneesSimulation aFS = new AffichageDonneesSimulation(gui, dS);
+            DonneesSimulation dS  = LecteurDonnees.creerDonneesSimulation(args[0]);
+             int widthGui = dS.getCarte().getTailleCases()*dS.getCarte().getNbColonnes();
+             int heightGui = dS.getCarte().getTailleCases()*dS.getCarte().getNbLignes();
+             GUISimulator gui = new GUISimulator(widthGui,heightGui,Color.black);
+            AffichageDonneesSimulation aFS = new AffichageDonneesSimulation(gui,dS);
         } catch (FileNotFoundException e) {
             System.out.println("fichier " + args[0] + " inconnu ou illisible");
-        } catch (DataFormatException e) {
+        } catch(DataFormatException e){
             System.out.println("\n\t**format du fichier " + args[0] + " invalide: " + e.getMessage());
         }
+        // DonneesSimulation  = LecteurDonees.creerDoneesSimulation("....map")
+        
     }
 }
 
 class AffichageDonneesSimulation implements Simulable {
+
     private GUISimulator gui;
     private int sizeCase;
     public AffichageDonneesSimulation(GUISimulator gui, DonneesSimulation dS) {
@@ -66,7 +72,48 @@ class AffichageDonneesSimulation implements Simulable {
         //     for (int j) {
         //     }
         // }
+        //resize the image
+        
+        // image = resizeImage(image,carte);
+        for(int i = 0 ; i< carte.getNbLignes()*carte.getTailleCases() ; i+=carte.getTailleCases()){
+            for(int j = 0 ; j<carte.getNbColonnes()*carte.getTailleCases() ; j+=carte.getTailleCases()){
+                NatureTerrain typeTerrainImage = getTypeTerrainImage(carte,i/carte.getTailleCases(),j/carte.getTailleCases());
+                String imageString = new String();
+                try{
+                imageString = selectImage(typeTerrainImage);
+                }catch(Exception e){
+                    System.out.println(e);
+                }
+                this.gui.addGraphicalElement(new ImageElement(i, j,imageString,carte.getTailleCases(),carte.getTailleCases(), this.gui));
+            }
+        }
     }
+
+    private NatureTerrain getTypeTerrainImage(Carte carte,int i,int j){
+        return carte.getCase(i,j).getNatureTerrain();
+    }
+    private String selectImage(NatureTerrain typeNatureTerrain){
+        String selectImage = null;
+        try{
+            if(typeNatureTerrain == NatureTerrain.EAU){
+                selectImage = "img/eau.jpg";
+            }else if(typeNatureTerrain == NatureTerrain.FORET){
+                selectImage = "img/foret.jpg";
+            }else if(typeNatureTerrain == NatureTerrain.HABITAT){
+                selectImage = "img/habitat.jpg";
+            }else if(typeNatureTerrain == NatureTerrain.TERRAIN_LIBRE){
+                selectImage = "img/neymar_animado(terrrain_libre).jpg";
+            }else{
+                selectImage = "img/roche.jpg";
+            }
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return selectImage;
+    }
+    // private  Image resizeImage(Image image,Carte carte){
+    //     return image.getScaledInstance(carte.getTailleCases()/2,carte.getTailleCases()/2,Image.SCALE_DEFAULT);
+    // }
     private void drawIncendies(Incendie[] incendies) {
         // TODO: drawIncendies with images if possible (cf. ImageElement in the doc folder)
         // cf.TestInvader
@@ -103,5 +150,17 @@ class AffichageDonneesSimulation implements Simulable {
                                                          y * sizeCase, "img/pattes.png", this.sizeCase, this.sizeCase, null));
                 break;
         }
+    }
+
+    @Override
+    public void next() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void restart() {
+        // TODO Auto-generated method stub
+        
     }
 }
