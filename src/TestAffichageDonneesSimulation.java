@@ -62,22 +62,23 @@ class AffichageDonneesSimulation implements Simulable {
         //     }
         // }
         //resize the image
-        NatureTerrain typeTerrainImage = getTypeTerrainImage(carte);
-        String imageString = new String();
-        try{
-            imageString = selectImage(typeTerrainImage);
-        }catch(Exception e){
-            System.out.println(e);
-        }
+        
         // image = resizeImage(image,carte);
         for(int i = 0 ; i< carte.getNbLignes()*carte.getTailleCases() ; i+=carte.getTailleCases()){
             for(int j = 0 ; j<carte.getNbColonnes()*carte.getTailleCases() ; j+=carte.getTailleCases()){
+                NatureTerrain typeTerrainImage = getTypeTerrainImage(carte,i/carte.getTailleCases(),j/carte.getTailleCases());
+                String imageString = new String();
+                try{
+                imageString = selectImage(typeTerrainImage);
+                }catch(Exception e){
+                    System.out.println(e);
+                }
                 this.gui.addGraphicalElement(new ImageElement(i, j,imageString,carte.getTailleCases(),carte.getTailleCases(), this.gui));
             }
         }
     }
-    private NatureTerrain getTypeTerrainImage(Carte carte){
-        return carte.getCase(0, 0).getNatureTerrain();
+    private NatureTerrain getTypeTerrainImage(Carte carte,int i,int j){
+        return carte.getCase(i,j).getNatureTerrain();
     }
     private String selectImage(NatureTerrain typeNatureTerrain){
         String selectImage = null;
@@ -98,9 +99,9 @@ class AffichageDonneesSimulation implements Simulable {
         }
         return selectImage;
     }
-    private  Image resizeImage(Image image,Carte carte){
-        return image.getScaledInstance(carte.getTailleCases()/2,carte.getTailleCases()/2,Image.SCALE_DEFAULT);
-    }
+    // private  Image resizeImage(Image image,Carte carte){
+    //     return image.getScaledInstance(carte.getTailleCases()/2,carte.getTailleCases()/2,Image.SCALE_DEFAULT);
+    // }
     private void drawIncendies(Incendie[] incendies) {
         // TODO: drawIncendies with images if possible (cf. ImageElement in the doc folder)
         // cf.TestInvader
