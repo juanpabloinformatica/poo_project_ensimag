@@ -65,7 +65,7 @@ class AffichageDonneesSimulation implements Simulable {
                 try{
                     if (typeTerrainImage != NatureTerrain.TERRAIN_LIBRE) {
                         String imageString = selectImage(typeTerrainImage);
-                        this.gui.addGraphicalElement(new ImageElement(i, j,imageString,carte.getTailleCases(),carte.getTailleCases(), this.gui));
+                        this.gui.addGraphicalElement(new ImageElement(j, i,imageString,carte.getTailleCases(),carte.getTailleCases(), this.gui));
                     }
                 } catch(Exception e){
                     System.out.println(e);
@@ -112,27 +112,27 @@ class AffichageDonneesSimulation implements Simulable {
         }
     }
     private void drawRobot(Robot robot) {
-        int x = robot.getPosition().getLigne();
-        int y = robot.getPosition().getColonne();
+        int i = robot.getPosition().getLigne();
+        int j = robot.getPosition().getColonne();
         Color color = Color.decode("#f2ff28");
 
         // ImageObserverDemo obs = new ImageObserverDemo();
         switch(robot.getTypeRobot()) {
             case DRONE:
-                gui.addGraphicalElement(new ImageElement(x * sizeCase,
-                                                         y * sizeCase, "img/drone.png", this.sizeCase, this.sizeCase, null));
+                gui.addGraphicalElement(new ImageElement(j * sizeCase,
+                                                         i * sizeCase, "img/drone.png", this.sizeCase, this.sizeCase, null));
                 break;
             case CHENILLES:
-                gui.addGraphicalElement(new ImageElement(x * sizeCase,
-                                                         y * sizeCase, "img/chenilles.png", this.sizeCase, this.sizeCase, null));
+                gui.addGraphicalElement(new ImageElement(j * sizeCase,
+                                                         i * sizeCase, "img/chenilles.png", this.sizeCase, this.sizeCase, null));
                 break;
             case ROUES:
-                gui.addGraphicalElement(new ImageElement(x * sizeCase,
-                                                         y * sizeCase, "img/roues.png", this.sizeCase, this.sizeCase, null));
+                gui.addGraphicalElement(new ImageElement(j * sizeCase,
+                                                         i * sizeCase, "img/roues.png", this.sizeCase, this.sizeCase, null));
                 break;
             case PATTES:
-                gui.addGraphicalElement(new ImageElement(x * sizeCase,
-                                                         y * sizeCase, "img/pattes.png", this.sizeCase, this.sizeCase, null));
+                gui.addGraphicalElement(new ImageElement(j * sizeCase,
+                                                         i * sizeCase, "img/pattes.png", this.sizeCase, this.sizeCase, null));
                 break;
         }
     }
