@@ -5,20 +5,11 @@ import gui.ImageElement;
 import io.LecteurDonnees;
 import classes.*;
 import robots.*;
+import constants.NatureTerrain;
 
 import java.io.FileNotFoundException;
-import java.io.File;
 import java.util.zip.DataFormatException;
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.Dimension;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-import java.awt.image.*;
-import java.io.*;
-import java.net.*;
-import javax.imageio.ImageIO;
-import javax.swing.*;
 
 public class TestAffichageDonneesSimulation{
     public static void main(String[] args) throws FileNotFoundException {
@@ -29,7 +20,7 @@ public class TestAffichageDonneesSimulation{
             DonneesSimulation dS  = LecteurDonnees.creerDonneesSimulation(args[0]);
              int widthGui = dS.getCarte().getTailleCases()*dS.getCarte().getNbColonnes();
              int heightGui = dS.getCarte().getTailleCases()*dS.getCarte().getNbLignes();
-             GUISimulator gui = new GUISimulator(widthGui,heightGui,Color.black);
+             GUISimulator gui = new GUISimulator(widthGui,heightGui,Color.decode("#7ac270"));
             AffichageDonneesSimulation aFS = new AffichageDonneesSimulation(gui,dS);
         } catch (FileNotFoundException e) {
             System.out.println("fichier " + args[0] + " inconnu ou illisible");
@@ -48,19 +39,12 @@ class AffichageDonneesSimulation implements Simulable {
     public AffichageDonneesSimulation(GUISimulator gui, DonneesSimulation dS) {
         this.gui = gui;
         gui.setSimulable(this);
-        this.sizeCase = 50;
-        drawCarte(dS.getCarte());
+        Carte carte = dS.getCarte();
+        this.sizeCase = carte.getTailleCases();
+        drawCarte(carte);
         drawIncendies(dS.getIncendies());
         drawRobots(dS.getRobots());
     }
-    @Override
-    public void next() {
-    }
-
-    @Override
-    public void restart() {
-    }
-
 
     /*
      * Affiche la carte avec une image differente pour chaque natureTerrain
@@ -78,13 +62,14 @@ class AffichageDonneesSimulation implements Simulable {
         for(int i = 0 ; i< carte.getNbLignes()*carte.getTailleCases() ; i+=carte.getTailleCases()){
             for(int j = 0 ; j<carte.getNbColonnes()*carte.getTailleCases() ; j+=carte.getTailleCases()){
                 NatureTerrain typeTerrainImage = getTypeTerrainImage(carte,i/carte.getTailleCases(),j/carte.getTailleCases());
-                String imageString = new String();
                 try{
-                imageString = selectImage(typeTerrainImage);
-                }catch(Exception e){
+                    if (typeTerrainImage != NatureTerrain.TERRAIN_LIBRE) {
+                        String imageString = selectImage(typeTerrainImage);
+                        this.gui.addGraphicalElement(new ImageElement(i, j,imageString,carte.getTailleCases(),carte.getTailleCases(), this.gui));
+                    }
+                } catch(Exception e){
                     System.out.println(e);
                 }
-                this.gui.addGraphicalElement(new ImageElement(i, j,imageString,carte.getTailleCases(),carte.getTailleCases(), this.gui));
             }
         }
     }
@@ -96,15 +81,15 @@ class AffichageDonneesSimulation implements Simulable {
         String selectImage = null;
         try{
             if(typeNatureTerrain == NatureTerrain.EAU){
-                selectImage = "img/eau.jpg";
+                selectImage = "img/water.png";
             }else if(typeNatureTerrain == NatureTerrain.FORET){
-                selectImage = "img/foret.jpg";
+                selectImage = "img/forest.png";
             }else if(typeNatureTerrain == NatureTerrain.HABITAT){
-                selectImage = "img/habitat.jpg";
+                selectImage = "img/habitat.png";
             }else if(typeNatureTerrain == NatureTerrain.TERRAIN_LIBRE){
                 selectImage = "img/neymar_animado(terrrain_libre).jpg";
             }else{
-                selectImage = "img/roche.jpg";
+                selectImage = "img/roche.png";
             }
         }catch(Exception e){
             System.out.println(e);
