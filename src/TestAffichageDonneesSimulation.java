@@ -68,7 +68,8 @@ class AffichageDonneesSimulation extends Evenement implements Simulable {
     private void secondPointInit(){
         this.dateSimulation = new Integer(0);
         this.ordonne = new ArrayList<>();
-        this.ordonne.add(0,this);
+        this.ordonneIndex = new Integer(0);
+        this.ordonne.add(this.ordonneIndex,this);
         this.incrementDate();
     }
     /*
@@ -180,7 +181,7 @@ class AffichageDonneesSimulation extends Evenement implements Simulable {
      * this function just will test that the objects are moving
      */
     private void testingMovement(){
-        
+
     }
 
     /*
