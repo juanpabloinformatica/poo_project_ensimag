@@ -6,8 +6,11 @@ import io.LecteurDonnees;
 import classes.*;
 import robots.*;
 import constants.NatureTerrain;
+import events.Evenement;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.zip.DataFormatException;
 import java.awt.Color;
 
@@ -32,11 +35,27 @@ public class TestAffichageDonneesSimulation{
     }
 }
 
-class AffichageDonneesSimulation implements Simulable {
+class AffichageDonneesSimulation extends Evenement implements Simulable {
 
     private GUISimulator gui;
     private int sizeCase;
+    private Integer dateSimulation;
+    private ArrayList<Evenement>ordonne;
+    private int ordonneIndex;
     public AffichageDonneesSimulation(GUISimulator gui, DonneesSimulation dS) {
+        super(new Integer(0));
+        secondPointInit();
+        firstPointInit(gui,dS);
+        // this.gui = gui;
+        // gui.setSimulable(this);
+        // Carte carte = dS.getCarte();
+        // this.sizeCase = carte.getTailleCases();
+        // drawCarte(carte);
+        // drawIncendies(dS.getIncendies());
+        // drawRobots(dS.getRobots());
+        // testingMovement();
+    }
+    private void firstPointInit(GUISimulator gui,DonneesSimulation dS){
         this.gui = gui;
         gui.setSimulable(this);
         Carte carte = dS.getCarte();
@@ -44,21 +63,18 @@ class AffichageDonneesSimulation implements Simulable {
         drawCarte(carte);
         drawIncendies(dS.getIncendies());
         drawRobots(dS.getRobots());
+        testingMovement();
     }
-
+    private void secondPointInit(){
+        this.dateSimulation = new Integer(0);
+        this.ordonne = new ArrayList<>();
+        this.ordonne.add(0,this);
+        this.incrementDate();
+    }
     /*
      * Affiche la carte avec une image differente pour chaque natureTerrain
      */
     private void drawCarte(Carte carte) {
-        // TODO: drawCarte with images if possible (cf. ImageElement in the doc folder)
-        // cf.TestInvader
-        // for (int i ) {
-        //     for (int j) {
-        //     }
-        // }
-        //resize the image
-        
-        // image = resizeImage(image,carte);
         for(int i = 0 ; i< carte.getNbLignes()*carte.getTailleCases() ; i+=carte.getTailleCases()){
             for(int j = 0 ; j<carte.getNbColonnes()*carte.getTailleCases() ; j+=carte.getTailleCases()){
                 NatureTerrain typeTerrainImage = getTypeTerrainImage(carte,i/carte.getTailleCases(),j/carte.getTailleCases());
@@ -96,9 +112,6 @@ class AffichageDonneesSimulation implements Simulable {
         }
         return selectImage;
     }
-    // private  Image resizeImage(Image image,Carte carte){
-    //     return image.getScaledInstance(carte.getTailleCases()/2,carte.getTailleCases()/2,Image.SCALE_DEFAULT);
-    // }
     private void drawIncendies(Incendie[] incendies) {
         // TODO: drawIncendies with images if possible (cf. ImageElement in the doc folder)
         // cf.TestInvader
@@ -115,8 +128,6 @@ class AffichageDonneesSimulation implements Simulable {
         int i = robot.getPosition().getLigne();
         int j = robot.getPosition().getColonne();
         Color color = Color.decode("#f2ff28");
-
-        // ImageObserverDemo obs = new ImageObserverDemo();
         switch(robot.getTypeRobot()) {
             case DRONE:
                 gui.addGraphicalElement(new ImageElement(j * sizeCase,
@@ -148,4 +159,38 @@ class AffichageDonneesSimulation implements Simulable {
         // TODO Auto-generated method stub
         
     }
+    public void ajouteEvenement(Evenement e){
+        this.ordonne.add(e);
+    }
+    private void incrementDate(){
+        this.ordonneIndex++;
+    }
+    /*
+     * this 
+     */
+    private boolean simulationTerminee(){
+        for(Evenement e:this.ordonne){
+            if(e.getEventDone()==false){
+                return false;
+            }
+        }
+        return true;
+    }
+    /*
+     * this function just will test that the objects are moving
+     */
+    private void testingMovement(){
+        
+    }
+
+    /*
+     * this method run the first event
+     */
+    @Override
+    public void execute() {
+        // TODO Auto-generated method stub
+        
+    };
+
+   
 }
