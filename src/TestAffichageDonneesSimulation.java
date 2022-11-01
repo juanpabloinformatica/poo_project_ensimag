@@ -73,7 +73,7 @@ class AffichageDonneesSimulation implements Simulable {
                 }catch(Exception e){
                     System.out.println(e);
                 }
-                this.gui.addGraphicalElement(new ImageElement(i, j,imageString,carte.getTailleCases(),carte.getTailleCases(), this.gui));
+                this.gui.addGraphicalElement(new ImageElement(j, i,imageString,carte.getTailleCases(),carte.getTailleCases(), this.gui));
             }
         }
     }
