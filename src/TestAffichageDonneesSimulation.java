@@ -115,10 +115,11 @@ class AffichageDonneesSimulation  implements Simulable {
         return selectImage;
     }
     private void drawIncendies(Incendie[] incendies) {
-        // TODO: drawIncendies with images if possible (cf. ImageElement in the doc folder)
-        // cf.TestInvader
-        // for (int i ) {
-        // }
+        for (Incendie i : incendies) {
+            int lig = i.getPos().getLigne();
+            int col = i.getPos().getColonne();
+            this.gui.addGraphicalElement(new ImageElement(col * this.sizeCase, lig * this.sizeCase, "img/fire.png", this.sizeCase, this.sizeCase, this.gui));
+        }
 
     }
     private void drawRobots(Robot[] robots) {
