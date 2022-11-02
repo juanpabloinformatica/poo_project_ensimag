@@ -1,3 +1,4 @@
+
 import gui.GUISimulator;
 import gui.Simulable;
 import gui.Rectangle;
@@ -35,16 +36,16 @@ public class TestAffichageDonneesSimulation{
     }
 }
 
-class AffichageDonneesSimulation extends Evenement implements Simulable {
+class AffichageDonneesSimulation  implements Simulable {
 
     private GUISimulator gui;
     private int sizeCase;
-    private Integer dateSimulation;
-    private ArrayList<Evenement>ordonne;
-    private int ordonneIndex;
+    // private Integer dateSimulation;
+    // private ArrayList<Evenement>ordonne;
+    // private int ordonneIndex;
     public AffichageDonneesSimulation(GUISimulator gui, DonneesSimulation dS) {
-        super(new Integer(0));
-        secondPointInit();
+        // super(new Integer(0));
+        // secondPointInit();
         firstPointInit(gui,dS);
         // this.gui = gui;
         // gui.setSimulable(this);
@@ -63,15 +64,15 @@ class AffichageDonneesSimulation extends Evenement implements Simulable {
         drawCarte(carte);
         drawIncendies(dS.getIncendies());
         drawRobots(dS.getRobots());
-        testingMovement();
+        // testingMovement();
     }
-    private void secondPointInit(){
-        this.dateSimulation = new Integer(0);
-        this.ordonne = new ArrayList<>();
-        this.ordonneIndex = new Integer(0);
-        this.ordonne.add(this.ordonneIndex,this);
-        this.incrementDate();
-    }
+    // private void secondPointInit(){
+    //     this.dateSimulation = new Integer(0);
+    //     this.ordonne = new ArrayList<>();
+    //     this.ordonneIndex = new Integer(0);
+    //     this.ordonne.add(this.ordonneIndex,this);
+    //     this.incrementDate();
+    // }
     /*
      * Affiche la carte avec une image differente pour chaque natureTerrain
      */
@@ -160,38 +161,34 @@ class AffichageDonneesSimulation extends Evenement implements Simulable {
         // TODO Auto-generated method stub
         
     }
-    public void ajouteEvenement(Evenement e){
-        this.ordonne.add(e);
-    }
-    private void incrementDate(){
-        this.ordonneIndex++;
-    }
+    // public void ajouteEvenement(Evenement e){
+    //     this.ordonne.add(e);
+    // }
+    // private void incrementDate(){
+    //     this.ordonneIndex++;
+    // }
     /*
      * this 
      */
-    private boolean simulationTerminee(){
-        for(Evenement e:this.ordonne){
-            if(e.getEventDone()==false){
-                return false;
-            }
-        }
-        return true;
-    }
+    // private boolean simulationTerminee(){
+    //     for(Evenement e:this.ordonne){
+    //         if(e.getEventDone()==false){
+    //             return false;
+    //         }
+    //     }
+    //     return true;
+    // }
     /*
      * this function just will test that the objects are moving
      */
-    private void testingMovement(){
+    // private void testingMovement(){
 
-    }
+    // }
 
     /*
      * this method run the first event
      */
-    @Override
-    public void execute() {
-        // TODO Auto-generated method stub
-        
-    };
+    
 
    
 }

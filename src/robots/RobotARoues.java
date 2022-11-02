@@ -5,20 +5,8 @@ import constants.*;
 public class RobotARoues extends Robot {
     private double vitesse;
 
-    // public RobotARoues(Case pos, double vitesse) {
-    //     super(pos);
-    //     if (vitesse == -1) {
-    //         this.vitesse = 80; // vitesse par défaut
-    //     } else {
-    //         this.vitesse = vitesse;
-    //     }
-    //     this.setReservoir(5000);
-    //     this.setTempsRemplissage(10*60); // 30 min * 60 sec
-    //     this.setVidage(100, 5); // 100L en 5 sec
-
-    // }
-    public RobotARoues(Case pos, double vitesse,Integer date) {
-        super(pos,date);
+    public RobotARoues(Case pos, double vitesse) {
+        super(pos);
         if (vitesse == -1) {
             this.vitesse = 80; // vitesse par défaut
         } else {
@@ -29,6 +17,7 @@ public class RobotARoues extends Robot {
         this.setVidage(100, 5); // 100L en 5 sec
 
     }
+    
 
     @Override
     public void setPosition(Case pos) {
@@ -58,9 +47,5 @@ public class RobotARoues extends Robot {
      * remplir
      * and possible events that can happen!
      */
-    @Override
-    public void execute() {
-        // TODO Auto-generated method stub
-        
-    }
+    
 }

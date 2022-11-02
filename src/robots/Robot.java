@@ -3,7 +3,7 @@ import classes.*;
 import constants.TypeRobot;
 import events.Evenement;
 
-public abstract class Robot extends Evenement {
+public abstract class Robot {
     protected Case position;
     private int reservoir;
     private int tempsRemplissage; // en seconds
@@ -13,11 +13,8 @@ public abstract class Robot extends Evenement {
     public abstract double getVitesse();
     public abstract void setPosition(Case pos);
     public abstract TypeRobot getTypeRobot();
-    // public Robot(Case pos) {
-    //     position = pos;
-    // }
-    public Robot(Case pos,Integer date) {
-        super(date);
+    
+    public Robot(Case pos) {
         position = pos;
     }
     public Case getPosition() {
