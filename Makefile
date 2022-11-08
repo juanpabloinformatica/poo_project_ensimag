@@ -52,4 +52,4 @@ exeAffichage:
 	java -classpath bin:bin/gui.jar TestAffichageDonneesSimulation $(CARTE)
 
 clean:
-	rm -rf bin/*.class
+	rm -rf bin/*.class bin/*/*.class
