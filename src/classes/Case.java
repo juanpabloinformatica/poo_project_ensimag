@@ -2,6 +2,7 @@ package classes;
 import constants.NatureTerrain;
 
 public class Case {
+    
     private int ligne;
     private int colonne;
     private NatureTerrain  natureTerrain;

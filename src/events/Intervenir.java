@@ -1,13 +1,16 @@
 package events;
 
 import classes.Case;
+import robots.Robot;
 
 public class Intervenir extends Evenement {
 
-    private Case caseI;
-    public Intervenir(Integer date, Case caseI) {
+    // private Case caseI;
+    private Robot robot;
+    public Intervenir(Integer date, Robot robot) {
         super(date);
-        this.caseI = caseI;
+        this.robot = robot;
+        // this.caseI = caseI;
         //TODO Auto-generated constructor stub
     }
 
@@ -16,6 +19,7 @@ public class Intervenir extends Evenement {
      */
     @Override
     public void execute() {
+        
         // TODO Auto-generated method stub
         
     }

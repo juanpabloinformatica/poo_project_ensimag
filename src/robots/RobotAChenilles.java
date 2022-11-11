@@ -5,13 +5,12 @@ import constants.*;
 public class RobotAChenilles extends Robot {
     private double vitesse;
     public RobotAChenilles(Case pos, int vitesse) {
-        super(pos);
+        super(pos, 2000);
         if (vitesse == -1 || vitesse > 80) {
             this.vitesse = 60; // vitesse par défaut
         } else {
             this.vitesse = vitesse;
         }
-        this.setReservoir(2000);
         this.setTempsRemplissage(10*60); // 10 min * 60 sec
         this.setVidage(100, 8);
     }
