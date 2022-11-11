@@ -3,6 +3,7 @@ package classes;
 import events.Evenement;
 
 public class Incendie{
+    
     private Case pos;
     private int intensite;
 

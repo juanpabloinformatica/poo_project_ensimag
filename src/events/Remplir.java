@@ -5,6 +5,7 @@ import robots.Robot;
 public class Remplir extends Evenement {
     
     private Robot robot;
+
     public Remplir(Integer date, Robot robot) {
         super(date);
         this.robot=robot;
@@ -15,8 +16,7 @@ public class Remplir extends Evenement {
      */
     @Override
     public void execute() {
-        // TODO Auto-generated method stub
-        
+        this.robot.setCurrReservoir(this.robot.getRESERVOIR());
     }
     
 }

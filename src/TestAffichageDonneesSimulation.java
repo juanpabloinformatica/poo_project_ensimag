@@ -36,13 +36,14 @@ public class TestAffichageDonneesSimulation{
     }
 }
 
-class AffichageDonneesSimulation  implements Simulable {
+class AffichageDonneesSimulation implements Simulable {
 
     private GUISimulator gui;
     private int sizeCase;
     // private Integer dateSimulation;
     // private ArrayList<Evenement>ordonne;
     // private int ordonneIndex;
+    
     public AffichageDonneesSimulation(GUISimulator gui, DonneesSimulation dS) {
         // super(new Integer(0));
         // secondPointInit();
@@ -73,6 +74,8 @@ class AffichageDonneesSimulation  implements Simulable {
     //     this.ordonne.add(this.ordonneIndex,this);
     //     this.incrementDate();
     // }
+
+
     /*
      * Affiche la carte avec une image differente pour chaque natureTerrain
      */
@@ -183,6 +186,7 @@ class AffichageDonneesSimulation  implements Simulable {
      * this function just will test that the objects are moving
      */
     // private void testingMovement(){
+    
 
     // }
 

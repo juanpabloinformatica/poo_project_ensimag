@@ -31,6 +31,10 @@ public abstract class Robot {
     }
     public void remplirReservoir() {
     }
+    
+    public void setCurrReservoir(int currReservoir) {
+        this.currReservoir = currReservoir;
+    }
     public int getCurrReservoir() {
         return this.currReservoir;
     }
