@@ -5,7 +5,7 @@ import classes.Case;
 public class Eteindre extends Evenement {
 
     Case caseE;
-    public Eteindre(Integer date,Case caseE) {
+    public Eteindre(Integer date, Case caseE) {
         super(date);
         this.caseE = caseE;
         //TODO Auto-generated constructor stub

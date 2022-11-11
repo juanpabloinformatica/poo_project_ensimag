@@ -19,5 +19,5 @@ public abstract class Evenement {
         return this.date;
     }
     
-    public abstract void execute();
+    public abstract void execute() throws Exception;
 }

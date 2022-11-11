@@ -7,7 +7,8 @@ import io.LecteurDonnees;
 import classes.*;
 import robots.*;
 import constants.NatureTerrain;
-import events.Evenement;
+import constants.Direction;
+import events.*;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ public class TestAffichageDonneesSimulation{
         // crée l'invader, en l'associant à la fenêtre graphique précédente
         try {
             DonneesSimulation dS  = LecteurDonnees.creerDonneesSimulation(args[0]);
-             int widthGui = dS.getCarte().getTailleCases()*dS.getCarte().getNbColonnes();
-             int heightGui = dS.getCarte().getTailleCases()*dS.getCarte().getNbLignes();
-             GUISimulator gui = new GUISimulator(widthGui,heightGui,Color.decode("#7ac270"));
+            int widthGui = dS.getCarte().getTailleCases()*dS.getCarte().getNbColonnes();
+            int heightGui = dS.getCarte().getTailleCases()*dS.getCarte().getNbLignes();
+            GUISimulator gui = new GUISimulator(widthGui,heightGui,Color.decode("#7ac270"));
             AffichageDonneesSimulation aFS = new AffichageDonneesSimulation(gui,dS);
         } catch (FileNotFoundException e) {
             System.out.println("fichier " + args[0] + " inconnu ou illisible");
@@ -40,13 +41,29 @@ class AffichageDonneesSimulation  implements Simulable {
 
     private GUISimulator gui;
     private int sizeCase;
+    private Simulateur simulateur;
+    private DonneesSimulation dS;
     // private Integer dateSimulation;
     // private ArrayList<Evenement>ordonne;
     // private int ordonneIndex;
+    private void testDeplacerEvenement() {
+        Robot robot = dS.getRobots()[0];
+
+        simulateur.addEvenement(new DeplacerEvenement(0, robot, Direction.NORD, dS.getCarte()));
+        simulateur.addEvenement(new DeplacerEvenement(1, robot, Direction.EST, dS.getCarte()));
+        simulateur.addEvenement(new DeplacerEvenement(2, robot, Direction.OUEST, dS.getCarte()));
+        simulateur.addEvenement(new DeplacerEvenement(3, robot, Direction.SUD, dS.getCarte()));
+        simulateur.addEvenement(new DeplacerEvenement(4, robot, Direction.NORD, dS.getCarte()));
+        simulateur.addEvenement(new DeplacerEvenement(5, robot, Direction.NORD, dS.getCarte()));
+    }
+
     public AffichageDonneesSimulation(GUISimulator gui, DonneesSimulation dS) {
         // super(new Integer(0));
         // secondPointInit();
         firstPointInit(gui,dS);
+        simulateur = new Simulateur(gui);
+        testDeplacerEvenement();
+
         // this.gui = gui;
         // gui.setSimulable(this);
         // Carte carte = dS.getCarte();
@@ -57,14 +74,30 @@ class AffichageDonneesSimulation  implements Simulable {
         // testingMovement();
     }
     private void firstPointInit(GUISimulator gui,DonneesSimulation dS){
+        this.dS = dS;
         this.gui = gui;
         gui.setSimulable(this);
-        Carte carte = dS.getCarte();
-        this.sizeCase = carte.getTailleCases();
-        drawCarte(carte);
+        this.sizeCase = dS.getCarte().getTailleCases();
+        draw();
+        // testingMovement();
+    }
+
+    @Override
+    public void next() {
+        simulateur.incrementeDate();
+        draw();
+    }
+
+    @Override
+    public void restart() {
+        // TODO Auto-generated method stub
+
+    }
+    private void draw() {
+        gui.reset();
+        drawCarte(dS.getCarte());
         drawIncendies(dS.getIncendies());
         drawRobots(dS.getRobots());
-        // testingMovement();
     }
     // private void secondPointInit(){
     //     this.dateSimulation = new Integer(0);
@@ -151,17 +184,6 @@ class AffichageDonneesSimulation  implements Simulable {
         }
     }
 
-    @Override
-    public void next() {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void restart() {
-        // TODO Auto-generated method stub
-        
-    }
     // public void ajouteEvenement(Evenement e){
     //     this.ordonne.add(e);
     // }

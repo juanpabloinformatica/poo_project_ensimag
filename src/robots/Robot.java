@@ -29,9 +29,11 @@ public abstract class Robot {
     public void setReservoir(int res) {
         this.reservoir = res;
     }
+
     public void setTempsRemplissage(int t) {
         this.tempsRemplissage = t;
     }
+
     public void setVidage(int l, int temps) {
         this.volVidage = l;
         this.tempsVidage = temps;
