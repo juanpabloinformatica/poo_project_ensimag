@@ -1,13 +1,17 @@
 package events;
 
 import classes.Case;
+import classes.Incendie;
+import robots.Robot;
 
 public class Eteindre extends Evenement {
 
-    Case caseE;
-    public Eteindre(Integer date,Case caseE) {
+    Incendie incendie;
+    Robot robot;
+    public Eteindre(Integer date,Incendie incendie, Robot robot) {
         super(date);
-        this.caseE = caseE;
+        this.incendie = incendie;
+        this.robot = robot;
         //TODO Auto-generated constructor stub
     }
     /*
@@ -16,7 +20,13 @@ public class Eteindre extends Evenement {
     @Override
     public void execute() {
         // TODO Auto-generated method stub
-        
+        int volume = this.robot.getCurrReservoir();
+        this.robot.deverserEau(this.incendie.getIntensite());
+        if (robot.getCurrReservoir() > 0) {
+            this.incendie.setIntensite(0);
+        } else {
+            this.incendie.setIntensite(this.incendie.getIntensite() - volume);
+        }
     }
 
     

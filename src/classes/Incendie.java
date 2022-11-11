@@ -18,8 +18,11 @@ public class Incendie{
     public int getIntensite() {
         return intensite;
     }
-
     
+    public void setIntensite(int intensite) {
+        this.intensite = intensite;
+    }
+
     @Override
     public String toString() {
         return "Incendie a la " + pos.toString() + "Intensite lvl = " +

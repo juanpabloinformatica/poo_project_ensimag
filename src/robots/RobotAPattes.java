@@ -5,9 +5,8 @@ import constants.*;
 public class RobotAPattes extends Robot {
     private double vitesse;
     public RobotAPattes(Case pos) {
-        super(pos);
+        super(pos, Integer.MAX_VALUE);
         this.vitesse = 30;
-        this.setReservoir(Integer.MAX_VALUE);
         this.setTempsRemplissage(Integer.MAX_VALUE); // 30 min * 60 sec
         this.setVidage(10, 1);
     }
