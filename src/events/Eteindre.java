@@ -7,11 +7,9 @@ import robots.Robot;
 public class Eteindre extends Evenement {
 
     Incendie incendie;
-    Robot robot;
     public Eteindre(Integer date,Incendie incendie, Robot robot) {
-        super(date);
+        super(date, robot);
         this.incendie = incendie;
-        this.robot = robot;
         //TODO Auto-generated constructor stub
     }
     /*
