@@ -10,11 +10,31 @@ public abstract class Robot {
     private int tempsRemplissage; // en seconds
     private int volVidage; // volume litres vidé lors d'une intervention unitaire
     private int tempsVidage; // en seconds lors d'une intervention unitaire
+    protected double vitesse; // vitesse en m/s
+
+    public void setVitesse(double vitesse) {
+        this.vitesse = vitesse;
+    }
+    public int getTempsRemplissage() {
+        return tempsRemplissage;
+    }
+    public int getVolVidage() {
+        return volVidage;
+    }
+    public void setVolVidage(int volVidage) {
+        this.volVidage = volVidage;
+    }
+    public int getTempsVidage() {
+        return tempsVidage;
+    }
+    public void setTempsVidage(int tempsVidage) {
+        this.tempsVidage = tempsVidage;
+    }
 
     public abstract double getVitesse();
     public abstract void setPosition(Case pos);
     public abstract TypeRobot getTypeRobot();
-    
+
     public Robot(Case pos, int RESERVOIR) {
         position = pos;
         this.RESERVOIR = RESERVOIR;
