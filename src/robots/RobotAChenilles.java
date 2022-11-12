@@ -3,13 +3,12 @@ import classes.Case;
 import constants.*;
 
 public class RobotAChenilles extends Robot {
-    private double vitesse;
     public RobotAChenilles(Case pos, int vitesse) {
         super(pos, 2000);
         if (vitesse == -1 || vitesse > 80) {
-            this.vitesse = 60; // vitesse par défaut
+            this.setVitesse(60 * 1000 / 3600); // vitesse par défaut en m/s
         } else {
-            this.vitesse = vitesse;
+            this.setVitesse(vitesse * 1000 / 3600); // vitesse par lu en m/s
         }
         this.setTempsRemplissage(10*60); // 10 min * 60 sec
         this.setVidage(100, 8);

@@ -3,10 +3,9 @@ import classes.Case;
 import constants.*;
 
 public class RobotAPattes extends Robot {
-    private double vitesse;
     public RobotAPattes(Case pos) {
         super(pos, Integer.MAX_VALUE);
-        this.vitesse = 30;
+        this.setVitesse(30*1000/3600);
         this.setTempsRemplissage(Integer.MAX_VALUE); // 30 min * 60 sec
         this.setVidage(10, 1);
     }

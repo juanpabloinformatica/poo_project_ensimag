@@ -3,14 +3,12 @@ import classes.Case;
 import constants.*;
 
 public class RobotARoues extends Robot {
-    private double vitesse;
-
     public RobotARoues(Case pos, double vitesse) {
         super(pos, 5000);
         if (vitesse == -1) {
-            this.vitesse = 80; // vitesse par défaut
+            this.setVitesse(80*1000/3600); // vitesse par défaut m/s
         } else {
-            this.vitesse = vitesse;
+            this.setVitesse(vitesse*1000/3600); // vitesse par lu en m/s
         }
         this.setTempsRemplissage(10*60); // 30 min * 60 sec
         this.setVidage(100, 5); // 100L en 5 sec
