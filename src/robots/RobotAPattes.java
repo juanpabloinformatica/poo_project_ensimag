@@ -22,6 +22,13 @@ public class RobotAPattes extends Robot {
             return 10;
         return this.vitesse;
     }
+
+    @Override
+    public double getVitesseNature(NatureTerrain nT) {
+        if (nT == NatureTerrain.ROCHE)
+            return 10;
+        return vitesse;
+    }
     @Override
     public String toString() {
         return "robot a pattes";
@@ -29,7 +36,14 @@ public class RobotAPattes extends Robot {
     public TypeRobot getTypeRobot() {
         return TypeRobot.PATTES;
     }
-     
+
+    @Override
+    public boolean canGo(Case c) {
+        NatureTerrain nT = c.getNatureTerrain();
+        if (nT == NatureTerrain.EAU)
+            return false;
+        return true;
+    }
 
     
 }

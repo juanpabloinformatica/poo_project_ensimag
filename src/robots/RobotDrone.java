@@ -3,7 +3,6 @@ import classes.Case;
 import constants.*;
 
 public class RobotDrone extends Robot{
-    private double vitesse;
     public RobotDrone(Case pos, int vitesse) {
         super(pos, 10000);
         if (vitesse == -1 || vitesse > 150) {
@@ -19,6 +18,16 @@ public class RobotDrone extends Robot{
     @Override
     public void setPosition(Case pos) {
         this.position = pos; // pas des contraintes sur la natureTerrain
+    }
+
+    @Override
+    public boolean canGo(Case c) {
+        return true;
+    }
+
+    @Override
+    public double getVitesseNature(NatureTerrain nT) {
+        return vitesse;
     }
 
     @Override

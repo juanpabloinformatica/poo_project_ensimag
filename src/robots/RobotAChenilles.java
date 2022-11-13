@@ -25,6 +25,22 @@ public class RobotAChenilles extends Robot {
     }
 
     @Override
+    public boolean canGo(Case c) {
+        NatureTerrain nT = c.getNatureTerrain();
+        if (nT != NatureTerrain.EAU && nT != NatureTerrain.ROCHE)
+            return true;
+        return false;
+    }
+
+    // return la vitesse dans la natur nT
+    @Override
+    public double getVitesseNature(NatureTerrain nT) {
+        if (nT == NatureTerrain.FORET)
+            return  this.vitesse / 2;
+        return this.vitesse;
+    }
+
+    @Override
     public double getVitesse() {
         NatureTerrain nT = getPosition().getNatureTerrain();
         if (nT == NatureTerrain.FORET)

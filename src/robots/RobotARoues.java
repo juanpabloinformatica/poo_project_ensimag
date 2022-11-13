@@ -25,8 +25,21 @@ public class RobotARoues extends Robot {
     }
 
     @Override
+    public boolean canGo(Case c) {
+        NatureTerrain nT = c.getNatureTerrain();
+        if (nT == NatureTerrain.TERRAIN_LIBRE || nT == NatureTerrain.HABITAT)
+            return true;
+        return false;
+    }
+
+    @Override
     public double getVitesse() {
         return this.vitesse;
+    }
+
+    @Override
+    public double getVitesseNature(NatureTerrain nT) {
+        return vitesse;
     }
 
     @Override
