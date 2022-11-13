@@ -8,10 +8,7 @@ import classes.Case;
 import classes.Incendie;
 import constants.Direction;
 import events.DeplacerEvenement;
-import events.DisponibleEvenement;
-import events.ArrivedEvenement;
 import events.Evenement;
-import events.OccupiedEvenement;
 import events.Simulateur;
 
 public class NaivePathCalculator extends PathCalculator {
@@ -119,5 +116,10 @@ public class NaivePathCalculator extends PathCalculator {
             getSimulateur().addEvenement(new DeplacerEvenement(dates.get(i), r, directions.get(i), getCarte()));
         }
         getSimulateur().addEvenement(new ArrivedEvenement(dates.get(dates.size()-1)+1, r, incendie));
+    }
+    @Override
+    public void addPathEventsToSimulateur(Robot r, Incendie i, Path path) {
+        // TODO Auto-generated method stub
+        
     }
 }

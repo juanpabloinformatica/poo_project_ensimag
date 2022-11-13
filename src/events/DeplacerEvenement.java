@@ -8,6 +8,7 @@ import constants.TypeRobot;
 import robots.Robot;
 
 public class DeplacerEvenement extends Evenement {
+    
     private Direction direction;
     private Carte carte;
 
@@ -24,6 +25,7 @@ public class DeplacerEvenement extends Evenement {
      * Sinon elle envoie une exception
      */
     private Case checkMapLimits() throws Exception {
+        boolean outOfBounds = false;
         Case pos = getRobot().getPosition();
         int i = pos.getLigne();
         int j = pos.getColonne();
@@ -43,13 +45,23 @@ public class DeplacerEvenement extends Evenement {
             default:
                 // TODO throw exception type
         }
-        if ( i < 0 || i > carte.getNbLignes()) {
-            throw new Exception("i out of bounds");
-        } else if ( j < 0 || j > carte.getNbLignes()) {
-            throw new Exception("j out of bounds");
+        // if ( i < 0 || i > carte.getNbLignes()) {
+        //     throw new Exception("i out of bounds");
+        // } else if ( j < 0 || j > carte.getNbLignes()) {
+        //     throw new Exception("j out of bounds");
+        // }
+        outOfBounds = 
+                    i < 0 || i > carte.getNbLignes() 
+                    ||
+                    j < 0 || j > carte.getNbLignes();
+
+        if(outOfBounds){
+            throw new Exception("Out of bounds");
         }
-        return carte.getCase(i,j);
+        return this.carte.getCase(i, j);
+
     }
+
     /*
      * Deplacer le robot
      */

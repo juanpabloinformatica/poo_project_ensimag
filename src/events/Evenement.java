@@ -8,6 +8,7 @@ public abstract class Evenement {
     protected Integer dateExecution;
     private boolean eventDone;
     private Robot robot;
+    
     public Evenement(Integer date, Robot robot) {
         this.date = date;
         this.eventDone=false;
