@@ -18,6 +18,14 @@ public class Simulateur implements Simulable {
         this.gui = gui;
     }
 
+    public int getDateSimulation() {
+        return dateSimulation;
+    }
+
+    public void setDateSimulation(int dateSimulation) {
+        this.dateSimulation = dateSimulation;
+    }
+
     public void addEvenement(Evenement e) {
         if (events.isEmpty()) {
             events.add(e);
@@ -35,7 +43,7 @@ public class Simulateur implements Simulable {
     }
 
     public void incrementeDate() {
-        LinkedList<Evenement> toRemove = new LinkedList<>();;
+        LinkedList<Evenement> toRemove = new LinkedList<>();
         if (!simulationTerminee()) {
             for (Evenement e: events) {
                 if (e.getDate() <= dateSimulation) {
@@ -58,9 +66,7 @@ public class Simulateur implements Simulable {
     }
 
     public boolean simulationTerminee() {
-        if (events.isEmpty())
-            restartEvents();
-        return false;
+        return events.isEmpty();
     }
 
 
