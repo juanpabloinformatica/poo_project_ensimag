@@ -32,5 +32,5 @@ public abstract class Evenement {
     }
 
 
-    public abstract void execute();
+    public abstract Evenement execute();
 }

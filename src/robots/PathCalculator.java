@@ -28,5 +28,5 @@ public abstract class PathCalculator {
     }
 
     public abstract Path computePath(Robot r, Incendie i);
-    public abstract void addPathEventsToSimulateur(Robot r, Path path);
+    public abstract void addPathEventsToSimulateur(Robot r, Incendie i, Path path);
 }

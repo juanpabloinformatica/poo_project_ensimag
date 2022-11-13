@@ -28,8 +28,9 @@ public abstract class Robot {
         // TODO: calculer le sp pour aller a l'incendie i
 
         Path path = pathCalculator.computePath(this, i);
-        // ajouter dans le simulateur les evenementsdeplacer
-        pathCalculator.addPathEventsToSimulateur(this, path);
+        // ajouter dans le simulateur les evenements
+        if (path != null)
+            pathCalculator.addPathEventsToSimulateur(this, i, path);
         // + occupe + dispobible + eteindre
         //
         return true;

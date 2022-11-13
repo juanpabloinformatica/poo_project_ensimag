@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.zip.DataFormatException;
 
 import classes.Carte;
+import classes.ChefPompier;
 import classes.DonneesSimulation;
 import classes.Incendie;
 import constants.Direction;
@@ -64,9 +65,13 @@ class AffichageDonneesSimulation implements Simulable {
     // super(new Integer(0));
     // secondPointInit();
     firstPointInit(gui, dS);
-    simulateur = new Simulateur(gui);
-    testDeplacerEvenement();
-    System.out.println(gui.getAccessibleContext());
+    //testDeplacerEvenement();
+    ChefPompier chefPompier = new ChefPompier(dS.getCarte(), dS.getRobots(), dS.getIncendies());
+    simulateur = new Simulateur(gui, chefPompier);
+    NaivePathCalculator npc = new NaivePathCalculator(simulateur, dS.getCarte());
+    for (Robot r: dS.getRobots())
+      r.setPathCalculator(npc);
+    //robot.propose(dS.getIncendies()[0]);
 
     // this.gui = gui;
     // gui.setSimulable(this);
@@ -82,7 +87,7 @@ class AffichageDonneesSimulation implements Simulable {
     this.dS = dS;
     this.gui = gui;
     gui.setSimulable(this);
-    this.pixelSizeCase = 30;
+    this.pixelSizeCase = 80;
     draw();
     // testingMovement();
   }
@@ -161,6 +166,8 @@ class AffichageDonneesSimulation implements Simulable {
 
   private void drawIncendies(Incendie[] incendies) {
     for (Incendie i : incendies) {
+      if (i.getIntensite() <= 0)
+        continue;
       int lig = i.getPosition().getLigne();
       int col = i.getPosition().getColonne();
       this.gui.addGraphicalElement(

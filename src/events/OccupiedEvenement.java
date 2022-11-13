@@ -8,7 +8,8 @@ public class OccupiedEvenement extends Evenement {
         super(date, robot);
     }
 
-    public void execute() {
+    public Evenement execute() {
         getRobot().setOccupied(true);
+        return null;
     }
 }

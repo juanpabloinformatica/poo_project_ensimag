@@ -54,7 +54,7 @@ public class DeplacerEvenement extends Evenement {
      * Deplacer le robot
      */
     @Override
-    public void execute() {
+    public Evenement execute() {
         try {
             Case nextPos = checkMapLimits();
             TypeRobot typeR = getRobot().getTypeRobot();
@@ -81,6 +81,7 @@ public class DeplacerEvenement extends Evenement {
         } catch (Exception e) {
             System.out.println(e);
         }
+        return null;
     }
 
 

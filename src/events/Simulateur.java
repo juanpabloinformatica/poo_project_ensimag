@@ -2,6 +2,7 @@ package events;
 
 import java.util.LinkedList;
 
+import classes.ChefPompier;
 import gui.GUISimulator;
 import gui.Simulable;
 
@@ -10,12 +11,16 @@ public class Simulateur implements Simulable {
     private LinkedList<Evenement> removedEvents;
     private GUISimulator gui;
     private int dateSimulation;
+    private ChefPompier chef;
+    private int n;
 
-    public Simulateur(GUISimulator gui) {
+    public Simulateur(GUISimulator gui, ChefPompier chef) {
         dateSimulation = 0;
+        this.chef = chef;
         events = new LinkedList<Evenement>();
         removedEvents = new LinkedList<Evenement>();
         this.gui = gui;
+        this.n = 1000;
     }
 
     public int getDateSimulation() {
@@ -43,20 +48,29 @@ public class Simulateur implements Simulable {
     }
 
     public void incrementeDate() {
-        LinkedList<Evenement> toRemove = new LinkedList<>();
-        if (!simulationTerminee()) {
-            for (Evenement e: events) {
-                if (e.getDate() <= dateSimulation) {
-                    e.execute();
-                    toRemove.add(e);
-                } else {
-                    break;
-                }
-            }
-            for (Evenement e: toRemove)
-                events.remove(e);
-            removedEvents.addAll(toRemove);
+        if (dateSimulation % n == 0){
+            this.chef.strategieElementaire();
         }
+        if (simulationTerminee())
+            return;
+        LinkedList<Evenement> toRemove = new LinkedList<>();
+        LinkedList<Evenement> toAdd = new LinkedList<>();
+        for (Evenement e: events) {
+            if (e.getDate() <= dateSimulation) {
+                Evenement newEv = e.execute();
+                if (newEv != null)
+                    toAdd.add(newEv);
+                toRemove.add(e);
+            } else {
+                break;
+            }
+        }
+        for (Evenement e: toAdd)
+            addEvenement(e);
+
+        for (Evenement e: toRemove)
+            events.remove(e);
+        removedEvents.addAll(toRemove);
         dateSimulation++;
     }
 
@@ -66,6 +80,7 @@ public class Simulateur implements Simulable {
     }
 
     public boolean simulationTerminee() {
+        chef.strategieElementaire();
         return events.isEmpty();
     }
 

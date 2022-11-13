@@ -8,6 +8,10 @@ import classes.Case;
 import classes.Incendie;
 import constants.Direction;
 import events.DeplacerEvenement;
+import events.DisponibleEvenement;
+import events.ArrivedEvenement;
+import events.Evenement;
+import events.OccupiedEvenement;
 import events.Simulateur;
 
 public class NaivePathCalculator extends PathCalculator {
@@ -92,21 +96,28 @@ public class NaivePathCalculator extends PathCalculator {
     // OU null si aucun chemin a ete trouve
     @Override
     public Path computePath(Robot r, Incendie i) {
+        // REVIEW MONKEY PATCH
+        if (r.getPosition() == i.getPosition())
+            return null;
+
         nextCases = new ArrayList<Case>();
+        seenCases = new HashSet<>();
         Case start = r.getPosition();
         Case target = i.getPosition();
-        seenCases = new HashSet<>();
         nextCases.add(r.getPosition());
         if (!searchPath(r, start, target))
             return null;
         return convertToPath(r, getSimulateur().getDateSimulation());
     }
+
     @Override
-    public void addPathEventsToSimulateur(Robot r, Path path) {
+    public void addPathEventsToSimulateur(Robot r, Incendie incendie, Path path) {
         ArrayList<Integer> dates = path.getDates();
         ArrayList<Direction> directions = path.getNextMoves();
+        getSimulateur().addEvenement(new OccupiedEvenement(dates.get(0), r));
         for(int i = 0; i < dates.size(); i++) {
             getSimulateur().addEvenement(new DeplacerEvenement(dates.get(i), r, directions.get(i), getCarte()));
         }
+        getSimulateur().addEvenement(new ArrivedEvenement(dates.get(dates.size()-1)+1, r, incendie));
     }
 }
