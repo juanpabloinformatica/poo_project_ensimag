@@ -11,9 +11,16 @@ public abstract class Robot {
     private int volVidage; // volume litres vidé lors d'une intervention unitaire
     private int tempsVidage; // en seconds lors d'une intervention unitaire
     protected double vitesse; // vitesse en m/s
+    private boolean occupied;
 
     public void setVitesse(double vitesse) {
         this.vitesse = vitesse;
+    }
+    public boolean isOccupied() {
+        return occupied;
+    }
+    public void setOccupied(boolean occupied) {
+        this.occupied = occupied;
     }
     public int getTempsRemplissage() {
         return tempsRemplissage;

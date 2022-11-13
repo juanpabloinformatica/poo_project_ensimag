@@ -1,63 +1,66 @@
 package events;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedList;
 
 import gui.GUISimulator;
 import gui.Simulable;
-import robots.Robot;
 
 public class Simulateur implements Simulable {
-    private ArrayList<Evenement> events;
+    private LinkedList<Evenement> events;
+    private LinkedList<Evenement> removedEvents;
     private GUISimulator gui;
     private int dateSimulation;
-    private HashMap<Robot, Boolean> availableRobots;
 
     public Simulateur(GUISimulator gui) {
         dateSimulation = 0;
-        events = new ArrayList<Evenement>();
+        events = new LinkedList<Evenement>();
+        removedEvents = new LinkedList<Evenement>();
         this.gui = gui;
-        availableRobots = new HashMap<Robot, Boolean>();
     }
 
     public void addEvenement(Evenement e) {
-        events.add(e);
+        if (events.isEmpty()) {
+            events.add(e);
+            return;
+        }
+        boolean inserted = false;
+        for (int i = 0; i < events.size() && !inserted; i++) {
+            if (e.getDate() < events.get(i).getDate()) {
+                events.add(i, e);
+                inserted = true;
+            }
+        }
+        if (!inserted)
+            events.add(e);
     }
 
     public void incrementeDate() {
-        try {
+        LinkedList<Evenement> toRemove = new LinkedList<>();;
+        if (!simulationTerminee()) {
             for (Evenement e: events) {
-                // premier fois qu'on voit le robot
-                System.out.println(availableRobots.get(e.getRobot()) + " " + e.getDateExecution() + " " + dateSimulation);
-                if (availableRobots.get(e.getRobot()) == null) {
-                    availableRobots.put(e.getRobot(), true);
-                }
-                System.out.println(availableRobots.get(e.getRobot()) + " " + e.getDateExecution() + " " + dateSimulation);
-                // date d'execution du evenement non calcule
-                // et le robot est disponible
-                if (e.getDateExecution() == null &&
-                    availableRobots.get(e.getRobot())) {
-                    e.computeDateExecution(dateSimulation);
-                    availableRobots.put(e.getRobot(), false);
-                }
-                System.out.println(availableRobots.get(e.getRobot()) + " " + e.getDateExecution() + " " + dateSimulation);
-
-                if (e.getDateExecution() != null && dateSimulation >= e.getDateExecution()) {
+                if (e.getDate() <= dateSimulation) {
                     e.execute();
-                    e.setEventDone();
-                    availableRobots.put(e.getRobot(), true);
-                    events.remove(e);
+                    toRemove.add(e);
+                } else {
+                    break;
                 }
             }
-            dateSimulation++;
-        } catch (Exception e) {
-            System.out.println("increment date exception" + e);
+            for (Evenement e: toRemove)
+                events.remove(e);
+            removedEvents.addAll(toRemove);
         }
+        dateSimulation++;
+    }
+
+    public void restartEvents() {
+        events.addAll(0, removedEvents);
+        removedEvents.clear();
     }
 
     public boolean simulationTerminee() {
-        return dateSimulation >= events.size();
-
+        if (events.isEmpty())
+            restartEvents();
+        return false;
     }
 
 

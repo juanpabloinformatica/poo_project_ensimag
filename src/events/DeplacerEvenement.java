@@ -17,11 +17,6 @@ public class DeplacerEvenement extends Evenement {
         this.carte = carte;
     }
 
-    @Override
-    public void computeDateExecution(int date) {
-        int sizeCases = carte.getTailleCases();
-        this.dateExecution = date + (int)(sizeCases/getRobot().getVitesse());
-    }
 
     /*
      * Vérfie que la direction saisi est dans les limites de la carte
@@ -59,7 +54,7 @@ public class DeplacerEvenement extends Evenement {
      * Deplacer le robot
      */
     @Override
-    public void execute() throws Exception {
+    public void execute() {
         try {
             Case nextPos = checkMapLimits();
             TypeRobot typeR = getRobot().getTypeRobot();

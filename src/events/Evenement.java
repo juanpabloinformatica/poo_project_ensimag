@@ -14,7 +14,7 @@ public abstract class Evenement {
         this.robot = robot;
         this.dateExecution = null;
     }
-    public boolean getEventDone(){
+    public boolean isEventDone(){
         return this.eventDone;
     }
     public void setEventDone(){
@@ -32,7 +32,5 @@ public abstract class Evenement {
     }
 
 
-    public abstract void execute() throws Exception;
-
-    public abstract void computeDateExecution(int date);
+    public abstract void execute();
 }
