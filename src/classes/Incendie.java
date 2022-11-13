@@ -4,16 +4,16 @@ import events.Evenement;
 
 public class Incendie{
     
-    private Case pos;
+    private Case position;
     private int intensite;
 
-    public Incendie(Case pos, int intensite){
-        this.pos = pos;
+    public Incendie(Case position, int intensite){
+        this.position = position;
         this.intensite = intensite;
     }
 
-    public Case getPos() {
-        return pos;
+    public Case getPosition() {
+        return position;
     }
 
     public int getIntensite() {
@@ -26,7 +26,7 @@ public class Incendie{
 
     @Override
     public String toString() {
-        return "Incendie a la " + pos.toString() + "Intensite lvl = " +
+        return "Incendie a la " + position.toString() + "Intensite lvl = " +
             intensite + "\n";
     }
     
