@@ -1,11 +1,11 @@
 package events;
 
-import constants.Direction;
-import robots.Robot;
-import classes.Case;
-import constants.NatureTerrain;
 import classes.Carte;
+import classes.Case;
+import constants.Direction;
+import constants.NatureTerrain;
 import constants.TypeRobot;
+import robots.Robot;
 
 public class DeplacerEvenement extends Evenement {
     private Direction direction;
@@ -35,10 +35,10 @@ public class DeplacerEvenement extends Evenement {
                 i += 1;
                 break;
             case EST:
-                j -= 1;
+                j += 1;
                 break;
             case OUEST:
-                j += 1;
+                j -= 1;
                 break;
             default:
                 // TODO throw exception type
