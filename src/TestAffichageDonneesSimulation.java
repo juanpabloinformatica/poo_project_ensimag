@@ -13,6 +13,7 @@ import gui.GUISimulator;
 import gui.ImageElement;
 import gui.Simulable;
 import io.LecteurDonnees;
+import robots.NaivePathCalculator;
 import robots.Robot;
 
 public class TestAffichageDonneesSimulation {
@@ -47,13 +48,16 @@ class AffichageDonneesSimulation implements Simulable {
   // private int ordonneIndex;
   private void testDeplacerEvenement() {
     Robot robot = dS.getRobots()[0];
-
-    simulateur.addEvenement(new DeplacerEvenement(0, robot, Direction.NORD, dS.getCarte()));
-    simulateur.addEvenement(new DeplacerEvenement(1, robot, Direction.EST, dS.getCarte()));
-    simulateur.addEvenement(new DeplacerEvenement(2, robot, Direction.OUEST, dS.getCarte()));
-    simulateur.addEvenement(new DeplacerEvenement(3, robot, Direction.SUD, dS.getCarte()));
-    simulateur.addEvenement(new DeplacerEvenement(4, robot, Direction.NORD, dS.getCarte()));
-    simulateur.addEvenement(new DeplacerEvenement(5, robot, Direction.NORD, dS.getCarte()));
+    // simulateur.addEvenement(new DeplacerEvenement(0, robot, Direction.NORD, dS.getCarte()));
+    // simulateur.addEvenement(new DeplacerEvenement(1, robot, Direction.EST, dS.getCarte()));
+    // simulateur.addEvenement(new DeplacerEvenement(2, robot, Direction.OUEST, dS.getCarte()));
+    // simulateur.addEvenement(new DeplacerEvenement(3, robot, Direction.SUD, dS.getCarte()));
+    // simulateur.addEvenement(new DeplacerEvenement(4, robot, Direction.NORD, dS.getCarte()));
+    // simulateur.addEvenement(new DeplacerEvenement(5, robot, Direction.NORD, dS.getCarte()));
+    NaivePathCalculator npc = new NaivePathCalculator(simulateur, dS.getCarte());
+    robot.setPathCalculator(npc);
+    //npc.computePath(robot,]);
+    robot.propose(dS.getIncendies()[0]);
   }
 
   public AffichageDonneesSimulation(GUISimulator gui, DonneesSimulation dS) {
@@ -91,8 +95,6 @@ class AffichageDonneesSimulation implements Simulable {
 
   @Override
   public void restart() {
-    // TODO Auto-generated method stub
-
   }
 
   private void draw() {
@@ -159,8 +161,8 @@ class AffichageDonneesSimulation implements Simulable {
 
   private void drawIncendies(Incendie[] incendies) {
     for (Incendie i : incendies) {
-      int lig = i.getPos().getLigne();
-      int col = i.getPos().getColonne();
+      int lig = i.getPosition().getLigne();
+      int col = i.getPosition().getColonne();
       this.gui.addGraphicalElement(
           new ImageElement(
               col * this.pixelSizeCase,
