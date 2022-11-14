@@ -7,11 +7,14 @@ import classes.Carte;
 import classes.Case;
 import classes.Incendie;
 import constants.Direction;
+import constants.NatureTerrain;
+import constants.TypeRobot;
 import events.DeplacerEvenement;
 import events.DisponibleEvenement;
 import events.ArrivedEvenement;
 import events.Evenement;
 import events.OccupiedEvenement;
+import events.RemplirEvenement;
 import events.Simulateur;
 
 public class NaivePathCalculator extends PathCalculator {
@@ -47,6 +50,39 @@ public class NaivePathCalculator extends PathCalculator {
         }
         return false;
     }
+
+    private boolean searchPathToWater(Robot r, Case current) {
+        if (r.getTypeRobot() == TypeRobot.DRONE && current.getNatureTerrain() == NatureTerrain.EAU)
+            return true;
+
+        //(-1, 0), (0, -1), (0, 1), (1, 0)
+        int i_moves[] = {-1, 0, 0, 1};
+        int j_moves[] = {0, -1, 1, 0};
+        int curr_i = current.getLigne();
+        int curr_j = current.getColonne();
+        seenCases.add(current);
+        for (int i = 0; i < 4; i++) {
+            int next_i = curr_i + i_moves[i];
+            int next_j = curr_j + j_moves[i];
+            if (next_i >= 0 && next_i < getCarte().getNbLignes()
+                && next_j >= 0 && next_j < getCarte().getNbColonnes()) {
+                Case nextCase = this.getCarte().getCase(next_i, next_j);
+                if (!seenCases.contains(nextCase) && (r.canGo(nextCase) ||
+                                                      nextCase.getNatureTerrain() == NatureTerrain.EAU)) {
+                    if (r.getTypeRobot() != TypeRobot.DRONE
+                         && nextCase.getNatureTerrain() == NatureTerrain.EAU)
+                        return true;
+                    nextCases.add(nextCase);
+                    if (searchPathToWater(r, nextCase))
+                        return true;
+                    // chemin non trouve
+                    nextCases.remove(nextCase);
+                }
+            }
+        }
+        return false;
+    }
+
     private Direction calculateDirection(Case prev, Case next) {
         try {
             int diff_i = prev.getLigne() - next.getLigne();
@@ -111,13 +147,35 @@ public class NaivePathCalculator extends PathCalculator {
     }
 
     @Override
+    // retourne le premier chemin vers une case d'eau
+    public Path computePathToWater(Robot r) {
+        nextCases = new ArrayList<Case>();
+        seenCases = new HashSet<>();
+        nextCases.add(r.getPosition());
+        if (!searchPathToWater(r, r.getPosition()))
+            return null;
+        System.out.println("PATH TO WATER");
+        System.out.println(nextCases);
+        return convertToPath(r, getSimulateur().getDateSimulation());
+    }
+
+    @Override
     public void addPathEventsToSimulateur(Robot r, Incendie incendie, Path path) {
         ArrayList<Integer> dates = path.getDates();
         ArrayList<Direction> directions = path.getNextMoves();
+        System.out.println(r);
+        System.out.println(nextCases);
         getSimulateur().addEvenement(new OccupiedEvenement(dates.get(0), r));
         for(int i = 0; i < dates.size(); i++) {
             getSimulateur().addEvenement(new DeplacerEvenement(dates.get(i), r, directions.get(i), getCarte()));
         }
-        getSimulateur().addEvenement(new ArrivedEvenement(dates.get(dates.size()-1)+1, r, incendie));
+        // REVIEW : MONKEY PATCH
+        if (incendie != null) {
+            getSimulateur().addEvenement(new ArrivedEvenement(dates.get(dates.size()-1), r, incendie));
+        } else {
+            int timeNeeded = r.getTempsRemplissage();
+            getSimulateur().addEvenement(new RemplirEvenement(dates.get(dates.size()-1)+timeNeeded, r));
+            getSimulateur().addEvenement(new DisponibleEvenement(dates.get(dates.size()-1)+timeNeeded, r));
+        }
     }
 }
