@@ -1,13 +1,14 @@
 package events;
 
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 
 import classes.ChefPompier;
 import gui.GUISimulator;
 import gui.Simulable;
 
 public class Simulateur implements Simulable {
-    private LinkedList<Evenement> events;
+    private PriorityQueue<Evenement> events;
     private LinkedList<Evenement> removedEvents;
     private GUISimulator gui;
     private int dateSimulation;
@@ -17,7 +18,7 @@ public class Simulateur implements Simulable {
     public Simulateur(GUISimulator gui, ChefPompier chef) {
         dateSimulation = 0;
         this.chef = chef;
-        events = new LinkedList<Evenement>();
+        events = new PriorityQueue<Evenement>();
         removedEvents = new LinkedList<Evenement>();
         this.gui = gui;
         this.n = 1000;
@@ -32,52 +33,26 @@ public class Simulateur implements Simulable {
     }
 
     public void addEvenement(Evenement e) {
-        if (events.isEmpty()) {
-            events.add(e);
-            return;
-        }
-        boolean inserted = false;
-        for (int i = 0; i < events.size() && !inserted; i++) {
-            if (e.getDate() < events.get(i).getDate()) {
-                events.add(i, e);
-                inserted = true;
-            }
-        }
-        if (!inserted)
+        if (e != null)
             events.add(e);
     }
 
     public void incrementeDate() {
+        if (simulationTerminee())
+            return;
         if (dateSimulation % n == 0){
             this.chef.strategieElementaire();
         }
-        if (simulationTerminee())
-            return;
-        LinkedList<Evenement> toRemove = new LinkedList<>();
-        LinkedList<Evenement> toAdd = new LinkedList<>();
-        for (Evenement e: events) {
-            if (e.getDate() <= dateSimulation) {
-                Evenement newEv = e.execute();
-                if (newEv != null)
-                    toAdd.add(newEv);
-                toRemove.add(e);
-            } else {
-                break;
-            }
+        while(events.peek() != null && events.peek().getDate() <= dateSimulation) {
+            events.poll().execute();
         }
-        for (Evenement e: toAdd)
-            addEvenement(e);
-
-        for (Evenement e: toRemove)
-            events.remove(e);
-        removedEvents.addAll(toRemove);
         dateSimulation++;
     }
 
-    public void restartEvents() {
-        events.addAll(0, removedEvents);
-        removedEvents.clear();
-    }
+    // public void restartEvents() {
+    //     events.addAll(0, removedEvents);
+    //     removedEvents.clear();
+    // }
 
     public boolean simulationTerminee() {
         chef.strategieElementaire();
