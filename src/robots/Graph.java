@@ -1,38 +1,21 @@
 package robots;
 
-import classes.Carte;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Graph {
-    private int adjMatrix[][];
-    private int numVertices;
-  
-    // Initialize the matrix
-    public Graph(int numVertices) {
-      this.numVertices = numVertices;
-      adjMatrix = new int[numVertices][numVertices];
-    }
-  
-    // Add edges
-    public void addEdge(int i, int j, int cost) {
-      adjMatrix[i][j] = cost;
-      adjMatrix[j][i] = cost;
-    }
-  
-    // Remove edges
-    public void removeEdge(int i, int j) {
-      adjMatrix[i][j] = -1;
-      adjMatrix[j][i] = -1;
+
+    private Set<Node> nodes = new HashSet<>();
+    
+    public void addNode(Node nodeA) {
+        nodes.add(nodeA);
     }
 
-    public int[][] getAdjMatrix() {
-        return adjMatrix;
+    public Set<Node> getNodes() {
+        return nodes;
     }
 
-    public int getNumVertices() {
-        return numVertices;
-    }
-
-    public void fillMatrix(Carte carte) {
-        
+    public void setNodes(Set<Node> nodes) {
+        this.nodes = nodes;
     }
 }
