@@ -21,9 +21,9 @@
 #   -classpath : repertoire dans lequel sont cherches les .class deja compiles
 #   -sourcepath : repertoire dans lequel sont cherches les .java (dependances)
 
-# CARTE = cartes/carteSujet.map
+CARTE = cartes/carteSujet.map
 # CARTE = cartes/desertOfDeath-20x20.map
-CARTE = cartes/mushroomOfHell-20x20.map
+# CARTE = cartes/mushroomOfHell-20x20.map
 # CARTE = cartes/spiralOfMadness-50x50.map
 
 all: testInvader testLecture testAffichage
@@ -32,7 +32,7 @@ testInvader:
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestInvader.java
 
 testLecture:
-	javac -d bin -sourcepath src src/TestLecteurDonnees.java
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestLecteurDonnees.java
 
 testAffichage:
 	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestAffichageDonneesSimulation.java
