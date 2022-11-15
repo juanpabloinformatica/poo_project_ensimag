@@ -6,15 +6,20 @@ import constants.Direction;
 import constants.NatureTerrain;
 import constants.TypeRobot;
 import robots.Robot;
+import robots.RobotLogic;
 
 public class DeplacerEvenement extends Evenement {
     private Direction direction;
     private Carte carte;
+    private Robot robot;
 
-    public DeplacerEvenement(Integer date, Robot robot, Direction direction, Carte carte) {
-        super(date, robot);
+    public DeplacerEvenement(Integer date, RobotLogic robotLogic,
+                             Direction direction, Carte carte) {
+        super(date, robotLogic);
         this.direction = direction;
         this.carte = carte;
+        this.robot = getRobotLogic().getRobot();
+
     }
 
 
@@ -24,7 +29,7 @@ public class DeplacerEvenement extends Evenement {
      * Sinon elle envoie une exception
      */
     private Case checkMapLimits() throws Exception {
-        Case pos = getRobot().getPosition();
+        Case pos = robot.getPosition();
         int i = pos.getLigne();
         int j = pos.getColonne();
         switch (direction) {
@@ -54,10 +59,10 @@ public class DeplacerEvenement extends Evenement {
      * Deplacer le robot
      */
     @Override
-    public Evenement execute() {
+    public void execute() {
         try {
             Case nextPos = checkMapLimits();
-            TypeRobot typeR = getRobot().getTypeRobot();
+            TypeRobot typeR = robot.getTypeRobot();
             NatureTerrain natureNext = nextPos.getNatureTerrain();
             switch (typeR) {
                 case DRONE:
@@ -77,11 +82,10 @@ public class DeplacerEvenement extends Evenement {
                         throw new Exception("Le robot a chenilles ne peut pas se rendre sur de l'eau ni sur du rocher");
                     break;
             }
-            getRobot().setPosition(nextPos);
+            robot.setPosition(nextPos);
         } catch (Exception e) {
             System.out.println(e);
         }
-        return null;
     }
 
 

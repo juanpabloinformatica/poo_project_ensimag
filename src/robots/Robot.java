@@ -1,6 +1,5 @@
 package robots;
 import classes.Case;
-import classes.Incendie;
 import constants.NatureTerrain;
 import constants.TypeRobot;
 
@@ -12,40 +11,14 @@ public abstract class Robot {
     private int volVidage; // volume litres vidé lors d'une intervention unitaire
     private int tempsVidage; // en seconds lors d'une intervention unitaire
     protected double vitesse; // vitesse en m/s
-    private boolean occupied;
-    private PathCalculator pathCalculator;
-
-    public void setPathCalculator(PathCalculator pathC) {
-        this.pathCalculator = pathC;
-    }
 
     // return la vitesse dans une cas de la nature nT;
     public abstract double getVitesseNature(NatureTerrain nT);
-    public boolean propose(Incendie i) {
-        if (occupied == true || currReservoir <= 0) {
-            return false; // decliner la proposition
-        }
-        // TODO: calculer le sp pour aller a l'incendie i
-
-        Path path = pathCalculator.computePath(this, i);
-        // ajouter dans le simulateur les evenements
-        if (path != null)
-            pathCalculator.addPathEventsToSimulateur(this, i, path);
-        // + occupe + dispobible + eteindre
-        //
-        return true;
-    }
-
     // Return si le robot peut se rendre sur la case c
     public abstract boolean canGo(Case c);
+
     public void setVitesse(double vitesse) {
         this.vitesse = vitesse;
-    }
-    public boolean isOccupied() {
-        return occupied;
-    }
-    public void setOccupied(boolean occupied) {
-        this.occupied = occupied;
     }
     public int getTempsRemplissage() {
         return tempsRemplissage;

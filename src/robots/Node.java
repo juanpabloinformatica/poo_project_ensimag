@@ -1,6 +1,8 @@
 package robots;
 
 import java.util.*;
+
+import classes.Carte;
 import classes.Case;
 
 public class Node {
@@ -77,7 +79,7 @@ public class Node {
             for (Map.Entry<Node, Integer> adjacencyPair: 
               currentNode.getAdjacentNodes().entrySet()) {
                 Node adjacentNode = adjacencyPair.getKey();
-                Integer edgeWeight = adjacencyPair.getValue();
+                Integer edgeWeight = adjacencyPair.getValue();@
                 if (!settledNodes.contains(adjacentNode)) {
                     calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
                     unsettledNodes.add(adjacentNode);
@@ -98,6 +100,10 @@ public class Node {
             }
         }
         return lowestDistanceNode;
+    }
+    private static Graph carteToGraph(Carte carte, Robot robot) {
+
+        
     }
 
 

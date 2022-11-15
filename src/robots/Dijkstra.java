@@ -2,10 +2,17 @@ package robots;
 
 import classes.Carte;
 import classes.Case;
+import classes.Incendie;
+import events.Simulateur;
+
 import java.util.*;;
 
 public class Dijkstra extends PathCalculator {
   
+  public Dijkstra(Simulateur simulateur, Carte carte) {
+    super(simulateur, carte);
+  }
+
   public ArrayList<Case> dijkstra(Robot robot, Case destination) {
     Map<Case,Integer> costs = new HashMap<Case, Integer>();
     Set<Case> visited = new HashSet<Case>();
@@ -77,5 +84,16 @@ public class Dijkstra extends PathCalculator {
         costs.put(adjacent, sourceDistance + distance);
         backtracker.put(adjacent, curr);
     }
+  }
+
+  @Override
+  public ArrayList<Case> computePath(Robot r, Incendie i) {
+    return dijkstra(r, i.getPosition());
+  }
+
+  @Override
+  public ArrayList<Case> computePathToWater(Robot r) {
+    // TODO Auto-generated method stub
+    return null;
   }
 }
