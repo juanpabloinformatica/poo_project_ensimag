@@ -1,43 +1,81 @@
 package robots;
 
-public class Dijkstra {
-    public static void dijkstra(Graph graph, int source) {
-        int count = graph.getNumVertices();
-        boolean[] visitedVertex = new boolean[count];
-        int[] distance = new int[count];
-        for (int i = 0; i < count; i++) {
-          visitedVertex[i] = false;
-          distance[i] = Integer.MAX_VALUE;
-        }
-    
-        // Distance of self loop is zero
-        distance[source] = 0;
-        for (int i = 0; i < count; i++) {
-    
-          // Update the distance between neighbouring vertex and source vertex
-          int u = findMinDistance(distance, visitedVertex);
-          visitedVertex[u] = true;
-    
-          // Update all the neighbouring vertex distances
-          for (int v = 0; v < count; v++) {
-            if (!visitedVertex[v] && graph.getAdjMatrix()[u][v] != 0 && (distance[u] + graph.getAdjMatrix()[u][v] < distance[v])) {
-              distance[v] = distance[u] + graph.getAdjMatrix()[u][v];
-            }
-          }
+import classes.Carte;
+import classes.Case;
+import java.util.*;;
+
+public class Dijkstra extends PathCalculator {
+  
+  public ArrayList<Case> dijkstra(Robot robot, Case destination) {
+    Map<Case,Integer> costs = new HashMap<Case, Integer>();
+    Set<Case> visited = new HashSet<Case>();
+    ArrayList<Case> shortestPath = new ArrayList<Case>();
+    Map<Case,Case> backtracker = new HashMap<Case,Case>();
+    int nbLignes = this.getCarte().getNbLignes();
+    int nbColonnes = this.getCarte().getNbColonnes();
+    for (int i = 0; i < nbLignes; i++) {
+      for (int j = 0; j < nbColonnes; j++) {
+        costs.put(this.getCarte().getCase(i, j), Integer.MAX_VALUE);
+      }
+    }
+    costs.put(robot.getPosition(), 0);
+    while (visited.size() < nbLignes * nbColonnes) {
+      Case curr = getLowestDistance(costs);
+      visited.add(curr);
+      for (Map.Entry<Case, Integer> couple : getAdjacentNodes(this.getCarte(), curr, robot, this.getCarte().getTailleCases()).entrySet()) {
+        Case adjacent = couple.getKey();
+        int distance = couple.getValue();
+        if (!(visited.contains(adjacent))) {
+          updateHashMap(costs, adjacent, distance, curr, backtracker);
         }
       }
-    
-      // Finding the minimum distance
-      private static int findMinDistance(int[] distance, boolean[] visitedVertex) {
-        int minDistance = Integer.MAX_VALUE;
-        int minDistanceVertex = -1;
-        for (int i = 0; i < distance.length; i++) {
-          if (!visitedVertex[i] && distance[i] < minDistance) {
-            minDistance = distance[i];
-            minDistanceVertex = i;
-          }
-        }
-        return minDistanceVertex;
+    }
+    Case previous = destination;
+    while (!previous.equals(robot.getPosition())) {
+      shortestPath.add(0, previous);
+      previous = backtracker.get(previous);
+    }
+    shortestPath.add(0, previous);
+    return shortestPath;
+  }
+
+  public Case getLowestDistance(Map<Case,Integer> costs) {
+    int lowest = Integer.MAX_VALUE;
+    Case min = null;
+    for (Case cell : costs.keySet()) {
+      if (costs.get(cell) < lowest) {
+        lowest = costs.get(cell);
+        min = cell;
       }
-    
+    }
+    return min;
+  }
+
+  public Map<Case,Integer> getAdjacentNodes(Carte carte, Case curr, Robot robot, int sizeCase) {
+    Map<Case,Integer> adjacentNodes = new HashMap<Case,Integer>();
+    int ligne = curr.getLigne();
+    int colonne = curr.getColonne();
+    int time = (int)(sizeCase/robot.getVitesseNature(curr.getNatureTerrain()));
+    if (ligne != 0) {
+      adjacentNodes.put(carte.getCase(ligne - 1, colonne), time);
+    }
+    if (ligne != carte.getNbLignes() - 1) {
+      adjacentNodes.put(carte.getCase(ligne + 1, colonne), time);
+    }
+    if (colonne != 0) {
+      adjacentNodes.put(carte.getCase(ligne, colonne - 1), time);
+    }
+    if (colonne != carte.getNbColonnes() - 1) {
+      adjacentNodes.put(carte.getCase(ligne, colonne + 1), time);
+    }
+    return adjacentNodes;
+  }
+
+  public void updateHashMap(Map<Case,Integer> costs, Case adjacent, int distance, Case curr, Map<Case,Case> backtracker) {
+    int sourceDistance = costs.get(curr);
+    if (sourceDistance + distance < costs.get(adjacent)) {
+        costs.put(adjacent, sourceDistance + distance);
+        backtracker.put(adjacent, curr);
+    }
+  }
 }
