@@ -1,8 +1,9 @@
 package events;
 import robots.Robot;
+import robots.RobotLogic;
 
 public class RemplirEvenement extends Evenement {
-    public RemplirEvenement(Integer date, Robot robot) {
+    public RemplirEvenement(Integer date, RobotLogic robot) {
         super(date, robot);
     }
     /*
@@ -10,7 +11,8 @@ public class RemplirEvenement extends Evenement {
      */
     @Override
     public void execute() {
-        getRobot().setCurrReservoir(getRobot().getRESERVOIR());
+        Robot robot = getRobotLogic().getRobot();
+        robot.setCurrReservoir(robot.getRESERVOIR());
     }
     
 }

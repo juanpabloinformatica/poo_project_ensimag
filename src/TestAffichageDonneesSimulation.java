@@ -6,9 +6,7 @@ import classes.Carte;
 import classes.ChefPompier;
 import classes.DonneesSimulation;
 import classes.Incendie;
-import constants.Direction;
 import constants.NatureTerrain;
-import events.DeplacerEvenement;
 import events.Simulateur;
 import gui.GUISimulator;
 import gui.ImageElement;
@@ -16,6 +14,7 @@ import gui.Simulable;
 import io.LecteurDonnees;
 import robots.NaivePathCalculator;
 import robots.Robot;
+import robots.RobotLogic;
 
 public class TestAffichageDonneesSimulation {
   public static void main(String[] args) throws FileNotFoundException {
@@ -55,10 +54,10 @@ class AffichageDonneesSimulation implements Simulable {
     // simulateur.addEvenement(new DeplacerEvenement(3, robot, Direction.SUD, dS.getCarte()));
     // simulateur.addEvenement(new DeplacerEvenement(4, robot, Direction.NORD, dS.getCarte()));
     // simulateur.addEvenement(new DeplacerEvenement(5, robot, Direction.NORD, dS.getCarte()));
-    NaivePathCalculator npc = new NaivePathCalculator(simulateur, dS.getCarte());
-    robot.setPathCalculator(npc);
+    // NaivePathCalculator npc = new NaivePathCalculator(simulateur, dS.getCarte());
+    // robot.setPathCalculator(npc);
     //npc.computePath(robot,]);
-    robot.propose(dS.getIncendies()[0]);
+    // robot.propose(dS.getIncendies()[0]);
   }
 
   public AffichageDonneesSimulation(GUISimulator gui, DonneesSimulation dS) {
@@ -69,8 +68,7 @@ class AffichageDonneesSimulation implements Simulable {
     ChefPompier chefPompier = new ChefPompier(dS.getCarte(), dS.getRobots(), dS.getIncendies());
     simulateur = new Simulateur(gui, chefPompier);
     NaivePathCalculator npc = new NaivePathCalculator(simulateur, dS.getCarte());
-    for (Robot r: dS.getRobots())
-      r.setPathCalculator(npc);
+    RobotLogic.InitialiateStaticVariables(simulateur, dS.getCarte(), npc);
     //robot.propose(dS.getIncendies()[0]);
 
     // this.gui = gui;
@@ -87,7 +85,7 @@ class AffichageDonneesSimulation implements Simulable {
     this.dS = dS;
     this.gui = gui;
     gui.setSimulable(this);
-    this.pixelSizeCase = 80;
+    this.pixelSizeCase = 30;
     draw();
     // testingMovement();
   }

@@ -1,14 +1,14 @@
 package events;
 
-import robots.Robot;
+import robots.RobotLogic;
 
 public class OccupiedEvenement extends Evenement {
 
-    public OccupiedEvenement (int date, Robot robot) {
-        super(date, robot);
+    public OccupiedEvenement (int date, RobotLogic robotLogic) {
+        super(date, robotLogic);
     }
 
     public void execute() {
-        getRobot().setOccupied(true);
+        getRobotLogic().setOccupied(true);
     }
 }

@@ -2,13 +2,14 @@ package events;
 
 import classes.Incendie;
 import robots.Robot;
+import robots.RobotLogic;
 
 public class EteindreEvenement extends Evenement {
 
     Incendie incendie;
     Simulateur simulateur;
-    public EteindreEvenement(Integer date, Robot robot, Incendie incendie) {
-        super(date, robot);
+    public EteindreEvenement(Integer date, RobotLogic robotLogic, Incendie incendie) {
+        super(date, robotLogic);
         this.incendie = incendie;
     }
     /*
@@ -16,6 +17,6 @@ public class EteindreEvenement extends Evenement {
      */
     @Override
     public void execute() {
-        getRobot().eteindreIncendie(getDate(), incendie);
+        getRobotLogic().eteindreIncendie(getDate(), incendie);
     }
 }
