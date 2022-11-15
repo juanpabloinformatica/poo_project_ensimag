@@ -1,5 +1,7 @@
 package classes;
 
+import constants.Direction;
+
 public class Carte {
     /*we can create a variable static
     instead
@@ -74,8 +76,32 @@ public class Carte {
         return res;
     }
     
-    
+    public Direction calculateDirection(Case prev, Case next) {
+        try {
+            int diff_i = prev.getLigne() - next.getLigne();
+            int diff_j = prev.getColonne() - next.getColonne();
+            if (diff_i == 0) {
+                if (diff_j == -1)
+                    return Direction.EST;
+                else if (diff_j == 1)
+                    return Direction.OUEST;
+                else
+                    throw new Exception("CalculateDirection: Cases non contigues");
+            } else if (diff_j == 0) {
+                if (diff_i == -1)
+                    return Direction.SUD;
+                else if (diff_i == 1)
+                    return Direction.NORD;
+                else
+                    throw new Exception("CalculateDirection: Cases non contigues");
+            } else {
+                    throw new Exception("CalculateDirection: Cases non contigues");
+            }
 
+        } catch (Exception e) {
+            return null;
+        }
+    }
    
     
     
