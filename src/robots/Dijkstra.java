@@ -8,18 +8,23 @@ import java.util.Set;
 
 import classes.Carte;
 import classes.Case;
+import constants.NatureTerrain;
+import constants.TypeRobot;
 import events.Simulateur;;
 
 public class Dijkstra extends PathCalculator {
+
+  int timeNeeded;
+  ArrayList<Case> shortestPath;
   
   public Dijkstra(Simulateur simulateur, Carte carte) {
     super(carte);
   }
 
-  public ArrayList<Case> dijkstra(Robot robot, Case destination) {
+  public boolean dijkstra(Robot robot, Case destination) {
     Map<Case,Integer> costs = new HashMap<Case, Integer>();
     Set<Case> visited = new HashSet<Case>();
-    ArrayList<Case> shortestPath = new ArrayList<Case>();
+    //ArrayList<Case> shortestPath = new ArrayList<Case>();
     Map<Case,Case> backtracker = new HashMap<Case,Case>();
     int nbLignes = this.getCarte().getNbLignes();
     int nbColonnes = this.getCarte().getNbColonnes();
@@ -32,7 +37,7 @@ public class Dijkstra extends PathCalculator {
     while (visited.size() < nbLignes * nbColonnes) {
       Case curr = getLowestDistance(costs, visited);
       if (curr == null) {
-        return null;
+        return false;
       }
       visited.add(curr);
       for (Map.Entry<Case, Integer> couple : getAdjacentNodes(this.getCarte(), curr, robot, this.getCarte().getTailleCases()).entrySet()) {
@@ -49,7 +54,8 @@ public class Dijkstra extends PathCalculator {
       previous = backtracker.get(previous);
     }
     shortestPath.add(0, previous);
-    return shortestPath;
+    timeNeeded = costs.get(destination);
+    return true;
   }
 
   public Case getLowestDistance(Map<Case,Integer> costs, Set<Case> visited) {
@@ -60,6 +66,9 @@ public class Dijkstra extends PathCalculator {
         lowest = costs.get(cell);
         min = cell;
       }
+    }
+    if (lowest == Integer.MAX_VALUE) {
+      return null;
     }
     return min;
   }
@@ -102,17 +111,68 @@ public class Dijkstra extends PathCalculator {
 
   @Override
   public ArrayList<Case> computePath(Robot r, Case target) {
-    return dijkstra(r, target);
-  }
-
-  @Override
-  public ArrayList<Case> computePathToWater(Robot r) {
-    // TODO Auto-generated method stub
+    shortestPath = new ArrayList<Case>();
+    timeNeeded = Integer.MAX_VALUE;
+    if (dijkstra(r, target)) {
+      return shortestPath;
+    }
     return null;
   }
 
   @Override
+  public ArrayList<Case> computePathToWater(Robot r) {
+    ArrayList<Case> closestPathWater = new ArrayList<Case>();
+    int smallestTime = Integer.MAX_VALUE;
+    int nbLignes = this.getCarte().getNbLignes();
+    int nbColonnes = this.getCarte().getNbColonnes();
+    if (r.getTypeRobot() == TypeRobot.DRONE) {
+      for (int i = 0; i < nbLignes; i++) {
+        for (int j = 0; j < nbColonnes; j++) {
+            if (this.getCarte().getCase(i, j).getNatureTerrain() == NatureTerrain.EAU) {
+              shortestPath = new ArrayList<Case>();
+              boolean found = dijkstra(r, this.getCarte().getCase(i, j));
+              if (found && this.timeNeeded < smallestTime) {
+                smallestTime = this.timeNeeded;
+                closestPathWater = this.shortestPath;
+              }
+          }
+        }
+      }
+    } else {
+      for (int i = 0; i < nbLignes; i++) {
+        for (int j = 0; j < nbColonnes; j++) {
+            if (this.getCarte().getCase(i, j).getNatureTerrain() == NatureTerrain.EAU) {
+              int i_moves[] = {-1, 0, 0, 1};
+              int j_moves[] = {0, -1, 1, 0};
+              for (int k = 0; k < 4; k++) {
+                int next_i = i + i_moves[k];
+                int next_j = j + j_moves[k];
+                if (next_i >= 0 && next_i < nbLignes && next_j >= 0 && next_j < nbColonnes) {
+                  shortestPath = new ArrayList<Case>();
+                  boolean found = dijkstra(r, this.getCarte().getCase(next_i, next_j));
+                  if (found && this.timeNeeded < smallestTime) {
+                    smallestTime = this.timeNeeded;
+                    closestPathWater = this.shortestPath;
+                  }
+                }
+              }
+          }
+        }
+      }
+    }
+    if (smallestTime == Integer.MAX_VALUE) {
+      return null;
+    }
+    return closestPathWater;
+  }
+
+  @Override
   public double getTimeToCase(Robot r, Case target) {
-    return 0;
+    shortestPath = new ArrayList<Case>();
+    boolean pathFound = dijkstra(r, target);
+    if (pathFound) {
+      return (double) this.timeNeeded;
+    }
+    return Integer.MAX_VALUE;
   }
 }
