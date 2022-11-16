@@ -12,6 +12,7 @@ import gui.GUISimulator;
 import gui.ImageElement;
 import gui.Simulable;
 import io.LecteurDonnees;
+import robots.Dijkstra;
 import robots.NaivePathCalculator;
 import robots.Robot;
 import robots.RobotLogic;
@@ -67,8 +68,9 @@ class AffichageDonneesSimulation implements Simulable {
     //testDeplacerEvenement();
     ChefPompier chefPompier = new ChefPompier(dS.getCarte(), dS.getRobots(), dS.getIncendies());
     simulateur = new Simulateur(gui, chefPompier);
-    NaivePathCalculator npc = new NaivePathCalculator(simulateur, dS.getCarte());
-    RobotLogic.InitialiateStaticVariables(simulateur, dS.getCarte(), npc);
+    // NaivePathCalculator npc = new NaivePathCalculator(simulateur, dS.getCarte());
+    Dijkstra pc = new Dijkstra(simulateur, dS.getCarte());
+    RobotLogic.InitialiateStaticVariables(simulateur, dS.getCarte(), pc);
     //robot.propose(dS.getIncendies()[0]);
 
     // this.gui = gui;

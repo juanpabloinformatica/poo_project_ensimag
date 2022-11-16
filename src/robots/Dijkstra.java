@@ -1,16 +1,19 @@
 package robots;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 import classes.Carte;
 import classes.Case;
-import classes.Incendie;
-import events.Simulateur;
-
-import java.util.*;;
+import events.Simulateur;;
 
 public class Dijkstra extends PathCalculator {
   
   public Dijkstra(Simulateur simulateur, Carte carte) {
-    super(simulateur, carte);
+    super(carte);
   }
 
   public ArrayList<Case> dijkstra(Robot robot, Case destination) {
@@ -53,7 +56,7 @@ public class Dijkstra extends PathCalculator {
     int lowest = Integer.MAX_VALUE;
     Case min = null;
     for (Case cell : costs.keySet()) {
-      if ((!visited.contains(cell)) && costs.get(cell) < lowest) {
+      if ((!visited.contains(cell)) && costs.get(cell) <= lowest) {
         lowest = costs.get(cell);
         min = cell;
       }
@@ -98,13 +101,18 @@ public class Dijkstra extends PathCalculator {
   }
 
   @Override
-  public ArrayList<Case> computePath(Robot r, Incendie i) {
-    return dijkstra(r, i.getPosition());
+  public ArrayList<Case> computePath(Robot r, Case target) {
+    return dijkstra(r, target);
   }
 
   @Override
   public ArrayList<Case> computePathToWater(Robot r) {
     // TODO Auto-generated method stub
     return null;
+  }
+
+  @Override
+  public double getTimeToCase(Robot r, Case target) {
+    return 0;
   }
 }

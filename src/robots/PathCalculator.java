@@ -1,20 +1,22 @@
 package robots;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import classes.Carte;
 import classes.Case;
-import classes.Incendie;
-import events.Simulateur;
 
 public abstract class PathCalculator {
     private Carte carte;
-    public PathCalculator(Simulateur simulateur, Carte carte) {
+    private List<Case> WaterCases;
+    private List<Case> NeighbourOfWaterCases;
+    public PathCalculator(Carte carte) {
         this.carte = carte;
     }
     public Carte getCarte() {
         return carte;
     }
-    public abstract ArrayList<Case> computePath(Robot r, Incendie i) ;
-    public abstract ArrayList<Case> computePathToWater(Robot r);
+
+    public abstract List<Case> computePath(Robot r, Case target) ;
+    public abstract List<Case> computePathToWater(Robot r);
+    public abstract double getTimeToCase(Robot r, Case target);
 }

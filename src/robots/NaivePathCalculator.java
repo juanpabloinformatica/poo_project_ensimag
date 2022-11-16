@@ -19,8 +19,9 @@ import events.Simulateur;
 
 public class NaivePathCalculator extends PathCalculator {
     ArrayList<Case> nextCases;
-    public NaivePathCalculator(Simulateur sim, Carte carte) {
-        super(sim, carte);
+
+    public NaivePathCalculator(Carte carte) {
+        super(carte);
     }
 
     HashSet<Case> seenCases;
@@ -87,15 +88,14 @@ public class NaivePathCalculator extends PathCalculator {
     // Renvoie le premiere chemin trouve mais pas forcement le plus court
     // OU null si aucun chemin a ete trouve
     @Override
-    public ArrayList<Case> computePath(Robot r, Incendie i) {
+    public ArrayList<Case> computePath(Robot r, Case target) {
         // REVIEW MONKEY PATCH
-        if (r.getPosition() == i.getPosition())
+        if (r.getPosition() == target)
             return null;
 
         nextCases = new ArrayList<Case>();
         seenCases = new HashSet<>();
         Case start = r.getPosition();
-        Case target = i.getPosition();
         nextCases.add(r.getPosition());
         if (!searchPath(r, start, target))
             return null;
@@ -113,4 +113,8 @@ public class NaivePathCalculator extends PathCalculator {
         return nextCases;
     }
 
+    @Override
+    public double getTimeToCase(Robot r, Case target) {
+        return 0;
+    }
 }

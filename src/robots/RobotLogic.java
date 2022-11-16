@@ -1,6 +1,7 @@
 package robots;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import classes.Carte;
 import classes.Case;
@@ -84,11 +85,13 @@ public class RobotLogic {
         if (occupied == true || robot.getCurrReservoir() <= 0) {
             return false; // decliner la proposition
         }
-        Path path = convertInPath(pathCalculator.computePath(robot, i));
-        if (path == null) {
+        List<Case> pathCases= pathCalculator.computePath(robot, i.getPosition());
+        if (pathCases == null) {
+            System.out.println("Le robot " + this + " n'a pas trouve un chemin pour se rendre a " + i);
             return false; // pas de chemin trouve pour aller a l'incendie on
                           // decline la proposition
         }
+        Path path = convertInPath(pathCases);
         addPathEventsToSimulateur(i, path);
         return true;
     }
@@ -96,9 +99,9 @@ public class RobotLogic {
     public void seRemplir() {
         System.out.println("SE REMPLIR :" + robot);
         // chercher la case d'eau la plus pret;
-        Path path = convertInPath(pathCalculator.computePathToWater(robot));
-        if (path != null)
-            addPathEventsToSimulateur(null, path);
+        // Path path = convertInPath(pathCalculator.computePathToWater(robot));
+        // if (path != null)
+        //     addPathEventsToSimulateur(null, path);
     }
 
     private void addPathEventsToSimulateur(Incendie incendie, Path path) {
@@ -124,7 +127,7 @@ public class RobotLogic {
         return date + (int)(sizeCase/robot.getVitesseNature(curr.getNatureTerrain()));
     }
     // Convertit le tableau des Cases en Path (directions et date d'arrivee)
-    private Path convertInPath(ArrayList<Case> pathCases) {
+    private Path convertInPath(List<Case> pathCases) {
         Path path = new Path();
         Case prev = pathCases.get(0);
         int prevDate = simulateur.getDateSimulation();
