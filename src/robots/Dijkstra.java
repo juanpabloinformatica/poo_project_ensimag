@@ -27,7 +27,10 @@ public class Dijkstra extends PathCalculator {
     }
     costs.put(robot.getPosition(), 0);
     while (visited.size() < nbLignes * nbColonnes) {
-      Case curr = getLowestDistance(costs);
+      Case curr = getLowestDistance(costs, visited);
+      if (curr == null) {
+        return null;
+      }
       visited.add(curr);
       for (Map.Entry<Case, Integer> couple : getAdjacentNodes(this.getCarte(), curr, robot, this.getCarte().getTailleCases()).entrySet()) {
         Case adjacent = couple.getKey();
@@ -46,11 +49,11 @@ public class Dijkstra extends PathCalculator {
     return shortestPath;
   }
 
-  public Case getLowestDistance(Map<Case,Integer> costs) {
+  public Case getLowestDistance(Map<Case,Integer> costs, Set<Case> visited) {
     int lowest = Integer.MAX_VALUE;
     Case min = null;
     for (Case cell : costs.keySet()) {
-      if (costs.get(cell) < lowest) {
+      if ((!visited.contains(cell)) && costs.get(cell) < lowest) {
         lowest = costs.get(cell);
         min = cell;
       }
@@ -64,16 +67,24 @@ public class Dijkstra extends PathCalculator {
     int colonne = curr.getColonne();
     int time = (int)(sizeCase/robot.getVitesseNature(curr.getNatureTerrain()));
     if (ligne != 0) {
-      adjacentNodes.put(carte.getCase(ligne - 1, colonne), time);
+      if (robot.canGo(carte.getCase(ligne - 1, colonne))) {
+        adjacentNodes.put(carte.getCase(ligne - 1, colonne), time);
+      }
     }
     if (ligne != carte.getNbLignes() - 1) {
-      adjacentNodes.put(carte.getCase(ligne + 1, colonne), time);
+      if (robot.canGo(carte.getCase(ligne + 1, colonne))) {
+        adjacentNodes.put(carte.getCase(ligne + 1, colonne), time);
+      }
     }
     if (colonne != 0) {
-      adjacentNodes.put(carte.getCase(ligne, colonne - 1), time);
+      if (robot.canGo(carte.getCase(ligne, colonne - 1))) {
+        adjacentNodes.put(carte.getCase(ligne, colonne - 1), time);
+      }
     }
     if (colonne != carte.getNbColonnes() - 1) {
-      adjacentNodes.put(carte.getCase(ligne, colonne + 1), time);
+      if (robot.canGo(carte.getCase(ligne, colonne + 1))) {
+        adjacentNodes.put(carte.getCase(ligne, colonne + 1), time);
+      }
     }
     return adjacentNodes;
   }
