@@ -14,5 +14,4 @@ public class RemplirEvenement extends Evenement {
         Robot robot = getRobotLogic().getRobot();
         robot.setCurrReservoir(robot.getRESERVOIR());
     }
-    
 }

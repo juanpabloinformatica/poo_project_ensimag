@@ -1,4 +1,6 @@
 package classes;
+import javax.print.attribute.standard.MediaSize.Other;
+
 import constants.NatureTerrain;
 
 public class Case {
@@ -31,7 +33,14 @@ public class Case {
                              natureTerrain.name());
     }
     
-
+    @Override
+    public boolean equals(Object other) {
+        if (other instanceof Case) {
+            Case compared = (Case) other;
+            return (this.ligne == compared.getLigne() && this.colonne == compared.getColonne());
+        }
+        return false;
+    }
     
 
 }
