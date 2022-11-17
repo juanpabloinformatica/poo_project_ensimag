@@ -22,11 +22,10 @@ public class DeplacerEvenement extends Evenement {
 
     }
 
-
-    /*
-     * Vérfie que la direction saisi est dans les limites de la carte
-     * Si elle est dans les limites elle envoie la Case
-     * Sinon elle envoie une exception
+    
+    /** 
+     * @return Case
+     * @throws Exception
      */
     private Case checkMapLimits() throws Exception {
         Case pos = robot.getPosition();
@@ -87,7 +86,5 @@ public class DeplacerEvenement extends Evenement {
             System.out.println(e);
         }
     }
-
-
     
 }

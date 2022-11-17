@@ -18,6 +18,11 @@ import robots.Robot;
 import robots.RobotLogic;
 
 public class TestAffichageDonneesSimulation {
+  
+  /** 
+   * @param args
+   * @throws FileNotFoundException
+   */
   public static void main(String[] args) throws FileNotFoundException {
     // crée la fenêtre graphique dans laquelle dessiner
     // GUISimulator gui = new GUISimulator(800, 600, Color.BLACK);

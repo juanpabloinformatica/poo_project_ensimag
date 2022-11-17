@@ -15,29 +15,55 @@ public class RobotDrone extends Robot{
     }
     
 
+    
+    /** 
+     * @param pos
+     */
     @Override
     public void setPosition(Case pos) {
         this.position = pos; // pas des contraintes sur la natureTerrain
     }
 
+    
+    /** 
+     * @param c
+     * @return boolean
+     */
     @Override
     public boolean canGo(Case c) {
         return true;
     }
 
+    
+    /** 
+     * @param nT
+     * @return double
+     */
     @Override
     public double getVitesseNature(NatureTerrain nT) {
         return vitesse;
     }
 
+    
+    /** 
+     * @return double
+     */
     @Override
     public double getVitesse() {
         return vitesse;
     }
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "robot drone";
     }
+    
+    /** 
+     * @return TypeRobot
+     */
     public TypeRobot getTypeRobot() {
         return TypeRobot.DRONE;
     }

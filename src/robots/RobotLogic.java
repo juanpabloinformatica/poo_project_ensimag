@@ -25,9 +25,19 @@ public class RobotLogic {
     public RobotLogic(Robot robot) {
         this.robot = robot;
     }
+    
+    /** 
+     * @return Robot
+     */
     public Robot getRobot() {
         return robot;
     }
+    
+    /** 
+     * @param simulateur
+     * @param carte
+     * @param pathCalculator
+     */
     public static void InitialiateStaticVariables(Simulateur simulateur,
                                                   Carte carte,
                                                   PathCalculator pathCalculator) {
@@ -36,6 +46,11 @@ public class RobotLogic {
         RobotLogic.pathCalculator= pathCalculator;
     }
 
+    
+    /** 
+     * @param date
+     * @param incendie
+     */
     public void eteindreIncendie(Integer date, Incendie incendie) {
         // incendie a ete eteint entre temps
         if (incendie.getIntensite() <= 0) {
@@ -64,14 +79,27 @@ public class RobotLogic {
         }
     }
 
+    
+    /** 
+     * @return boolean
+     */
     public boolean isOccupied() {
         return occupied;
     }
 
+    
+    /** 
+     * @param occupied
+     */
     public void setOccupied(boolean occupied) {
         this.occupied = occupied;
     }
 
+    
+    /** 
+     * @param date
+     * @param incendie
+     */
     public void arrivedToIncendie(Integer date, Incendie incendie) {
         if (incendie.getIntensite() <= 0) {
             simulateur.addEvenement(new DisponibleEvenement(date, this));
@@ -81,6 +109,11 @@ public class RobotLogic {
                                                       this, incendie));
     }
 
+    
+    /** 
+     * @param i
+     * @return boolean
+     */
     public boolean propose(Incendie i) {
         if (occupied == true || robot.getCurrReservoir() <= 0) {
             return false; // decliner la proposition
@@ -104,6 +137,11 @@ public class RobotLogic {
         //     addPathEventsToSimulateur(null, path);
     }
 
+    
+    /** 
+     * @param incendie
+     * @param path
+     */
     private void addPathEventsToSimulateur(Incendie incendie, Path path) {
         ArrayList<Integer> dates = path.getDates();
         ArrayList<Direction> directions = path.getNextMoves();
@@ -123,9 +161,22 @@ public class RobotLogic {
         }
     }
 
+    
+    /** 
+     * @param robot
+     * @param curr
+     * @param date
+     * @param sizeCase
+     * @return Integer
+     */
     private Integer calculateArrivalDate(Robot robot, Case curr, int date, int sizeCase) {
         return date + (int)(sizeCase/robot.getVitesseNature(curr.getNatureTerrain()));
     }
+    
+    /** 
+     * @param pathCases
+     * @return Path
+     */
     // Convertit le tableau des Cases en Path (directions et date d'arrivee)
     private Path convertInPath(List<Case> pathCases) {
         Path path = new Path();

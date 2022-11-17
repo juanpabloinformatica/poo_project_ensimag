@@ -54,6 +54,13 @@ public class LecteurDonnees {
         System.out.println("\n == Lecture terminee");
     }
 
+    
+    /** 
+     * @param fichierDonnees
+     * @return DonneesSimulation
+     * @throws FileNotFoundException
+     * @throws DataFormatException
+     */
     /*
      * Lit le fichier fichierDonnees et crée une classe DonneeSimulation avec
      * toutes les données lues.
@@ -69,6 +76,11 @@ public class LecteurDonnees {
         return donneesSimulation;
     }
 
+    
+    /** 
+     * @return Carte
+     * @throws DataFormatException
+     */
     /*
      * Retourne une instance de carte en creant nbLignes*nbColonnes instances de
      * cases en lisant le fichier
@@ -93,6 +105,13 @@ public class LecteurDonnees {
         return carte;  
     }
 
+    
+    /** 
+     * @param ligne
+     * @param colonne
+     * @return Case
+     * @throws DataFormatException
+     */
     /*
      * Retourne une instance de case en lisant le fichier
      */
@@ -111,6 +130,12 @@ public class LecteurDonnees {
         return pos;
     }
 
+    
+    /** 
+     * @param carte
+     * @return Incendie[]
+     * @throws DataFormatException
+     */
     /*
      * Cree un tableau d'instances d'cases en lisant le fichier
      */
@@ -131,6 +156,12 @@ public class LecteurDonnees {
         }
     }
 
+    
+    /** 
+     * @param carte
+     * @return Incendie
+     * @throws DataFormatException
+     */
     /*
      * Crée une instance Incendie en lisant le fichier
      */
@@ -158,6 +189,12 @@ public class LecteurDonnees {
         }
     }
 
+    
+    /** 
+     * @param carte
+     * @return Robot[]
+     * @throws DataFormatException
+     */
     /*
      * Cree un tableau d'instances de Robots en lisant le fichier
      */
@@ -177,6 +214,12 @@ public class LecteurDonnees {
         }
     }
 
+    
+    /** 
+     * @param carte
+     * @return Robot
+     * @throws DataFormatException
+     */
     /*
      * Cree un tableau d'instances de Robots en lisant le fichier */
     private Robot creerRobot(Carte carte) throws DataFormatException {

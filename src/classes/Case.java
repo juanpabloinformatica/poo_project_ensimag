@@ -15,24 +15,45 @@ public class Case {
         this.natureTerrain = natureTerrain;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getLigne() {
         return ligne;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getColonne() {
         return colonne;
     }
 
+    
+    /** 
+     * @return NatureTerrain
+     */
     public NatureTerrain getNatureTerrain() {
         return natureTerrain;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return String.format("Case(%d, %d) = %s", ligne, colonne,
                              natureTerrain.name());
     }
     
+    
+    /** 
+     * @param other
+     * @return boolean
+     */
     @Override
     public boolean equals(Object other) {
         if (other instanceof Case) {

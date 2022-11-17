@@ -7,6 +7,10 @@ import classes.*;
 
 public class TestLecteurDonnees {
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         if (args.length < 1) {
             System.out.println("Syntaxe: java TestLecteurDonnees <nomDeFichier>");

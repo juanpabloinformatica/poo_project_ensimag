@@ -14,6 +14,10 @@ public class RobotAChenilles extends Robot {
         this.setVidage(100, 8);
     }
 
+    
+    /** 
+     * @param pos
+     */
     @Override
     public void setPosition(Case pos) {
         NatureTerrain nT = pos.getNatureTerrain();
@@ -24,6 +28,11 @@ public class RobotAChenilles extends Robot {
         }
     }
 
+    
+    /** 
+     * @param c
+     * @return boolean
+     */
     @Override
     public boolean canGo(Case c) {
         NatureTerrain nT = c.getNatureTerrain();
@@ -32,6 +41,11 @@ public class RobotAChenilles extends Robot {
         return false;
     }
 
+    
+    /** 
+     * @param nT
+     * @return double
+     */
     // return la vitesse dans la natur nT
     @Override
     public double getVitesseNature(NatureTerrain nT) {
@@ -40,6 +54,10 @@ public class RobotAChenilles extends Robot {
         return this.vitesse;
     }
 
+    
+    /** 
+     * @return double
+     */
     @Override
     public double getVitesse() {
         NatureTerrain nT = getPosition().getNatureTerrain();
@@ -48,11 +66,19 @@ public class RobotAChenilles extends Robot {
         return this.vitesse;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "robot a chenilles";
     }
 
+    
+    /** 
+     * @return TypeRobot
+     */
     public TypeRobot getTypeRobot() {
         return TypeRobot.CHENILLES;
     }

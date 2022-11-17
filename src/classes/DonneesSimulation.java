@@ -14,16 +14,32 @@ public class DonneesSimulation {
         this.robots = robots;
     }
 
+    
+    /** 
+     * @return Carte
+     */
     public Carte getCarte() {
         return carte;
     }
+    
+    /** 
+     * @return Incendie[]
+     */
     public Incendie[] getIncendies() {
         return incendies;
     }
+    
+    /** 
+     * @return Robot[]
+     */
     public Robot[] getRobots() {
         return robots;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         String res = "Carte\n" + carte.toString() + "\n Incendies : \n";

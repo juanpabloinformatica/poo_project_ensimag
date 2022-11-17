@@ -11,9 +11,7 @@ public class ArrivedEvenement extends Evenement {
         super(date, robotLogic);
         this.incendie = incendie;
     }
-    /*
-     * put out the fire in certain case
-     */
+
     @Override
     public void execute() {
         getRobotLogic().arrivedToIncendie(getDate(), incendie);

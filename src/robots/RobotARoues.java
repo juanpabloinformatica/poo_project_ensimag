@@ -16,6 +16,10 @@ public class RobotARoues extends Robot {
     }
     
 
+    
+    /** 
+     * @param pos
+     */
     @Override
     public void setPosition(Case pos) {
         NatureTerrain nT = pos.getNatureTerrain();
@@ -24,6 +28,11 @@ public class RobotARoues extends Robot {
         // REVIEW: throw error ???
     }
 
+    
+    /** 
+     * @param c
+     * @return boolean
+     */
     @Override
     public boolean canGo(Case c) {
         NatureTerrain nT = c.getNatureTerrain();
@@ -32,20 +41,37 @@ public class RobotARoues extends Robot {
         return false;
     }
 
+    
+    /** 
+     * @return double
+     */
     @Override
     public double getVitesse() {
         return this.vitesse;
     }
 
+    
+    /** 
+     * @param nT
+     * @return double
+     */
     @Override
     public double getVitesseNature(NatureTerrain nT) {
         return vitesse;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "robot a roues";
     }
+    
+    /** 
+     * @return TypeRobot
+     */
     public TypeRobot getTypeRobot() {
         return TypeRobot.ROUES;
     }

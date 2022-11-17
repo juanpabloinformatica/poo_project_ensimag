@@ -12,6 +12,10 @@ public abstract class PathCalculator {
     public PathCalculator(Carte carte) {
         this.carte = carte;
     }
+    
+    /** 
+     * @return Carte
+     */
     public Carte getCarte() {
         return carte;
     }

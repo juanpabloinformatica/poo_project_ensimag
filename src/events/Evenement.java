@@ -16,6 +16,11 @@ public abstract class Evenement implements Comparable<Evenement> {
         this.dateExecution = null;
     }
 
+    
+    /** 
+     * @param e
+     * @return int
+     */
     @Override // for use priority queue instead of linked list
     public int compareTo(Evenement e) {
         if (date > e.getDate())
@@ -24,19 +29,35 @@ public abstract class Evenement implements Comparable<Evenement> {
             return -1;
         return 0; // this.date == e.date;
     }
+    
+    /** 
+     * @return boolean
+     */
     public boolean isEventDone(){
         return this.eventDone;
     }
     public void setEventDone(){
         this.eventDone = true;
     }
+    
+    /** 
+     * @return Integer
+     */
     public Integer getDate(){
         return this.date;
     }
+    
+    /** 
+     * @return Integer
+     */
     public Integer getDateExecution(){
         return this.dateExecution;
     }
 
+    
+    /** 
+     * @return RobotLogic
+     */
     public RobotLogic getRobotLogic() {
         return this.robotLogic;
     }

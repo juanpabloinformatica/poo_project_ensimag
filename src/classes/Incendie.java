@@ -12,18 +12,34 @@ public class Incendie{
         this.intensite = intensite;
     }
 
+    
+    /** 
+     * @return Case
+     */
     public Case getPosition() {
         return position;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getIntensite() {
         return intensite;
     }
     
+    
+    /** 
+     * @param intensite
+     */
     public void setIntensite(int intensite) {
         this.intensite = intensite;
     }
 
+    
+    /** 
+     * @return String
+     */
     @Override
     public String toString() {
         return "Incendie a la " + position.toString() + "Intensite lvl = " +

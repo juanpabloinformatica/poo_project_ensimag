@@ -25,6 +25,13 @@ public class NaivePathCalculator extends PathCalculator {
     }
 
     HashSet<Case> seenCases;
+    
+    /** 
+     * @param r
+     * @param current
+     * @param target
+     * @return boolean
+     */
     private boolean searchPath(Robot r, Case current, Case target) {
         if (current == target)
             return true;
@@ -52,6 +59,12 @@ public class NaivePathCalculator extends PathCalculator {
         return false;
     }
 
+    
+    /** 
+     * @param r
+     * @param current
+     * @return boolean
+     */
     private boolean searchPathToWater(Robot r, Case current) {
         if (r.getTypeRobot() == TypeRobot.DRONE && current.getNatureTerrain() == NatureTerrain.EAU)
             return true;
@@ -85,6 +98,12 @@ public class NaivePathCalculator extends PathCalculator {
     }
 
 
+    
+    /** 
+     * @param r
+     * @param target
+     * @return ArrayList<Case>
+     */
     // Renvoie le premiere chemin trouve mais pas forcement le plus court
     // OU null si aucun chemin a ete trouve
     @Override
@@ -102,6 +121,11 @@ public class NaivePathCalculator extends PathCalculator {
         return nextCases;
     }
 
+    
+    /** 
+     * @param r
+     * @return ArrayList<Case>
+     */
     @Override
     // retourne le premier chemin vers une case d'eau
     public ArrayList<Case> computePathToWater(Robot r) {
@@ -113,6 +137,12 @@ public class NaivePathCalculator extends PathCalculator {
         return nextCases;
     }
 
+    
+    /** 
+     * @param r
+     * @param target
+     * @return double
+     */
     @Override
     public double getTimeToCase(Robot r, Case target) {
         return 0;

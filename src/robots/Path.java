@@ -17,15 +17,28 @@ public class Path {
         dates = new ArrayList<Integer>();
     }
 
+    
+    /** 
+     * @param d
+     * @param date
+     */
     public void addNextMove(Direction d, Integer date) {
         nextMoves.add(d);
         dates.add(date);
     }
 
+    
+    /** 
+     * @return ArrayList<Direction>
+     */
     public ArrayList<Direction> getNextMoves() {
         return nextMoves;
     }
 
+    
+    /** 
+     * @return ArrayList<Integer>
+     */
     public ArrayList<Integer> getDates() {
         return dates;
     }

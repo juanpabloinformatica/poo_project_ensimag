@@ -24,14 +24,26 @@ public class Simulateur implements Simulable {
         this.n = 1000;
     }
 
+    
+    /** 
+     * @return int
+     */
     public int getDateSimulation() {
         return dateSimulation;
     }
 
+    
+    /** 
+     * @param dateSimulation
+     */
     public void setDateSimulation(int dateSimulation) {
         this.dateSimulation = dateSimulation;
     }
 
+    
+    /** 
+     * @param e
+     */
     public void addEvenement(Evenement e) {
         if (e != null)
             events.add(e);
@@ -49,6 +61,10 @@ public class Simulateur implements Simulable {
         dateSimulation++;
     }
 
+    
+    /** 
+     * @return boolean
+     */
     // public void restartEvents() {
     //     events.addAll(0, removedEvents);
     //     removedEvents.clear();

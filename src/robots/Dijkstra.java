@@ -21,6 +21,12 @@ public class Dijkstra extends PathCalculator {
     super(carte);
   }
 
+  
+  /** 
+   * @param robot
+   * @param destination
+   * @return boolean
+   */
   public boolean dijkstra(Robot robot, Case destination) {
     Map<Case,Integer> costs = new HashMap<Case, Integer>();
     Set<Case> visited = new HashSet<Case>();
@@ -58,6 +64,12 @@ public class Dijkstra extends PathCalculator {
     return true;
   }
 
+  
+  /** 
+   * @param costs
+   * @param visited
+   * @return Case
+   */
   public Case getLowestDistance(Map<Case,Integer> costs, Set<Case> visited) {
     int lowest = Integer.MAX_VALUE;
     Case min = null;
@@ -73,6 +85,14 @@ public class Dijkstra extends PathCalculator {
     return min;
   }
 
+  
+  /** 
+   * @param carte
+   * @param curr
+   * @param robot
+   * @param sizeCase
+   * @return Map<Case, Integer>
+   */
   public Map<Case,Integer> getAdjacentNodes(Carte carte, Case curr, Robot robot, int sizeCase) {
     Map<Case,Integer> adjacentNodes = new HashMap<Case,Integer>();
     int ligne = curr.getLigne();
@@ -101,6 +121,14 @@ public class Dijkstra extends PathCalculator {
     return adjacentNodes;
   }
 
+  
+  /** 
+   * @param costs
+   * @param adjacent
+   * @param distance
+   * @param curr
+   * @param backtracker
+   */
   public void updateHashMap(Map<Case,Integer> costs, Case adjacent, int distance, Case curr, Map<Case,Case> backtracker) {
     int sourceDistance = costs.get(curr);
     if (sourceDistance + distance < costs.get(adjacent)) {
@@ -109,6 +137,12 @@ public class Dijkstra extends PathCalculator {
     }
   }
 
+  
+  /** 
+   * @param r
+   * @param target
+   * @return ArrayList<Case>
+   */
   @Override
   public ArrayList<Case> computePath(Robot r, Case target) {
     shortestPath = new ArrayList<Case>();
@@ -119,6 +153,11 @@ public class Dijkstra extends PathCalculator {
     return null;
   }
 
+  
+  /** 
+   * @param r
+   * @return ArrayList<Case>
+   */
   @Override
   public ArrayList<Case> computePathToWater(Robot r) {
     ArrayList<Case> closestPathWater = new ArrayList<Case>();
@@ -166,6 +205,12 @@ public class Dijkstra extends PathCalculator {
     return closestPathWater;
   }
 
+  
+  /** 
+   * @param r
+   * @param target
+   * @return double
+   */
   @Override
   public double getTimeToCase(Robot r, Case target) {
     shortestPath = new ArrayList<Case>();
