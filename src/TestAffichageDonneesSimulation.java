@@ -24,9 +24,9 @@ public class TestAffichageDonneesSimulation {
     // crée l'invader, en l'associant à la fenêtre graphique précédente
     try {
       DonneesSimulation dS = LecteurDonnees.creerDonneesSimulation(args[0]);
-      int widthGui = dS.getCarte().getTailleCases() * dS.getCarte().getNbColonnes();
-      int heightGui = dS.getCarte().getTailleCases() * dS.getCarte().getNbLignes();
-      GUISimulator gui = new GUISimulator(widthGui, heightGui, Color.decode("#7ac270"));
+      // int widthGui = dS.getCarte().getTailleCases() * dS.getCarte().getNbColonnes();
+      // int heightGui = dS.getCarte().getTailleCases() * dS.getCarte().getNbLignes();
+      GUISimulator gui = new GUISimulator(600, 600, Color.decode("#7ac270"));
       AffichageDonneesSimulation aFS = new AffichageDonneesSimulation(gui, dS);
     } catch (FileNotFoundException e) {
       System.out.println("fichier " + args[0] + " inconnu ou illisible");
@@ -48,7 +48,7 @@ class AffichageDonneesSimulation implements Simulable {
   // private ArrayList<Evenement>ordonne;
   // private int ordonneIndex;
   private void testDeplacerEvenement() {
-    Robot robot = dS.getRobots()[0];
+    // Robot robot = dS.getRobots()[0];
     // simulateur.addEvenement(new DeplacerEvenement(0, robot, Direction.NORD, dS.getCarte()));
     // simulateur.addEvenement(new DeplacerEvenement(1, robot, Direction.EST, dS.getCarte()));
     // simulateur.addEvenement(new DeplacerEvenement(2, robot, Direction.OUEST, dS.getCarte()));
@@ -70,7 +70,7 @@ class AffichageDonneesSimulation implements Simulable {
     simulateur = new Simulateur(gui, chefPompier);
     // NaivePathCalculator npc = new NaivePathCalculator(simulateur, dS.getCarte());
     Dijkstra pc = new Dijkstra(simulateur, dS.getCarte());
-    RobotLogic.InitialiateStaticVariables(simulateur, dS.getCarte(), pc);
+    RobotLogic.InitialiateStaticVariables(simulateur, dS.getCarte(), pc, chefPompier);
     //robot.propose(dS.getIncendies()[0]);
 
     // this.gui = gui;
@@ -87,7 +87,10 @@ class AffichageDonneesSimulation implements Simulable {
     this.dS = dS;
     this.gui = gui;
     gui.setSimulable(this);
-    this.pixelSizeCase = 30;
+    int height = gui.getPanelHeight();
+    int width = gui.getPanelWidth();
+    int min = height > width ? width : height;
+    this.pixelSizeCase = 25;
     draw();
     // testingMovement();
   }

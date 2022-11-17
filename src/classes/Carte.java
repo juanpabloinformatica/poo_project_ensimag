@@ -1,5 +1,8 @@
 package classes;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import constants.Direction;
 
 public class Carte {
@@ -75,6 +78,8 @@ public class Carte {
         }
         return res;
     }
+
+
     
     public Direction calculateDirection(Case prev, Case next) {
         try {
@@ -99,8 +104,22 @@ public class Carte {
             }
 
         } catch (Exception e) {
+            System.out.println(e);
             return null;
         }
+    }
+    public List<Case> getNeighbours(Case pos) {
+        List<Case> neighbours = new ArrayList<Case>();
+        int i_moves[] = {-1, 0, 0, 1};
+        int j_moves[] = {0, -1, 1, 0};
+        for (int i = 0; i < 4; i++) {
+            int neigh_i = pos.getLigne() + i_moves[i];
+            int neigh_j = pos.getColonne() + j_moves[i];
+            if (neigh_i >= 0 && neigh_i < nbLignes
+                && neigh_j >= 0 && neigh_j < nbColonnes)
+                neighbours.add(cases[neigh_i][neigh_j]);
+        }
+        return neighbours;
     }
    
     

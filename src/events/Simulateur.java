@@ -21,7 +21,7 @@ public class Simulateur implements Simulable {
         events = new PriorityQueue<Evenement>();
         removedEvents = new LinkedList<Evenement>();
         this.gui = gui;
-        this.n = 1000;
+        this.n = 100000000;
     }
 
     public int getDateSimulation() {
@@ -38,9 +38,8 @@ public class Simulateur implements Simulable {
     }
 
     public void incrementeDate() {
-        if (simulationTerminee())
-            return;
-        if (dateSimulation % n == 0){
+        if (dateSimulation % n == 0 || dateSimulation==0){
+            System.out.println("STARTEGIE EXECUTEEE");
             this.chef.strategieElementaire();
         }
         while(events.peek() != null && events.peek().getDate() <= dateSimulation) {
@@ -55,7 +54,7 @@ public class Simulateur implements Simulable {
     // }
 
     public boolean simulationTerminee() {
-        chef.strategieElementaire();
+        // chef.strategieElementaire();
         return events.isEmpty();
     }
 

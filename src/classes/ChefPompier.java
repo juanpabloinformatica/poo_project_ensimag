@@ -34,5 +34,6 @@ public class ChefPompier {
                 }
             }
         }
+    System.out.println("STRAT FINI");
     }
 }

@@ -36,9 +36,8 @@ public class Dijkstra extends PathCalculator {
     costs.put(robot.getPosition(), 0);
     while (visited.size() < nbLignes * nbColonnes) {
       Case curr = getLowestDistance(costs, visited);
-      if (curr == null) {
-        return false;
-      }
+      if (curr == destination) break;
+      if (curr == null) return false;
       visited.add(curr);
       for (Map.Entry<Case, Integer> couple : getAdjacentNodes(this.getCarte(), curr, robot, this.getCarte().getTailleCases()).entrySet()) {
         Case adjacent = couple.getKey();
@@ -114,6 +113,7 @@ public class Dijkstra extends PathCalculator {
     shortestPath = new ArrayList<Case>();
     timeNeeded = Integer.MAX_VALUE;
     if (dijkstra(r, target)) {
+      assert (shortestPath.size() != 0);
       return shortestPath;
     }
     return null;
@@ -161,8 +161,10 @@ public class Dijkstra extends PathCalculator {
       }
     }
     if (smallestTime == Integer.MAX_VALUE) {
+      System.out.println(":( max value");
       return null;
     }
+    System.out.println("closesetPathWater : " + closestPathWater);
     return closestPathWater;
   }
 
