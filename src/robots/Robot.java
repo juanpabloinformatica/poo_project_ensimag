@@ -30,7 +30,7 @@ public abstract class Robot {
     
     /** 
      * get the speed of certain terrain different in every robot
-     * @param vitesse - speed
+     * @param nT - speed
      * @return double
      */
     // return la vitesse dans une cas de la nature nT;
@@ -38,7 +38,7 @@ public abstract class Robot {
     
     /** 
      * get the resultat of if a robot can go to certain case
-     * @param vitesse - speed
+     * @param c - case
      * @return boolean
      */
     // Return si le robot peut se rendre sur la case c

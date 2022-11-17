@@ -33,7 +33,7 @@ public abstract class PathCalculator {
      * get a possible path to reache certain destination
      * @param r - robot
      * @param target - destination case
-     * @return
+     * @return List<Case>
      */
     public abstract List<Case> computePath(Robot r, Case target) ;
 
