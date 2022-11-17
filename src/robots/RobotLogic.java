@@ -103,34 +103,39 @@ public class RobotLogic {
         }
         return false;
     }
+    public double timeToGo(Incendie i) {
+        return pathCalculator.getTimeToCase(robot, i.getPosition());
+    }
 
-    public boolean propose(Incendie i) {
-        if (occupied == true || robot.getCurrReservoir() <= 0) {
+    public boolean isAvailable() {
+        if (occupied == true || robot.getCurrReservoir() <= 0)
             return false; // decliner la proposition
-        }
+        return true;
+    }
+    public void affect(Incendie i) {
+        occupied = false;
         if(robot.getPosition().equals(i.getPosition())) {
             simulateur.addEvenement(new ArrivedEvenement(simulateur.getDateSimulation(),
                                                          this, i));
-            return true;
+            return;
         }
         List<Case> pathCases= pathCalculator.computePath(robot, i.getPosition());
         if (pathCases == null) {
             System.out.println("Le robot " + this.getRobot() + " n'a pas trouve un chemin pour se rendre a " + i);
-            return false; // pas de chemin trouve pour aller a l'incendie on
+            // pas de chemin trouve pour aller a l'incendie on
                           // decline la proposition
         }
         // if (pathCases.size() == 0) {
         //     System.out.println("ZEROOOOO :(");
         //     return false; // pas de chemin trouve pour aller a l'incendie on
         // }
-        Path path = convertInPath(pathCases);
         System.out.println("pos : " + robot.getPosition() + " destination : " + i);
         System.out.println("pathCases ???? -> " + pathCases);
+        Path path = convertInPath(pathCases);
         System.out.println("dates ???? -> " + path.getDates());
         System.out.println("nextMoves???? -> " + path.getNextMoves());
 
         addPathEventsToSimulateur(i, path);
-        return true;
     }
 
     public void seRemplir() {

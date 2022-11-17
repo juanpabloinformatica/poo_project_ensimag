@@ -175,6 +175,6 @@ public class Dijkstra extends PathCalculator {
     if (pathFound) {
       return (double) this.timeNeeded;
     }
-    return Integer.MAX_VALUE;
+    return Double.POSITIVE_INFINITY;
   }
 }

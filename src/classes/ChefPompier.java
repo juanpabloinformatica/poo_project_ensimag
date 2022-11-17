@@ -22,18 +22,40 @@ public class ChefPompier {
     private HashSet<Incendie> affectedIncendies; // chaque robot est affecte' a un incendie
     // execute tous les n pas de temps
     public void strategieElementaire() {
+        Double INF = Double.POSITIVE_INFINITY;
         for (Incendie i: incendies) {
             if (i.getIntensite() <= 0)
                 continue;
             for (RobotLogic r: robotsLogics) {
-                if (!r.isOccupied() && r.propose(i)) {
+                if (!r.isAvailable() && r.timeToGo(i) != INF) {
                     // robot accepte se rendre a l'incendie i
+                    r.affect(i);
                     affectedIncendies.add(i);
-                    r.setOccupied(true);
                     break;
                 }
             }
         }
-    System.out.println("STRAT FINI");
+    }
+    public void strategieEvolved() {
+        for (Incendie i: incendies) {
+            if (i.getIntensite() <= 0)
+                continue;
+            double minTime = Double.POSITIVE_INFINITY;
+            double currTime;
+            RobotLogic selectedRobot = null;
+            for (RobotLogic r: robotsLogics) {
+                if (r.isAvailable()) {
+                    currTime = r.timeToGo(i);
+                    if (currTime < minTime) {
+                        minTime = currTime;
+                        selectedRobot = r;
+                    }
+                }
+            }
+            if (selectedRobot != null) {
+                selectedRobot.affect(i);
+                selectedRobot.setOccupied(true);
+            }
+        }
     }
 }

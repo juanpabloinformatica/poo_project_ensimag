@@ -40,7 +40,7 @@ public class Simulateur implements Simulable {
     public void incrementeDate() {
         if (dateSimulation % n == 0 || dateSimulation==0){
             System.out.println("STARTEGIE EXECUTEEE");
-            this.chef.strategieElementaire();
+            this.chef.strategieEvolved();
         }
         while(events.peek() != null && events.peek().getDate() <= dateSimulation) {
             events.poll().execute();
