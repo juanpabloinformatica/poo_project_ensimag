@@ -1,12 +1,22 @@
 package classes;
 import robots.*;
 
+/**
+ * the class represent all the data needed to make the simualtion
+ */
 public class DonneesSimulation {
+
     private Carte carte;
     private Incendie[] incendies;
     private Robot[] robots;
 
-
+    /**
+     * create a DonneesSimulation object receiving the map of the simulation
+     *  as well as the fires and the robots
+     * @param carte
+     * @param incendies
+     * @param robots
+     */
     public DonneesSimulation(Carte carte, Incendie[] incendies, Robot[] robots){
         // REVIEW: have we to hard copy arrays???
         this.carte = carte;
@@ -16,6 +26,7 @@ public class DonneesSimulation {
 
     
     /** 
+     * get the map of the simulation
      * @return Carte
      */
     public Carte getCarte() {
@@ -23,6 +34,7 @@ public class DonneesSimulation {
     }
     
     /** 
+     * get the fires of the simulation
      * @return Incendie[]
      */
     public Incendie[] getIncendies() {
@@ -30,6 +42,7 @@ public class DonneesSimulation {
     }
     
     /** 
+     * get the firefighter robots of the simulation
      * @return Robot[]
      */
     public Robot[] getRobots() {
@@ -38,6 +51,7 @@ public class DonneesSimulation {
 
     
     /** 
+     * describe the content of the DonneeSimulation
      * @return String
      */
     @Override

@@ -2,11 +2,19 @@ package classes;
 
 import events.Evenement;
 
+/**
+ * the class represent a fire in a map
+ */
 public class Incendie{
     
     private Case position;
     private int intensite;
 
+    /**
+     * create a fire receiving its position and its intensity
+     * @param position - case of the map where the fire is situated
+     * @param intensite - instensity of the fire
+     */
     public Incendie(Case position, int intensite){
         this.position = position;
         this.intensite = intensite;
@@ -14,6 +22,7 @@ public class Incendie{
 
     
     /** 
+     * get the position of the fire
      * @return Case
      */
     public Case getPosition() {
@@ -22,6 +31,7 @@ public class Incendie{
 
     
     /** 
+     * get the instensity of the fire
      * @return int
      */
     public int getIntensite() {
@@ -38,6 +48,7 @@ public class Incendie{
 
     
     /** 
+     * describe the content of the fire
      * @return String
      */
     @Override
