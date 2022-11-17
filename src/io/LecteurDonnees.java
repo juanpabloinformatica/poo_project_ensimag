@@ -77,13 +77,12 @@ public class LecteurDonnees {
     }
 
     
-    /** 
-     * @return Carte
-     * @throws DataFormatException
-     */
-    /*
+    
+    /**
      * Retourne une instance de carte en creant nbLignes*nbColonnes instances de
      * cases en lisant le fichier
+     * @return Carte - map
+     * @throws DataFormatException- exception
      */
     private Carte creerCarte() throws DataFormatException {
         Carte carte;
@@ -106,14 +105,13 @@ public class LecteurDonnees {
     }
 
     
-    /** 
-     * @param ligne
-     * @param colonne
-     * @return Case
-     * @throws DataFormatException
-     */
-    /*
+    
+    /**
      * Retourne une instance de case en lisant le fichier
+     * @param ligne - row
+     * @param colonne - column
+     * @return Case - case
+     * @throws DataFormatException - exception
      */
     private Case creerCase(int ligne ,int colonne) throws DataFormatException {
         Case pos;
@@ -131,14 +129,13 @@ public class LecteurDonnees {
     }
 
     
-    /** 
-     * @param carte
-     * @return Incendie[]
-     * @throws DataFormatException
+    /**
+     * create an array of instances of cases, reading the file
+     * @param carte - map
+     * @return Incendie[]- fires
+     * @throws DataFormatException -exception
      */
-    /*
-     * Cree un tableau d'instances d'cases en lisant le fichier
-     */
+
     private Incendie[] creerIncendies(Carte carte) throws DataFormatException {
         ignorerCommentaires();
         try {
@@ -158,12 +155,10 @@ public class LecteurDonnees {
 
     
     /** 
+     * create an instance of fire reading the file
      * @param carte
      * @return Incendie
      * @throws DataFormatException
-     */
-    /*
-     * Crée une instance Incendie en lisant le fichier
      */
     private Incendie creerIncendie(Carte carte) throws DataFormatException {
         ignorerCommentaires();
@@ -191,12 +186,13 @@ public class LecteurDonnees {
 
     
     /** 
+     * Cree un tableau d'instances de Robots en lisant le fichier
+     * create an array of instances of robots, reading the file
      * @param carte
      * @return Robot[]
      * @throws DataFormatException
      */
     /*
-     * Cree un tableau d'instances de Robots en lisant le fichier
      */
     private Robot[] creerRobots(Carte carte)  throws DataFormatException {
         ignorerCommentaires();
@@ -216,12 +212,13 @@ public class LecteurDonnees {
 
     
     /** 
+     * Cree un tableau d'instances de Robots en lisant le fichier 
+     * create an array of instances of robots, reading the file
      * @param carte
      * @return Robot
      * @throws DataFormatException
      */
-    /*
-     * Cree un tableau d'instances de Robots en lisant le fichier */
+    
     private Robot creerRobot(Carte carte) throws DataFormatException {
         ignorerCommentaires();
 
