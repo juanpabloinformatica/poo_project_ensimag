@@ -8,11 +8,21 @@ import constants.TypeRobot;
 import robots.Robot;
 import robots.RobotLogic;
 
+/**
+ * the class deplacerEvenement represent the movement of a robot
+ */
 public class DeplacerEvenement extends Evenement {
     private Direction direction;
     private Carte carte;
     private Robot robot;
 
+    /**
+     * create the movement event, receives the date, the robot logic the direction and the map
+     * @param date - the date of the event
+     * @param robotLogic - the robot logic
+     * @param direction - direction 
+     * @param carte - map of the simulation
+     */
     public DeplacerEvenement(Integer date, RobotLogic robotLogic,
                              Direction direction, Carte carte) {
         super(date, robotLogic);
@@ -22,12 +32,6 @@ public class DeplacerEvenement extends Evenement {
 
     }
 
-
-    /*
-     * Vérfie que la direction saisi est dans les limites de la carte
-     * Si elle est dans les limites elle envoie la Case
-     * Sinon elle envoie une exception
-     */
     private Case checkMapLimits() throws Exception {
         Case pos = robot.getPosition();
         int i = pos.getLigne();
@@ -46,7 +50,6 @@ public class DeplacerEvenement extends Evenement {
                 j -= 1;
                 break;
             default:
-                // TODO throw exception type
         }
         if ( i < 0 || i > carte.getNbLignes()) {
             throw new Exception("i out of bounds");
@@ -55,8 +58,9 @@ public class DeplacerEvenement extends Evenement {
         }
         return carte.getCase(i,j);
     }
-    /*
-     * Deplacer le robot
+    
+    /**
+     * perform the movement of a robot
      */
     @Override
     public void execute() {
@@ -87,7 +91,5 @@ public class DeplacerEvenement extends Evenement {
             System.out.println(e);
         }
     }
-
-
     
 }

@@ -17,14 +17,31 @@ import events.OccupiedEvenement;
 import events.RemplirEvenement;
 import events.Simulateur;
 
+/**
+ * the class NaivePathCalculator represent how the robots are going to move 
+ * through the map in order to put out the fire and refilling their tanks but 
+ * in a not optimal way
+ */
 public class NaivePathCalculator extends PathCalculator {
     ArrayList<Case> nextCases;
-
+    HashSet<Case> seenCases;
+    /**
+     * create the naviePathCalculator that receives a map
+     * @param carte - map
+     */
     public NaivePathCalculator(Carte carte) {
         super(carte);
     }
 
-    HashSet<Case> seenCases;
+    
+    
+    /** 
+     * search a naive paths to a robot to certain destination
+     * @param r - robot
+     * @param current - actual case
+     * @param target - destination case
+     * @return boolean
+     */
     private boolean searchPath(Robot r, Case current, Case target) {
         if (current == target)
             return true;
@@ -52,6 +69,13 @@ public class NaivePathCalculator extends PathCalculator {
         return false;
     }
 
+    
+    /** 
+     * search a naive paths to a robot to certain destination in where can take water
+     * @param r - robot
+     * @param current - actual case
+     * @return boolean
+     */
     private boolean searchPathToWater(Robot r, Case current) {
         if (r.getTypeRobot() == TypeRobot.DRONE && current.getNatureTerrain() == NatureTerrain.EAU)
             return true;
@@ -85,6 +109,13 @@ public class NaivePathCalculator extends PathCalculator {
     }
 
 
+    
+    /** 
+     * get a naive path of the possible paths to arrive certain destination
+     * @param r - robot
+     * @param target - destination case
+     * @return ArrayList<Case>
+     */
     // Renvoie le premiere chemin trouve mais pas forcement le plus court
     // OU null si aucun chemin a ete trouve
     @Override
@@ -102,6 +133,12 @@ public class NaivePathCalculator extends PathCalculator {
         return nextCases;
     }
 
+    
+    /** 
+     *  get a naive path of the possible paths to arrive certain place to refill the tank
+     * @param r
+     * @return ArrayList<Case>
+     */
     @Override
     // retourne le premier chemin vers une case d'eau
     public ArrayList<Case> computePathToWater(Robot r) {
@@ -113,6 +150,13 @@ public class NaivePathCalculator extends PathCalculator {
         return nextCases;
     }
 
+    
+    /** 
+     * calculate the time in traversing a path to a destination
+     * @param r - robot
+     * @param target - destination
+     * @return double
+     */
     @Override
     public double getTimeToCase(Robot r, Case target) {
         return 0;
