@@ -20,13 +20,15 @@ import robots.RobotLogic;
 public class TestAffichageDonneesSimulation {
   
   /** 
-   * @param args
-   * @throws FileNotFoundException
+   * initialize the program receiving arguments 
+   * @param args - arguments 
+   * @throws FileNotFoundException exception is the file doesn't exists
    */
   public static void main(String[] args) throws FileNotFoundException {
     // crée la fenêtre graphique dans laquelle dessiner
     // GUISimulator gui = new GUISimulator(800, 600, Color.BLACK);
     // crée l'invader, en l'associant à la fenêtre graphique précédente
+
     try {
       DonneesSimulation dS = LecteurDonnees.creerDonneesSimulation(args[0]);
       int widthGui = dS.getCarte().getTailleCases() * dS.getCarte().getNbColonnes();
@@ -43,6 +45,11 @@ public class TestAffichageDonneesSimulation {
   }
 }
 
+/**
+ * this class AffichageDonneesSimulation represents the images associated to the data recolected 
+ * and its possible events
+ * 
+ */
 class AffichageDonneesSimulation implements Simulable {
 
   private GUISimulator gui;
@@ -65,7 +72,11 @@ class AffichageDonneesSimulation implements Simulable {
     //npc.computePath(robot,]);
     // robot.propose(dS.getIncendies()[0]);
   }
-
+  /**
+   * create the grpahical representation of the data recolected and its possible events
+   * @param gui - graphical user interface
+   * @param dS - donnee simulation
+   */
   public AffichageDonneesSimulation(GUISimulator gui, DonneesSimulation dS) {
     // super(new Integer(0));
     // secondPointInit();
@@ -113,17 +124,7 @@ class AffichageDonneesSimulation implements Simulable {
     drawIncendies(dS.getIncendies());
     drawRobots(dS.getRobots());
   }
-  // private void secondPointInit(){
-  //     this.dateSimulation = new Integer(0);
-  //     this.ordonne = new ArrayList<>();
-  //     this.ordonneIndex = new Integer(0);
-  //     this.ordonne.add(this.ordonneIndex,this);
-  //     this.incrementDate();
-  // }
 
-  /*
-   * Affiche la carte avec une image differente pour chaque natureTerrain
-   */
   private void drawCarte(Carte carte) {
     for (int i = 0; i < carte.getNbLignes() * pixelSizeCase; i += pixelSizeCase) {
       for (int j = 0;
@@ -224,33 +225,4 @@ class AffichageDonneesSimulation implements Simulable {
         break;
     }
   }
-
-  // public void ajouteEvenement(Evenement e){
-  //     this.ordonne.add(e);
-  // }
-  // private void incrementDate(){
-  //     this.ordonneIndex++;
-  // }
-  /*
-   * this
-   */
-  // private boolean simulationTerminee(){
-  //     for(Evenement e:this.ordonne){
-  //         if(e.getEventDone()==false){
-  //             return false;
-  //         }
-  //     }
-  //     return true;
-  // }
-  /*
-   * this function just will test that the objects are moving
-   */
-  // private void testingMovement(){
-
-  // }
-
-  /*
-   * this method run the first event
-   */
-
 }
