@@ -12,28 +12,43 @@ import constants.NatureTerrain;
 import constants.TypeRobot;
 import events.Simulateur;;
 
+/**
+ * the Dijkstra class represent the algorithm that allows 
+ * certain robot to find the shortest path to certain destination
+ */
 public class Dijkstra extends PathCalculator {
 
   int timeNeeded;
   ArrayList<Case> shortestPath;
   
+  /**
+   * create dijkstra that receives 
+   * @param simulateur - simulator
+   * @param carte - map
+   */
   public Dijkstra(Simulateur simulateur, Carte carte) {
     super(carte);
   }
 
   
   /** 
-   * @param robot
-   * @param destination
+   * implement the dijkstra algorithm to find the shortest path to 
+   * certain case
+   * @param robot - robot
+   * @param destination - case to arrive
    * @return boolean
    */
   public boolean dijkstra(Robot robot, Case destination) {
+
+    //this map has the case and the cost(distance+weight)
     Map<Case,Integer> costs = new HashMap<Case, Integer>();
     Set<Case> visited = new HashSet<Case>();
-    //ArrayList<Case> shortestPath = new ArrayList<Case>();
+
+    //this variable will stock the path in inverse order
     Map<Case,Case> backtracker = new HashMap<Case,Case>();
     int nbLignes = this.getCarte().getNbLignes();
     int nbColonnes = this.getCarte().getNbColonnes();
+
     for (int i = 0; i < nbLignes; i++) {
       for (int j = 0; j < nbColonnes; j++) {
         costs.put(this.getCarte().getCase(i, j), Integer.MAX_VALUE);
@@ -66,8 +81,9 @@ public class Dijkstra extends PathCalculator {
 
   
   /** 
-   * @param costs
-   * @param visited
+   * this return the lowest distance from a case to another
+   * @param costs - cost (distance+weight)
+   * @param visited - visited case
    * @return Case
    */
   public Case getLowestDistance(Map<Case,Integer> costs, Set<Case> visited) {
@@ -87,10 +103,11 @@ public class Dijkstra extends PathCalculator {
 
   
   /** 
-   * @param carte
-   * @param curr
-   * @param robot
-   * @param sizeCase
+   * get the adjacent cases of a certain case
+   * @param carte - map
+   * @param curr - actual case
+   * @param robot - robot
+   * @param sizeCase - size of a case
    * @return Map<Case, Integer>
    */
   public Map<Case,Integer> getAdjacentNodes(Carte carte, Case curr, Robot robot, int sizeCase) {
@@ -123,11 +140,13 @@ public class Dijkstra extends PathCalculator {
 
   
   /** 
-   * @param costs
-   * @param adjacent
-   * @param distance
-   * @param curr
-   * @param backtracker
+   * update the cost if is possible to arrive to a case with less efort
+   * in this case less time
+   * @param costs - cost (distance+weight)
+   * @param adjacent - adjacent case
+   * @param distance - distance
+   * @param curr - actual case
+   * @param backtracker - inverse path list
    */
   public void updateHashMap(Map<Case,Integer> costs, Case adjacent, int distance, Case curr, Map<Case,Case> backtracker) {
     int sourceDistance = costs.get(curr);
@@ -139,8 +158,9 @@ public class Dijkstra extends PathCalculator {
 
   
   /** 
-   * @param r
-   * @param target
+   * get the time to traverse all the shortest path
+   * @param r - robot
+   * @param target - destination case
    * @return ArrayList<Case>
    */
   @Override

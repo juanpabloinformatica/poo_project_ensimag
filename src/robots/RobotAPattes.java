@@ -2,7 +2,15 @@ package robots;
 import classes.Case;
 import constants.*;
 
+/**
+ * the class RobotAPattes represent the firefighter robot a pattes 
+ */
 public class RobotAPattes extends Robot {
+
+    /**
+     * create the robot a pattes that receives an initial position and speed
+     * @param pos - case
+     */
     public RobotAPattes(Case pos) {
         super(pos, Integer.MAX_VALUE);
         this.setVitesse(30*1000/3600);
@@ -12,7 +20,8 @@ public class RobotAPattes extends Robot {
    
     
     /** 
-     * @param pos
+     * set position of the robot 
+     * @param pos - case
      */
     @Override
     public void setPosition(Case pos) {
@@ -22,6 +31,7 @@ public class RobotAPattes extends Robot {
     }
     
     /** 
+     * get the speed of the robot a pattes
      * @return double
      */
     public double getVitesse() {
@@ -33,7 +43,8 @@ public class RobotAPattes extends Robot {
 
     
     /** 
-     * @param nT
+     * get the speed of the case
+     * @param nT - natureTerrain
      * @return double
      */
     @Override
@@ -44,6 +55,7 @@ public class RobotAPattes extends Robot {
     }
     
     /** 
+     * describe the robot a pattes
      * @return String
      */
     @Override
@@ -52,6 +64,7 @@ public class RobotAPattes extends Robot {
     }
     
     /** 
+     * get the type of the robot
      * @return TypeRobot
      */
     public TypeRobot getTypeRobot() {
@@ -59,8 +72,10 @@ public class RobotAPattes extends Robot {
     }
 
     
-    /** 
-     * @param c
+   /** 
+     * get if a robot can go to certain case
+     * 
+     * @param c - case
      * @return boolean
      */
     @Override

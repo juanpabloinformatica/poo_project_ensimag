@@ -61,7 +61,9 @@ public class Simulateur implements Simulable {
             events.add(e);
     }
 
-
+    /**
+     * increment the date to performs the following events
+     */
     public void incrementeDate() {
         if (simulationTerminee())
             return;
@@ -91,7 +93,7 @@ public class Simulateur implements Simulable {
     }
 
 
-    
+
     @Override
     public void next() {
     }

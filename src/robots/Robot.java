@@ -3,7 +3,12 @@ import classes.Case;
 import constants.NatureTerrain;
 import constants.TypeRobot;
 
+/**
+ * the Robot class represent all the different firefighter robots 
+ * that will extinguish the fire in a map
+ */
 public abstract class Robot {
+
     protected Case position;
     private final int RESERVOIR; // Capacité du réservoir (constante)
     private int currReservoir; // Volume d'eau se trouvant dans le currReservoir
@@ -11,17 +16,29 @@ public abstract class Robot {
     private int volVidage; // volume litres vidé lors d'une intervention unitaire
     private int tempsVidage; // en seconds lors d'une intervention unitaire
     protected double vitesse; // vitesse en m/s
-
+    
+    /**
+     * create a robot that receives a case and a tank capacity
+     * @param pos - case situed
+     * @param RESERVOIR - tank capacity
+     */
+    public Robot(Case pos, int RESERVOIR) {
+        position = pos;
+        this.RESERVOIR = RESERVOIR;
+        this.currReservoir = RESERVOIR;
+    }
     
     /** 
-     * @param vitesse
+     * get the speed of certain terrain different in every robot
+     * @param vitesse - speed
      * @return double
      */
     // return la vitesse dans une cas de la nature nT;
     public abstract double getVitesseNature(NatureTerrain nT);
     
     /** 
-     * @param vitesse
+     * get the resultat of if a robot can go to certain case
+     * @param vitesse - speed
      * @return boolean
      */
     // Return si le robot peut se rendre sur la case c
@@ -29,13 +46,15 @@ public abstract class Robot {
 
     
     /** 
-     * @param vitesse
+     * update the speed of the robot
+     * @param vitesse - speed
      */
     public void setVitesse(double vitesse) {
         this.vitesse = vitesse;
     }
     
     /** 
+     * get the time to refill the tank of a robot
      * @return int
      */
     public int getTempsRemplissage() {
@@ -43,6 +62,7 @@ public abstract class Robot {
     }
     
     /** 
+     * get the capacity of throw water of a robot
      * @return int
      */
     public int getVolVidage() {
@@ -50,13 +70,15 @@ public abstract class Robot {
     }
     
     /** 
-     * @param volVidage
+     * set the capacity that a robot has to throw water
+     * @param volVidage - throw water
      */
     public void setVolVidage(int volVidage) {
         this.volVidage = volVidage;
     }
     
     /** 
+     * get the time spent of a robot throwing water to a fire 
      * @return int
      */
     public int getTempsVidage() {
@@ -64,7 +86,8 @@ public abstract class Robot {
     }
     
     /** 
-     * @param tempsVidage
+     * 
+     * @param tempsVidage - time spent emptying the tank
      */
     public void setTempsVidage(int tempsVidage) {
         this.tempsVidage = tempsVidage;
@@ -74,13 +97,9 @@ public abstract class Robot {
     public abstract void setPosition(Case pos);
     public abstract TypeRobot getTypeRobot();
 
-    public Robot(Case pos, int RESERVOIR) {
-        position = pos;
-        this.RESERVOIR = RESERVOIR;
-        this.currReservoir = RESERVOIR;
-    }
     
     /** 
+     * get the position
      * @return Case
      */
     public Case getPosition() {
@@ -88,7 +107,8 @@ public abstract class Robot {
     }
     
     /** 
-     * @param vol
+     * uodate the current cantity of water in the tank
+     * @param vol - water used 
      */
     public void deverserEau(int vol) {
         if (this.currReservoir >= vol) {
@@ -102,13 +122,15 @@ public abstract class Robot {
     
     
     /** 
-     * @param currReservoir
+     * set the current water cantity in the tank
+     * @param currReservoir - actual water cantity
      */
     public void setCurrReservoir(int currReservoir) {
         this.currReservoir = currReservoir;
     }
     
     /** 
+     * get the current water cantity
      * @return int
      */
     public int getCurrReservoir() {
@@ -116,6 +138,7 @@ public abstract class Robot {
     }
     
     /** 
+     * get the total capacity that a robot has to stock water
      * @return int
      */
     public int getRESERVOIR() {
@@ -124,7 +147,8 @@ public abstract class Robot {
 
     
     /** 
-     * @param t
+     * set the time that a robot takes to spend the water in its tank
+     * @param t - time
      */
     public void setTempsRemplissage(int t) {
         this.tempsRemplissage = t;
@@ -132,8 +156,9 @@ public abstract class Robot {
 
     
     /** 
-     * @param l
-     * @param temps
+     * set the time to spend water
+     * @param l - liters
+     * @param temps - time
      */
     public void setVidage(int l, int temps) {
         this.volVidage = l;

@@ -4,14 +4,17 @@ import java.util.ArrayList;
 
 import constants.Direction;
 
-/*
- * Associe les nouveaux mouvements et la date a la quelle ils sont fait
- * (i.e date d'arrivee a la case)
+/**
+ * the class Path  represents the association of the movements and the date when they are done
+ * 
  * */
 public class Path {
     ArrayList<Direction> nextMoves;
     ArrayList<Integer> dates;
 
+    /**
+     * create a path 
+     */
     public Path() {
         nextMoves = new ArrayList<Direction>();
         dates = new ArrayList<Integer>();
@@ -19,8 +22,9 @@ public class Path {
 
     
     /** 
-     * @param d
-     * @param date
+     * add the following move in the list
+     * @param d - direction
+     * @param date - date of path
      */
     public void addNextMove(Direction d, Integer date) {
         nextMoves.add(d);
@@ -29,6 +33,7 @@ public class Path {
 
     
     /** 
+     * get the list of future moves
      * @return ArrayList<Direction>
      */
     public ArrayList<Direction> getNextMoves() {
@@ -37,6 +42,7 @@ public class Path {
 
     
     /** 
+     * get the list of dates of moves
      * @return ArrayList<Integer>
      */
     public ArrayList<Integer> getDates() {
