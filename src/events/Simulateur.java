@@ -2,13 +2,14 @@ package events;
 
 import java.util.LinkedList;
 import java.util.PriorityQueue;
+import java.util.Queue;
 
 import classes.ChefPompier;
 import gui.GUISimulator;
 import gui.Simulable;
 
 public class Simulateur implements Simulable {
-    private PriorityQueue<Evenement> events;
+    private Queue<Evenement> events;
     private LinkedList<Evenement> removedEvents;
     private GUISimulator gui;
     private int dateSimulation;
@@ -19,9 +20,8 @@ public class Simulateur implements Simulable {
         dateSimulation = 0;
         this.chef = chef;
         events = new PriorityQueue<Evenement>();
-        removedEvents = new LinkedList<Evenement>();
         this.gui = gui;
-        this.n = 100000000;
+        n = 100;
     }
 
     public int getDateSimulation() {
@@ -38,7 +38,11 @@ public class Simulateur implements Simulable {
     }
 
     public void incrementeDate() {
-        if (dateSimulation % n == 0 || dateSimulation==0){
+        if (simulationTerminee() && dateSimulation != 0) {
+            System.out.println("SIMULATION TERMINEE");
+            return;
+        }
+        if (dateSimulation % n == 0){
             System.out.println("STARTEGIE EXECUTEEE");
             this.chef.strategieEvolved();
         }
@@ -48,13 +52,7 @@ public class Simulateur implements Simulable {
         dateSimulation++;
     }
 
-    // public void restartEvents() {
-    //     events.addAll(0, removedEvents);
-    //     removedEvents.clear();
-    // }
-
     public boolean simulationTerminee() {
-        // chef.strategieElementaire();
         return events.isEmpty();
     }
 
@@ -62,9 +60,13 @@ public class Simulateur implements Simulable {
 
     @Override
     public void next() {
+        incrementeDate();
     }
 
     @Override
     public void restart() {
+        dateSimulation = 0;
+        events = new PriorityQueue<>();
+        chef.restart();
     }
 }

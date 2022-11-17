@@ -12,6 +12,12 @@ public abstract class Robot {
     private int tempsVidage; // en seconds lors d'une intervention unitaire
     protected double vitesse; // vitesse en m/s
 
+    private Case oldPosition;
+
+    public void restart() {
+        position = oldPosition;
+        currReservoir = RESERVOIR;
+    }
     // return la vitesse dans une cas de la nature nT;
     public abstract double getVitesseNature(NatureTerrain nT);
     // Return si le robot peut se rendre sur la case c
@@ -42,6 +48,7 @@ public abstract class Robot {
 
     public Robot(Case pos, int RESERVOIR) {
         position = pos;
+        oldPosition = pos;
         this.RESERVOIR = RESERVOIR;
         this.currReservoir = RESERVOIR;
     }

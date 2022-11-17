@@ -19,12 +19,18 @@ public class ChefPompier {
         this.affectedIncendies = new HashSet<Incendie>();
     }
 
+    public void restart() {
+        this.affectedIncendies = new HashSet<Incendie>();
+        for (RobotLogic rl: robotsLogics)
+            rl.restart();
+    }
+
     private HashSet<Incendie> affectedIncendies; // chaque robot est affecte' a un incendie
     // execute tous les n pas de temps
     public void strategieElementaire() {
         Double INF = Double.POSITIVE_INFINITY;
         for (Incendie i: incendies) {
-            if (i.getIntensite() <= 0)
+            if (i.getIntensite() <= 0 || affectedIncendies.contains(i))
                 continue;
             for (RobotLogic r: robotsLogics) {
                 if (!r.isAvailable() && r.timeToGo(i) != INF) {
@@ -37,24 +43,24 @@ public class ChefPompier {
         }
     }
     public void strategieEvolved() {
-        for (Incendie i: incendies) {
-            if (i.getIntensite() <= 0)
+        for (RobotLogic r: robotsLogics) {
+            if (!r.isAvailable())
                 continue;
             double minTime = Double.POSITIVE_INFINITY;
             double currTime;
-            RobotLogic selectedRobot = null;
-            for (RobotLogic r: robotsLogics) {
-                if (r.isAvailable()) {
+            Incendie selectedIncendie = null;
+            for (Incendie i: incendies) {
+                if (i.getIntensite() <= 0)
+                    continue;
                     currTime = r.timeToGo(i);
                     if (currTime < minTime) {
                         minTime = currTime;
-                        selectedRobot = r;
+                        selectedIncendie = i;
                     }
                 }
-            }
-            if (selectedRobot != null) {
-                selectedRobot.affect(i);
-                selectedRobot.setOccupied(true);
+            if (selectedIncendie != null) {
+                r.affect(selectedIncendie);
+                r.setOccupied(true);
             }
         }
     }

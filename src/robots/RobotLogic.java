@@ -26,6 +26,10 @@ public class RobotLogic {
     private static PathCalculator pathCalculator;
     private boolean occupied;
 
+    public void restart() {
+        robot.restart();
+        occupied = false;
+    }
     public RobotLogic(Robot robot) {
         this.robot = robot;
     }
@@ -34,11 +38,10 @@ public class RobotLogic {
     }
     public static void InitialiateStaticVariables(Simulateur simulateur,
                                                   Carte carte,
-                                                  PathCalculator pathCalculator,
                                                   ChefPompier chefPompier) {
         RobotLogic.simulateur = simulateur;
         RobotLogic.carte = carte;
-        RobotLogic.pathCalculator= pathCalculator;
+        RobotLogic.pathCalculator= new Dijkstra(simulateur, carte);
         RobotLogic.chefPompier = chefPompier;
     }
 

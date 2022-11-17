@@ -68,9 +68,9 @@ class AffichageDonneesSimulation implements Simulable {
     //testDeplacerEvenement();
     ChefPompier chefPompier = new ChefPompier(dS.getCarte(), dS.getRobots(), dS.getIncendies());
     simulateur = new Simulateur(gui, chefPompier);
+    RobotLogic.InitialiateStaticVariables(simulateur, dS.getCarte(), chefPompier);
     // NaivePathCalculator npc = new NaivePathCalculator(simulateur, dS.getCarte());
-    Dijkstra pc = new Dijkstra(simulateur, dS.getCarte());
-    RobotLogic.InitialiateStaticVariables(simulateur, dS.getCarte(), pc, chefPompier);
+    // Dijkstra pc = new Dijkstra(simulateur, dS.getCarte());
     //robot.propose(dS.getIncendies()[0]);
 
     // this.gui = gui;
@@ -90,19 +90,23 @@ class AffichageDonneesSimulation implements Simulable {
     int height = gui.getPanelHeight();
     int width = gui.getPanelWidth();
     int min = height > width ? width : height;
-    this.pixelSizeCase = 25;
+    this.pixelSizeCase = 50;
     draw();
     // testingMovement();
   }
 
   @Override
   public void next() {
-    simulateur.incrementeDate();
+    simulateur.next();
     draw();
   }
 
   @Override
   public void restart() {
+    simulateur.restart();
+    for(Incendie i: dS.getIncendies())
+      i.restart();
+    draw();
   }
 
   private void draw() {
