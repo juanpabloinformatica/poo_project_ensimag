@@ -46,7 +46,7 @@ public class RobotLogic {
                                                   ChefPompier chefPompier) {
         RobotLogic.simulateur = simulateur;
         RobotLogic.carte = carte;
-        RobotLogic.pathCalculator= new Dijkstra(simulateur, carte);
+        RobotLogic.pathCalculator= new DijkstraPathCalculator(simulateur, carte);
         RobotLogic.chefPompier = chefPompier;
     }
 
