@@ -2,7 +2,7 @@ package events;
 
 import classes.Incendie;
 import robots.Robot;
-import robots.RobotLogic;
+import robots.Robot;
 
 /**
  * the class arrivedEvenement represent the arrive action of a robot
@@ -15,11 +15,11 @@ public class ArrivedEvenement extends Evenement {
      * create a arrive event which receives the robot who arrive, the date,the fire to be attacked,
      * and the robot logic
      * @param date - date of the arrive event
-     * @param robotLogic - robot logic 
+     * @param robot - robot logic
      * @param incendie - fire
      */
-    public ArrivedEvenement(Integer date, RobotLogic robotLogic, Incendie incendie) {
-        super(date, robotLogic);
+    public ArrivedEvenement(Integer date, Robot robot, Incendie incendie) {
+        super(date, robot);
         this.incendie = incendie;
     }
 
@@ -28,6 +28,6 @@ public class ArrivedEvenement extends Evenement {
      */
     @Override
     public void execute() {
-        getRobotLogic().arrivedToIncendie(getDate(), incendie);
+        getRobot().arrivedToIncendie(getDate(), incendie);
     }
 }

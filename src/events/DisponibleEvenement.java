@@ -1,7 +1,7 @@
 package events;
 
 import classes.ChefPompier;
-import robots.RobotLogic;
+import robots.Robot;
 
 /**
  * the class DisponibleEvenement represent the state free of a robot 
@@ -12,11 +12,11 @@ public class DisponibleEvenement extends Evenement {
     /**
      * create the available event that indicate a robot that is not busy
      * @param date - the date of the event
-     * @param robotLogic - the robot logic
+     * @param robot - the robot logic
      */
-    public DisponibleEvenement(int date, RobotLogic robotLogic,
+    public DisponibleEvenement(int date, Robot robot,
                                ChefPompier chefPompier) {
-        super(date, robotLogic);
+        super(date, robot);
         this.chefPompier = chefPompier;
     }
 
@@ -25,7 +25,7 @@ public class DisponibleEvenement extends Evenement {
      */
     public void execute() {
         System.out.println("disponible!!");
-        getRobotLogic().setOccupied(false);
+        getRobot().setOccupied(false);
         // chefPompier.strategieElementaire();
         chefPompier.strategieEvolved();
     }

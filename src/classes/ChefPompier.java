@@ -3,7 +3,7 @@ package classes;
 import java.util.HashSet;
 
 import robots.Robot;
-import robots.RobotLogic;
+import robots.Robot;
 
 /**
  * the ChefPompier class represent the boss of the robots,
@@ -12,7 +12,7 @@ import robots.RobotLogic;
  */
 public class ChefPompier {
     private Carte carte;
-    private RobotLogic[] robotsLogics;
+    private Robot[] robot;
     private Incendie[] incendies;
     private HashSet<Incendie> affectedIncendies; // chaque robot est affecte' a un incendie
     
@@ -25,16 +25,13 @@ public class ChefPompier {
     public ChefPompier(Carte carte, Robot[] robots, Incendie[] incendies) {
         this.carte = carte;
         this.incendies = incendies;
-        this.robotsLogics = new RobotLogic[robots.length];
-        for (int i = 0; i < robots.length; i++) {
-            this.robotsLogics[i] = new RobotLogic(robots[i]);
-        }
-        this.affectedIncendies = new HashSet<Incendie>();
+        this.robot = robots;
+        this.affectedIncendies = new HashSet<Incendie>(); //pour la strat elementaire
     }
 
     public void restart() {
         this.affectedIncendies = new HashSet<Incendie>();
-        for (RobotLogic rl: robotsLogics)
+        for (Robot rl: robot)
             rl.restart();
     }
 
@@ -48,7 +45,7 @@ public class ChefPompier {
         for (Incendie i: incendies) {
             if (i.getIntensite() <= 0 || affectedIncendies.contains(i))
                 continue;
-            for (RobotLogic r: robotsLogics) {
+            for (Robot r: robot) {
                 if (!r.isAvailable() && r.timeToGo(i) != INF) {
                     // robot accepte se rendre a l'incendie i
                     r.affect(i);
@@ -59,7 +56,7 @@ public class ChefPompier {
         }
     }
     public void strategieEvolved() {
-        for (RobotLogic r: robotsLogics) {
+        for (Robot r: robot) {
             if (!r.isAvailable())
                 continue;
             double minTime = Double.POSITIVE_INFINITY;

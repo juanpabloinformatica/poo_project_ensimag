@@ -2,7 +2,7 @@ package events;
 
 import classes.Incendie;
 import robots.Robot;
-import robots.RobotLogic;
+import robots.Robot;
 
 /**
  * the class EteindreEvenement represent the action of putting out a fire 
@@ -15,11 +15,11 @@ public class EteindreEvenement extends Evenement {
     /**
      * create a eteindreEvenement that receives the date of the event, the robot logic and the fire
      * @param date
-     * @param robotLogic
+     * @param robot
      * @param incendie
      */
-    public EteindreEvenement(Integer date, RobotLogic robotLogic, Incendie incendie) {
-        super(date, robotLogic);
+    public EteindreEvenement(Integer date, Robot robot, Incendie incendie) {
+        super(date, robot);
         this.incendie = incendie;
     }
     /*
@@ -27,6 +27,6 @@ public class EteindreEvenement extends Evenement {
      */
     @Override
     public void execute() {
-        getRobotLogic().eteindreIncendie(getDate(), incendie);
+        getRobot().eteindreIncendie(getDate(), incendie);
     }
 }

@@ -1,7 +1,7 @@
 package events;
 
 import robots.Robot;
-import robots.RobotLogic;
+import robots.Robot;
 
 /**
  * the Evenement class represent the possible actions that a robot can has 
@@ -12,17 +12,17 @@ public abstract class Evenement implements Comparable<Evenement> {
     private Integer date;
     protected Integer dateExecution;
     private boolean eventDone;
-    private RobotLogic robotLogic;
+    private Robot robot;
 
     /**
-     * create a event which receive a date and robotLogic 
+     * create a event which receive a date and robot
      * @param date - date of the event
-     * @param robotL - logic of the robots
+     * @param robot - logic of the robots
      */
-    public Evenement(Integer date, RobotLogic robotL) {
+    public Evenement(Integer date, Robot robot) {
         this.date = date;
         this.eventDone=false;
-        this.robotLogic = robotL;
+        this.robot = robot;
         this.dateExecution = null;
     }
 
@@ -73,10 +73,10 @@ public abstract class Evenement implements Comparable<Evenement> {
 
     
     /**  get the robot logic
-     * @return RobotLogic
+     * @return Robot
      */
-    public RobotLogic getRobotLogic() {
-        return this.robotLogic;
+    public Robot getRobot() {
+        return this.robot;
     }
 
     /**

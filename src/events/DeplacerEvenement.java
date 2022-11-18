@@ -6,7 +6,7 @@ import constants.Direction;
 import constants.NatureTerrain;
 import constants.TypeRobot;
 import robots.Robot;
-import robots.RobotLogic;
+import robots.Robot;
 
 /**
  * the class deplacerEvenement represent the movement of a robot
@@ -19,16 +19,16 @@ public class DeplacerEvenement extends Evenement {
     /**
      * create the movement event, receives the date, the robot logic the direction and the map
      * @param date - the date of the event
-     * @param robotLogic - the robot logic
+     * @param robot - the robot logic
      * @param direction - direction 
      * @param carte - map of the simulation
      */
-    public DeplacerEvenement(Integer date, RobotLogic robotLogic,
+    public DeplacerEvenement(Integer date, Robot robot,
                              Direction direction, Carte carte) {
-        super(date, robotLogic);
+        super(date, robot);
         this.direction = direction;
         this.carte = carte;
-        this.robot = getRobotLogic().getRobot();
+        this.robot = robot;
 
     }
 

@@ -1,5 +1,6 @@
 package robots;
 import classes.Case;
+import classes.Incendie;
 import constants.NatureTerrain;
 import constants.TypeRobot;
 
@@ -17,6 +18,7 @@ public abstract class Robot {
     private int tempsVidage; // en seconds lors d'une intervention unitaire
     protected double vitesse; // vitesse en m/s
     private Case oldPosition;
+    private RobotLogic robotLogic;
 
     public void restart() {
         position = oldPosition;
@@ -104,6 +106,7 @@ public abstract class Robot {
         oldPosition = pos;
         this.RESERVOIR = RESERVOIR;
         this.currReservoir = RESERVOIR;
+        this.robotLogic = new RobotLogic(this);
     }
 
     /** 
@@ -172,4 +175,36 @@ public abstract class Robot {
         this.volVidage = l;
         this.tempsVidage = temps;
     }
+
+
+    // ROBOT LOGIC DELEGATION
+    public void eteindreIncendie(Integer date, Incendie incendie) {
+        robotLogic.eteindreIncendie(date, incendie);
+    }
+    public boolean isOccupied() {
+        return robotLogic.isOccupied();
+    }
+    public void setOccupied(boolean occupied) {
+        robotLogic.setOccupied(occupied);
+    }
+    public void arrivedToIncendie(Integer date, Incendie incendie) {
+        robotLogic.arrivedToIncendie(date, incendie);
+    }
+    public boolean canSeRemplir(Case pos) {
+        return robotLogic.canSeRemplir(pos);
+    }
+    public double timeToGo(Incendie i) {
+        return robotLogic.timeToGo(i);
+    }
+    public boolean isAvailable() {
+        return robotLogic.isAvailable();
+    }
+    public void affect(Incendie i) {
+        robotLogic.affect(i);
+    }
+    public void seRemplir() {
+        robotLogic.seRemplir();
+    }
+
+
 }

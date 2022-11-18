@@ -19,11 +19,12 @@ import events.RemplirEvenement;
 import events.Simulateur;
 
 public class RobotLogic {
-    private Robot robot;
     private static ChefPompier chefPompier;
     private static Simulateur simulateur;
     private static Carte carte;
     private static PathCalculator pathCalculator;
+
+    private Robot robot;
     private boolean occupied;
 
     public void restart() {
@@ -34,13 +35,7 @@ public class RobotLogic {
         this.robot = robot;
     }
     
-    /** 
-     * @return Robot
-     */
-    public Robot getRobot() {
-        return robot;
-    }
-    
+
     /** 
      * @param simulateur
      * @param carte
@@ -63,7 +58,7 @@ public class RobotLogic {
     public void eteindreIncendie(Integer date, Incendie incendie) {
         // incendie a ete eteint entre temps
         if (incendie.getIntensite() <= 0) {
-            simulateur.addEvenement(new DisponibleEvenement(date, this, chefPompier));
+            simulateur.addEvenement(new DisponibleEvenement(date, robot, chefPompier));
             return;
         }
 
@@ -72,7 +67,7 @@ public class RobotLogic {
         if (incendie.getIntensite() > 0
             && robot.getCurrReservoir() >= robot.getVolVidage()) {
             simulateur.addEvenement(new EteindreEvenement(date + robot.getTempsVidage(),
-                                                          this, incendie));
+                                                          robot, incendie));
             return;
         }
 
@@ -83,7 +78,7 @@ public class RobotLogic {
 
         // nous venons d'eteindre l'incendie et le reservoir n'est pas vide
         if (incendie.getIntensite() <= 0) {
-            simulateur.addEvenement(new DisponibleEvenement(date, this,
+            simulateur.addEvenement(new DisponibleEvenement(date, robot,
                                                             chefPompier));
             return;
         }
@@ -112,12 +107,12 @@ public class RobotLogic {
      */
     public void arrivedToIncendie(Integer date, Incendie incendie) {
         if (incendie.getIntensite() <= 0) {
-            simulateur.addEvenement(new DisponibleEvenement(date, this,
+            simulateur.addEvenement(new DisponibleEvenement(date, robot,
                                                             chefPompier));
             return;
         }
         simulateur.addEvenement(new EteindreEvenement(date + robot.getTempsVidage(),
-                                                      this, incendie));
+                                                      robot, incendie));
     }
 
     // return si le robot peut se remplir dans la case pos
@@ -151,12 +146,12 @@ public class RobotLogic {
         occupied = false;
         if(robot.getPosition().equals(i.getPosition())) {
             simulateur.addEvenement(new ArrivedEvenement(simulateur.getDateSimulation(),
-                                                         this, i));
+                                                         robot, i));
             return;
         }
         List<Case> pathCases= pathCalculator.computePath(robot, i.getPosition());
         if (pathCases == null) {
-            System.out.println("Le robot " + this.getRobot() + " n'a pas trouve un chemin pour se rendre a " + i);
+            System.out.println("Le robot " + robot + " n'a pas trouve un chemin pour se rendre a " + i);
             // pas de chemin trouve pour aller a l'incendie on
                           // decline la proposition
         }
@@ -177,8 +172,8 @@ public class RobotLogic {
         System.out.println("SE REMPLIR :" + robot);
         if(canSeRemplir(robot.getPosition())) {
             int timeNeeded = robot.getTempsRemplissage();
-            simulateur.addEvenement(new RemplirEvenement(simulateur.getDateSimulation()+timeNeeded, this));
-            simulateur.addEvenement(new DisponibleEvenement(simulateur.getDateSimulation()+timeNeeded, this, chefPompier));
+            simulateur.addEvenement(new RemplirEvenement(simulateur.getDateSimulation()+timeNeeded, robot));
+            simulateur.addEvenement(new DisponibleEvenement(simulateur.getDateSimulation()+timeNeeded, robot, chefPompier));
             return;
         }
         // chercher la case d'eau la plus pret;
@@ -199,18 +194,18 @@ public class RobotLogic {
         ArrayList<Integer> dates = path.getDates();
         ArrayList<Direction> directions = path.getNextMoves();
         System.out.println(robot);
-        simulateur.addEvenement(new OccupiedEvenement(dates.get(0), this));
+        simulateur.addEvenement(new OccupiedEvenement(dates.get(0), robot));
         for(int i = 0; i < dates.size(); i++) {
-            simulateur.addEvenement(new DeplacerEvenement(dates.get(i), this, directions.get(i), carte));
+            simulateur.addEvenement(new DeplacerEvenement(dates.get(i), robot, directions.get(i), carte));
         }
         // REVIEW : MONKEY PATCH
         if (incendie != null) {
             simulateur.addEvenement(new ArrivedEvenement(dates.get(dates.size()-1),
-                                                         this, incendie));
+                                                         robot, incendie));
         } else {
             int timeNeeded = robot.getTempsRemplissage();
-            simulateur.addEvenement(new RemplirEvenement(dates.get(dates.size()-1)+timeNeeded, this));
-            simulateur.addEvenement(new DisponibleEvenement(dates.get(dates.size()-1)+timeNeeded, this, chefPompier));
+            simulateur.addEvenement(new RemplirEvenement(dates.get(dates.size()-1)+timeNeeded, robot));
+            simulateur.addEvenement(new DisponibleEvenement(dates.get(dates.size()-1)+timeNeeded, robot, chefPompier));
         }
     }
 

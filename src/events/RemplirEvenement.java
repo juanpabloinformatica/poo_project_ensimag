@@ -1,6 +1,6 @@
 package events;
 import robots.Robot;
-import robots.RobotLogic;
+import robots.Robot;
 
 /**
  * the class RemplirEvenement represent the action on refilling a tank of a robot
@@ -12,7 +12,7 @@ public class RemplirEvenement extends Evenement {
      * @param date - the date of the event
      * @param robot - the robot
      */
-    public RemplirEvenement(Integer date, RobotLogic robot) {
+    public RemplirEvenement(Integer date, Robot robot) {
         super(date, robot);
     }
     /*
@@ -20,7 +20,7 @@ public class RemplirEvenement extends Evenement {
      */
     @Override
     public void execute() {
-        Robot robot = getRobotLogic().getRobot();
+        Robot robot = getRobot();
         robot.setCurrReservoir(robot.getRESERVOIR());
     }
 }
