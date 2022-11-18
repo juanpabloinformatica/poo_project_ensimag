@@ -91,7 +91,12 @@ public abstract class Robot {
         this.tempsVidage = tempsVidage;
     }
 
+    /**
+     * get the speed of the robot
+     * @return double
+     */
     public abstract double getVitesse();
+
     public abstract void setPosition(Case pos);
     public abstract TypeRobot getTypeRobot();
 
