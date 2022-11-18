@@ -14,9 +14,9 @@ public class EteindreEvenement extends Evenement {
 
     /**
      * create a eteindreEvenement that receives the date of the event, the robot logic and the fire
-     * @param date
-     * @param robot
-     * @param incendie
+     * @param date - date
+     * @param robot - robot
+     * @param incendie - fire
      */
     public EteindreEvenement(Integer date, Robot robot, Incendie incendie) {
         super(date, robot);

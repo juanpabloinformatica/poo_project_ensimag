@@ -56,10 +56,11 @@ public class LecteurDonnees {
 
     
     /** 
-     * @param fichierDonnees
+     * create the data simulation needed
+     * @param fichierDonnees - file with the data
      * @return DonneesSimulation
-     * @throws FileNotFoundException
-     * @throws DataFormatException
+     * @throws FileNotFoundException - exception
+     * @throws DataFormatException - exception 
      */
     /*
      * Lit le fichier fichierDonnees et crée une classe DonneeSimulation avec

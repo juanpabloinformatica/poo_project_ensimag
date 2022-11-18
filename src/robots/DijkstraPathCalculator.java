@@ -22,10 +22,9 @@ public class DijkstraPathCalculator extends PathCalculator {
   private LinkedList<Case> shortestPath;
 
   /**
-   * create dijkstra that receives
+   * create dijkstra that receives a map
    * 
-   * @param simulateur - simulator
-   * @param carte      - map
+   * @param carte - map
    */
   public DijkstraPathCalculator(Carte carte) {
     super(carte);
@@ -52,8 +51,8 @@ public class DijkstraPathCalculator extends PathCalculator {
   /**
    * returns the time needed to reach case target or infinity if it's unreachable
    * 
-   * @param r
-   * @param target
+   * @param r - robot
+   * @param target - destination case
    * @return double
    */
   @Override
@@ -174,7 +173,7 @@ public class DijkstraPathCalculator extends PathCalculator {
   /**
    * Finds the nearest Case in which the robot can refill with water
    * 
-   * @param r
+   * @param r - robot
    * @return List<Case>
    */
   @Override

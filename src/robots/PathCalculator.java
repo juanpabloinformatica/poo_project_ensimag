@@ -37,7 +37,7 @@ public abstract class PathCalculator {
 
     /** 
      *  get a naive path of the possible paths to arrive certain place to refill the tank
-     * @param r
+     * @param r - robot
      * @return List<Case>
      */
     public abstract List<Case> computePathToWater(Robot r);

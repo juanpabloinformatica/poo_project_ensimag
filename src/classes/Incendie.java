@@ -42,7 +42,8 @@ public class Incendie{
     
     
     /** 
-     * @param intensite
+     * set instensity of a fire
+     * @param intensite - intensity
      */
     public void setIntensite(int intensite) {
         this.intensite = intensite;
