@@ -119,9 +119,8 @@ public class RobotLogic {
     public boolean canSeRemplir(Case pos) {
         if (!robot.canGo(pos))
             return false;
-        if (robot.getTypeRobot() == TypeRobot.DRONE
-            && pos.getNatureTerrain() == NatureTerrain.EAU)
-            return true;
+        if (robot.getTypeRobot() == TypeRobot.DRONE)
+            return pos.getNatureTerrain() == NatureTerrain.EAU;
         List<Case> neighbours = carte.getNeighbours(pos);
         for (Case neigh: neighbours) {
             if (neigh.getNatureTerrain() == NatureTerrain.EAU)
