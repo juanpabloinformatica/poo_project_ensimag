@@ -41,12 +41,12 @@ public class RobotLogic {
      * @param carte
      * @param pathCalculator
      */
-    public static void InitialiateStaticVariables(Simulateur simulateur,
-                                                  Carte carte,
-                                                  ChefPompier chefPompier) {
+    public static void InitStaticVariables(Simulateur simulateur,
+                                           Carte carte,
+                                           ChefPompier chefPompier) {
         RobotLogic.simulateur = simulateur;
         RobotLogic.carte = carte;
-        RobotLogic.pathCalculator= new Dijkstra(simulateur, carte);
+        pathCalculator = new Dijkstra(carte);
         RobotLogic.chefPompier = chefPompier;
     }
 

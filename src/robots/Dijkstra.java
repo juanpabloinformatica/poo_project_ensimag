@@ -26,7 +26,7 @@ public class Dijkstra extends PathCalculator {
    * @param simulateur - simulator
    * @param carte - map
    */
-  public Dijkstra(Simulateur simulateur, Carte carte) {
+  public Dijkstra(Carte carte) {
     super(carte);
   }
 

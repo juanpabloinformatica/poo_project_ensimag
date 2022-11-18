@@ -67,13 +67,15 @@ public class Simulateur implements Simulable {
      * increment the date to performs the following events
      */
     public void incrementeDate() {
+        if (dateSimulation == 0)
+            chef.verifyUnusableRobots();
         if (simulationTerminee() && dateSimulation != 0) {
             System.out.println("SIMULATION TERMINEE");
             return;
         }
         if (dateSimulation % n == 0){
-            System.out.println("STARTEGIE EXECUTEEE");
-            this.chef.strategieEvolved();
+            // this.chef.strategieEvolved();
+            this.chef.strategieElementaire();
         }
         while(events.peek() != null && events.peek().getDate() <= dateSimulation) {
             events.poll().execute();

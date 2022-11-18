@@ -14,8 +14,7 @@ public class ChefPompier {
     private Carte carte;
     private Robot[] robot;
     private Incendie[] incendies;
-    private HashSet<Incendie> affectedIncendies; // chaque robot est affecte' a un incendie
-    
+
     /**
      * create the boss robot receiving the map, the robots and the fires
      * @param carte - map 
@@ -26,15 +25,31 @@ public class ChefPompier {
         this.carte = carte;
         this.incendies = incendies;
         this.robot = robots;
-        this.affectedIncendies = new HashSet<Incendie>(); //pour la strat elementaire
     }
 
     public void restart() {
-        this.affectedIncendies = new HashSet<Incendie>();
         for (Robot rl: robot)
             rl.restart();
     }
 
+
+    /*
+     * if there are robots that cant go to any fire consider them as occupied
+     * for performance enhancement
+     *  */
+    public void verifyUnusableRobots() {
+        Double INF = Double.POSITIVE_INFINITY;
+        boolean canMove;
+        for (Robot r: robot) {
+            canMove = false;
+            for (Incendie i: incendies) {
+                if (r.timeToGo(i) != INF)
+                    canMove = true;
+            }
+            if (!canMove)
+                r.setOccupied(true);
+        }
+    }
 
     /**
      * the boss give orders to their robots so that they put out the fires
@@ -43,13 +58,13 @@ public class ChefPompier {
     public void strategieElementaire() {
         Double INF = Double.POSITIVE_INFINITY;
         for (Incendie i: incendies) {
-            if (i.getIntensite() <= 0 || affectedIncendies.contains(i))
+            if (i.getIntensite() <= 0)
                 continue;
             for (Robot r: robot) {
-                if (!r.isAvailable() && r.timeToGo(i) != INF) {
+                if (r.isAvailable() && r.timeToGo(i) != INF) {
                     // robot accepte se rendre a l'incendie i
                     r.affect(i);
-                    affectedIncendies.add(i);
+                    r.setOccupied(true);
                     break;
                 }
             }
@@ -57,6 +72,7 @@ public class ChefPompier {
     }
     public void strategieEvolved() {
         for (Robot r: robot) {
+            // System.out.println(r + " " + r.isAvailable());
             if (!r.isAvailable())
                 continue;
             double minTime = Double.POSITIVE_INFINITY;

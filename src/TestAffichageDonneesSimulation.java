@@ -84,7 +84,7 @@ class AffichageDonneesSimulation implements Simulable {
     //testDeplacerEvenement();
     ChefPompier chefPompier = new ChefPompier(dS.getCarte(), dS.getRobots(), dS.getIncendies());
     simulateur = new Simulateur(gui, chefPompier);
-    RobotLogic.InitialiateStaticVariables(simulateur, dS.getCarte(), chefPompier);
+    RobotLogic.InitStaticVariables(simulateur, dS.getCarte(), chefPompier);
     // NaivePathCalculator npc = new NaivePathCalculator(simulateur, dS.getCarte());
     // Dijkstra pc = new Dijkstra(simulateur, dS.getCarte());
     //robot.propose(dS.getIncendies()[0]);
@@ -106,7 +106,7 @@ class AffichageDonneesSimulation implements Simulable {
     int height = gui.getPanelHeight();
     int width = gui.getPanelWidth();
     int min = height > width ? width : height;
-    this.pixelSizeCase = 50;
+    this.pixelSizeCase = 20;
     draw();
     // testingMovement();
   }
