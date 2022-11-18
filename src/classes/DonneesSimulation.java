@@ -13,9 +13,9 @@ public class DonneesSimulation {
     /**
      * create a DonneesSimulation object receiving the map of the simulation
      *  as well as the fires and the robots
-     * @param carte
-     * @param incendies
-     * @param robots
+     * @param carte - map
+     * @param incendies - fire
+     * @param robots - robot
      */
     public DonneesSimulation(Carte carte, Incendie[] incendies, Robot[] robots){
         // REVIEW: have we to hard copy arrays???

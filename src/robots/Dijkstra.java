@@ -22,8 +22,8 @@ public class Dijkstra extends PathCalculator {
   ArrayList<Case> shortestPath;
   
   /**
-   * create dijkstra that receives 
-   * @param simulateur - simulator
+   * create dijkstra that receives a map
+   * 
    * @param carte - map
    */
   public Dijkstra(Carte carte) {

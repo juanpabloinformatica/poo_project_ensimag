@@ -18,6 +18,9 @@ import events.OccupiedEvenement;
 import events.RemplirEvenement;
 import events.Simulateur;
 
+/**
+ * the RobotLogic class represent the logic that a robot has, its own intelligence
+ */
 public class RobotLogic {
     private static ChefPompier chefPompier;
     private static Simulateur simulateur;
@@ -31,15 +34,20 @@ public class RobotLogic {
         robot.restart();
         occupied = false;
     }
+    /**
+     * create the logic of the robot
+     * @param robot - robot
+     */
     public RobotLogic(Robot robot) {
         this.robot = robot;
     }
     
 
     /** 
-     * @param simulateur
-     * @param carte
-     * @param pathCalculator
+     * inicialize all the variables to begin with the simulation
+     * @param simulateur - simulator
+     * @param carte - map
+     * @param chefPompier - boss robot
      */
     public static void InitStaticVariables(Simulateur simulateur,
                                            Carte carte,
@@ -52,8 +60,9 @@ public class RobotLogic {
 
     
     /** 
-     * @param date
-     * @param incendie
+     * put out a fire 
+     * @param date - the date when is being putting out
+     * @param incendie - the fire to put out
      */
     public void eteindreIncendie(Integer date, Incendie incendie) {
         // incendie a ete eteint entre temps
@@ -86,6 +95,7 @@ public class RobotLogic {
 
     
     /** 
+     * get if a robot is busy putting out a fire or refilling
      * @return boolean
      */
     public boolean isOccupied() {
@@ -94,7 +104,8 @@ public class RobotLogic {
 
     
     /** 
-     * @param occupied
+     * set busy state to a robot
+     * @param occupied - bussy
      */
     public void setOccupied(boolean occupied) {
         this.occupied = occupied;
@@ -102,8 +113,9 @@ public class RobotLogic {
 
     
     /** 
-     * @param date
-     * @param incendie
+     * add the arriving of a robot to the events handler
+     * @param date - date of the arrival
+     * @param incendie - the fire
      */
     public void arrivedToIncendie(Integer date, Incendie incendie) {
         if (incendie.getIntensite() <= 0) {
@@ -116,6 +128,12 @@ public class RobotLogic {
     }
 
     // return si le robot peut se remplir dans la case pos
+
+    /**
+     * indicate if a robot is availabe to refill its tank
+     * @param pos - case where is the robot
+     * @return
+     */
     public boolean canSeRemplir(Case pos) {
         if (!robot.canGo(pos))
             return false;
@@ -128,6 +146,12 @@ public class RobotLogic {
         }
         return false;
     }
+
+    /**
+     * time to take a robot to execute certain action
+     * @param i - incendie
+     * @return
+     */
     public double timeToGo(Incendie i) {
         Double time = pathCalculator.getTimeToCase(robot, i.getPosition());
         if (time == Double.POSITIVE_INFINITY) { // pas de chemin trouve pour aller a l'incendie
@@ -137,7 +161,7 @@ public class RobotLogic {
     }
 
     /**
-     * @param i
+     * get if a robot is available
      * @return boolean
      */
     public boolean isAvailable() {
@@ -157,7 +181,9 @@ public class RobotLogic {
 
         addPathEventsToSimulateur(i, path);
     }
-
+    /**
+     * refill the water tank of a robot
+     */
     public void seRemplir() {
         System.out.println("SE REMPLIR :" + robot);
         if(canSeRemplir(robot.getPosition())) {
@@ -177,8 +203,9 @@ public class RobotLogic {
 
     
     /** 
-     * @param incendie
-     * @param path
+     * add events to the event handler
+     * @param incendie - fire 
+     * @param path - path
      */
     private void addPathEventsToSimulateur(Incendie incendie, Path path) {
         ArrayList<Integer> dates = path.getDates();
@@ -201,10 +228,11 @@ public class RobotLogic {
 
     
     /** 
-     * @param robot
-     * @param curr
-     * @param date
-     * @param sizeCase
+     * get the time to arrive to certain case
+     * @param robot - robot
+     * @param curr - actual case
+     * @param date - date of the event
+     * @param sizeCase - size of the case
      * @return Integer
      */
     private Integer calculateArrivalDate(Robot robot, Case curr, int date, int sizeCase) {
@@ -214,7 +242,8 @@ public class RobotLogic {
     }
     
     /** 
-     * @param pathCases
+     * transform a list of cases in directions and time of arrive
+     * @param pathCases - path case
      * @return Path
      */
     // Convertit le tableau des Cases en Path (directions et date d'arrivee)
