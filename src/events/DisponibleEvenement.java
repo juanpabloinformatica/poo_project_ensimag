@@ -24,7 +24,6 @@ public class DisponibleEvenement extends Evenement {
      * performs the event of leave a robot without duty
      */
     public void execute() {
-        System.out.println("disponible!!");
         getRobot().setOccupied(false);
         chefPompier.strategie();
     }

@@ -21,35 +21,27 @@
 #   -classpath : repertoire dans lequel sont cherches les .class deja compiles
 #   -sourcepath : repertoire dans lequel sont cherches les .java (dependances)
 
-CARTE = cartes/carteSujet.map
+# CARTE = cartes/carteSujet.map
 # CARTE = cartes/desertOfDeath-20x20.map
 # CARTE = cartes/mushroomOfHell-20x20.map
-# CARTE = cartes/spiralOfMadness-50x50.map
+CARTE = cartes/spiralOfMadness-50x50.map
 
-all: testInvader testLecture testAffichage
-
-testInvader:
-	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestInvader.java
-
-testLecture:
-	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestLecteurDonnees.java
-
-testAffichage:
-	javac -d bin -classpath bin/gui.jar -sourcepath src src/TestAffichageDonneesSimulation.java
+SimulationRobotsPompiers:
+	javac -d bin -classpath bin/gui.jar -sourcepath src src/SimulationRobotsPompiers.java
 
 # Execution:
 # on peut taper directement la ligne de commande :
 #   > java -classpath bin:bin/gui.jar TestInvader
 # ou bien lancer l'execution en passant par ce Makefile:
 #   > make exeInvader
-exeInvader: 
-	java -classpath bin:bin/gui.jar TestInvader
+# exeInvader:
+# 	java -classpath bin:bin/gui.jar TestInvader
 
-exeLecture: 
-	java -classpath bin TestLecteurDonnees cartes/carteSujet.map
+# exeLecture:
+# 	java -classpath bin TestLecteurDonnees cartes/carteSujet.map
 
 exeAffichage:
-	java -classpath bin:bin/gui.jar TestAffichageDonneesSimulation $(CARTE)
+	java -classpath bin:bin/gui.jar SimulationRobotsPompiers $(CARTE)
 
 clean:
 	rm -rf bin/*.class bin/*/*.class

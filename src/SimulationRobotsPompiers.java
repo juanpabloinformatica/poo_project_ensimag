@@ -18,7 +18,7 @@ import robots.NaivePathCalculator;
 import robots.Robot;
 import robots.RobotLogic;
 
-public class TestAffichageDonneesSimulation {
+public class SimulationRobotsPompiers{
   
   /** 
    * initialize the program receiving arguments 
@@ -57,10 +57,7 @@ class AffichageDonneesSimulation implements Simulable {
   private int pixelSizeCase;
   private Simulateur simulateur;
   private DonneesSimulation dS;
-  // private Integer dateSimulation;
-  // private ArrayList<Evenement>ordonne;
-  // private int ordonneIndex;
-  private void testDeplacerEvenement() {
+  // private void testDeplacerEvenement() {
     // Robot robot = dS.getRobots()[0];
     // simulateur.addEvenement(new DeplacerEvenement(0, robot, Direction.NORD, dS.getCarte()));
     // simulateur.addEvenement(new DeplacerEvenement(1, robot, Direction.EST, dS.getCarte()));
@@ -72,32 +69,18 @@ class AffichageDonneesSimulation implements Simulable {
     // robot.setPathCalculator(npc);
     //npc.computePath(robot,]);
     // robot.propose(dS.getIncendies()[0]);
-  }
+  // }
   /**
    * create the grpahical representation of the data recolected and its possible events
    * @param gui - graphical user interface
    * @param dS - donnee simulation
    */
   public AffichageDonneesSimulation(GUISimulator gui, DonneesSimulation dS) {
-    // super(new Integer(0));
-    // secondPointInit();
     firstPointInit(gui, dS);
     //testDeplacerEvenement();
     ChefPompier chefPompier = new ChefPompier(dS.getCarte(), dS.getRobots(), dS.getIncendies());
     simulateur = new Simulateur(gui, chefPompier);
     RobotLogic.InitStaticVariables(simulateur, dS.getCarte(), chefPompier);
-    // NaivePathCalculator npc = new NaivePathCalculator(simulateur, dS.getCarte());
-    // Dijkstra pc = new Dijkstra(simulateur, dS.getCarte());
-    //robot.propose(dS.getIncendies()[0]);
-
-    // this.gui = gui;
-    // gui.setSimulable(this);
-    // Carte carte = dS.getCarte();
-    // this.pixelSizeCase = carte.getTailleCases();
-    // drawCarte(carte);
-    // drawIncendies(dS.getIncendies());
-    // drawRobots(dS.getRobots());
-    // testingMovement();
   }
 
   private void firstPointInit(GUISimulator gui, DonneesSimulation dS) {
@@ -105,7 +88,6 @@ class AffichageDonneesSimulation implements Simulable {
     this.gui = gui;
     gui.setSimulable(this);
     draw();
-    // testingMovement();
   }
 
   @Override

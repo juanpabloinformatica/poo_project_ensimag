@@ -220,10 +220,8 @@ public class Dijkstra extends PathCalculator {
       }
     }
     if (smallestTime == Integer.MAX_VALUE) {
-      System.out.println(":( max value");
       return null;
     }
-    System.out.println("closesetPathWater : " + closestPathWater);
     return closestPathWater;
   }
 
