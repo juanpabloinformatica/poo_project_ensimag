@@ -42,6 +42,7 @@ SimulationRobotsPompiers:
 
 exeAffichage:
 	java -classpath bin:bin/gui.jar SimulationRobotsPompiers $(CARTE)
-
+javadoc:
+	javadoc -d ./src/doc ./src/classes/*.java ./src/constants/*.java ./src/events/*.java ./src/io/*.java ./src/robots/*.java ./src/*.java
 clean:
-	rm -rf bin/*.class bin/*/*.class
+	rm -rf bin/*.class bin/*/*.class src/doc/*
