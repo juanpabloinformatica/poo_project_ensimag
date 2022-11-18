@@ -11,6 +11,7 @@ import events.Simulateur;
 import gui.GUISimulator;
 import gui.ImageElement;
 import gui.Simulable;
+import gui.Rectangle;
 import io.LecteurDonnees;
 import robots.Dijkstra;
 import robots.NaivePathCalculator;
@@ -33,7 +34,7 @@ public class TestAffichageDonneesSimulation {
       DonneesSimulation dS = LecteurDonnees.creerDonneesSimulation(args[0]);
       // int widthGui = dS.getCarte().getTailleCases() * dS.getCarte().getNbColonnes();
       // int heightGui = dS.getCarte().getTailleCases() * dS.getCarte().getNbLignes();
-      GUISimulator gui = new GUISimulator(600, 600, Color.decode("#7ac270"));
+      GUISimulator gui = new GUISimulator(600, 600, Color.decode("#d9c582"));
       AffichageDonneesSimulation aFS = new AffichageDonneesSimulation(gui, dS);
     } catch (FileNotFoundException e) {
       System.out.println("fichier " + args[0] + " inconnu ou illisible");
@@ -103,10 +104,6 @@ class AffichageDonneesSimulation implements Simulable {
     this.dS = dS;
     this.gui = gui;
     gui.setSimulable(this);
-    int height = gui.getPanelHeight();
-    int width = gui.getPanelWidth();
-    int min = height > width ? width : height;
-    this.pixelSizeCase = 20;
     draw();
     // testingMovement();
   }
@@ -127,11 +124,29 @@ class AffichageDonneesSimulation implements Simulable {
 
   private void draw() {
     gui.reset();
+    int height = gui.getHeight()-200;
+    int width = gui.getWidth();
+    int min = height > width ? width : height;
+    this.pixelSizeCase = min / dS.getCarte().getNbColonnes();
+    drawGrid(dS.getCarte());
     drawCarte(dS.getCarte());
     drawIncendies(dS.getIncendies());
     drawRobots(dS.getRobots());
   }
 
+  private void drawGrid(Carte carte) {
+    for (int i = 0; i < carte.getNbLignes(); i++) {
+      for (int j = 0; j < carte.getNbColonnes(); j++) {
+        gui.addGraphicalElement(
+            new Rectangle(
+                j * pixelSizeCase + pixelSizeCase/2, // bc its drew at the center
+                i * pixelSizeCase + pixelSizeCase/2, Color.BLACK,
+                Color.decode("#7ac270"),
+                this.pixelSizeCase, this.pixelSizeCase));
+
+      }
+    }
+  }
   private void drawCarte(Carte carte) {
     for (int i = 0; i < carte.getNbLignes() * pixelSizeCase; i += pixelSizeCase) {
       for (int j = 0;
@@ -140,12 +155,12 @@ class AffichageDonneesSimulation implements Simulable {
         NatureTerrain typeTerrainImage =
             getTypeTerrainImage(carte, i / pixelSizeCase, j / pixelSizeCase);
         try {
-          if (typeTerrainImage != NatureTerrain.TERRAIN_LIBRE) {
-            String imageString = selectImage(typeTerrainImage);
-            this.gui.addGraphicalElement(
-                new ImageElement(
-                    j, i, imageString, pixelSizeCase, pixelSizeCase, this.gui));
-          }
+            if (typeTerrainImage != NatureTerrain.TERRAIN_LIBRE) {
+              String imageString = selectImage(typeTerrainImage);
+              this.gui.addGraphicalElement(
+                  new ImageElement(
+                      j, i, imageString, pixelSizeCase, pixelSizeCase, this.gui));
+            }
         } catch (Exception e) {
           System.out.println(e);
         }
@@ -166,10 +181,10 @@ class AffichageDonneesSimulation implements Simulable {
         selectImage = "img/forest.png";
       } else if (typeNatureTerrain == NatureTerrain.HABITAT) {
         selectImage = "img/habitat.png";
-      } else if (typeNatureTerrain == NatureTerrain.TERRAIN_LIBRE) {
-        selectImage = "img/neymar_animado(terrrain_libre).jpg";
-      } else {
+      } else if (typeNatureTerrain == NatureTerrain.ROCHE) {
         selectImage = "img/roche.png";
+      } else {
+        throw new Exception("Not image found for Nature Terrain : " + typeNatureTerrain);
       }
     } catch (Exception e) {
       System.out.println(e);
