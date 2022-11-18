@@ -124,7 +124,7 @@ class AffichageDonneesSimulation implements Simulable {
 
   private void draw() {
     gui.reset();
-    int height = gui.getHeight()-200;
+    int height = gui.getHeight()-170; //panel height
     int width = gui.getWidth();
     int min = height > width ? width : height;
     this.pixelSizeCase = min / dS.getCarte().getNbColonnes();
