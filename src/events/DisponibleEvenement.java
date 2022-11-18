@@ -26,5 +26,6 @@ public class DisponibleEvenement extends Evenement {
     public void execute() {
         System.out.println("disponible!!");
         getRobot().setOccupied(false);
+        chefPompier.strategie();
     }
 }

@@ -74,8 +74,8 @@ public class Simulateur implements Simulable {
             return;
         }
         if (dateSimulation % n == 0){
-            // this.chef.strategieEvolved();
-            this.chef.strategieElementaire();
+            this.chef.strategie();
+            // this.chef.strategieElementaire();
         }
         while(events.peek() != null && events.peek().getDate() <= dateSimulation) {
             events.poll().execute();

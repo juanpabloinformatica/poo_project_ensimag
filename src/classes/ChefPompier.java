@@ -51,6 +51,10 @@ public class ChefPompier {
         }
     }
 
+    public void strategie() {
+        this.strategieEvolved();
+        // this.strategieElementaire();
+    }
     /**
      * the boss give orders to their robots so that they put out the fires
      */
