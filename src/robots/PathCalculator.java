@@ -11,8 +11,6 @@ import classes.Case;
  */
 public abstract class PathCalculator {
     private Carte carte;
-    private List<Case> WaterCases;
-    private List<Case> NeighbourOfWaterCases;
 
     /**
      * create a path calculator that receives a map
