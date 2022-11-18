@@ -1,6 +1,6 @@
 package robots;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -19,7 +19,7 @@ import events.Simulateur;;
 public class DijkstraPathCalculator extends PathCalculator {
 
   private int timeNeeded;
-  private ArrayList<Case> shortestPath;
+  private LinkedList<Case> shortestPath;
 
   /**
    * create dijkstra that receives
@@ -36,11 +36,11 @@ public class DijkstraPathCalculator extends PathCalculator {
    * 
    * @param r      - robot
    * @param target - destination case
-   * @return ArrayList<Case>
+   * @return List<Case>
    */
   @Override
   public List<Case> computePath(Robot r, Case target) {
-    shortestPath = new ArrayList<Case>();
+    shortestPath = new LinkedList<Case>();
     timeNeeded = Integer.MAX_VALUE;
     if (dijkstra(r, target)) {
       assert (shortestPath.size() != 0);
@@ -58,7 +58,7 @@ public class DijkstraPathCalculator extends PathCalculator {
    */
   @Override
   public double getTimeToCase(Robot r, Case target) {
-    shortestPath = new ArrayList<Case>();
+    shortestPath = new LinkedList<Case>();
     boolean pathFound = dijkstra(r, target);
     if (pathFound) {
       return (double) this.timeNeeded;
@@ -107,7 +107,7 @@ public class DijkstraPathCalculator extends PathCalculator {
    * Backtracks the Cases visited from destination to source
    * and fills the shortest path
    */
-  private void backtracking(Robot r, Map<Case, Case> backtracker, ArrayList<Case> shortestPath, Case destination) {
+  private void backtracking(Robot r, Map<Case, Case> backtracker, List<Case> shortestPath, Case destination) {
     Case previous = destination;
     while (!previous.equals(r.getPosition())) {
       shortestPath.add(0, previous);
@@ -175,11 +175,11 @@ public class DijkstraPathCalculator extends PathCalculator {
    * Finds the nearest Case in which the robot can refill with water
    * 
    * @param r
-   * @return ArrayList<Case>
+   * @return List<Case>
    */
   @Override
   public List<Case> computePathToWater(Robot r) {
-    shortestPath = new ArrayList<Case>();
+    shortestPath = new LinkedList<Case>();
 
     // this map has the case and the cost(distance+weight)
     Map<Case, Integer> costs = new HashMap<Case, Integer>();
